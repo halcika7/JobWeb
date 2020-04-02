@@ -1,0 +1,35 @@
+.accordion-wrapper {
+  .accordion {
+    height: 45px;
+    overflow: hidden;
+    transition: height 0.3s ease-in-out;
+    border: 1px solid #41b8ed;
+    border-bottom: 1px solid #fdfdfd;
+    
+    &.active {
+      border-bottom: 1px solid #41b8ed;
+    }
+
+    .title {
+      padding: 0.6rem 1rem;
+      background: #41b8ed;
+      display: flex;
+      cursor: pointer;
+      color: #fdfdfd;
+
+      svg {
+        margin-left: auto;
+        height: 24px;
+        width: 24px;
+
+        path {
+          fill: #fdfdfd;
+        }
+      }
+    }
+
+    .accordion-content {
+      padding: 1.5rem 1rem;
+    }
+  }
+}

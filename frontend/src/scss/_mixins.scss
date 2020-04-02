@@ -1,0 +1,38 @@
+@import 'variables';
+
+@mixin flex($align: false, $justify: false, $direction: false, $wrap: false) {
+  display: flex;
+  @if $align {
+    align-items: $align;
+  }
+  @if $justify {
+    justify-content: $justify;
+  }
+
+  @if $direction {
+    flex-direction: $direction;
+  }
+
+  @if $wrap {
+    flex-wrap: $wrap;
+  }
+}
+
+@mixin heightWidth($height: false, $width: false) {
+  @if $height {
+    height: $height;
+  }
+
+  @if $width {
+    width: $width;
+  }
+}
+
+@mixin colorBackground($color, $background) {
+  color: $color;
+  background: $background;
+}
+
+@mixin defaultBoxShadow($first, $second, $third) {
+  box-shadow: $first $second $third rgba(0, 0, 0, 0.4);
+}
