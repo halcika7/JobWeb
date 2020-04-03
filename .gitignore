@@ -3,3 +3,5 @@
 backend/dist/
 frontend/build/
 *.todo
+**/yarn.lock
+**/ormconfig.js

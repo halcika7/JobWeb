@@ -42,12 +42,17 @@ const Accordion: FC<AccordionProps> = ({
       setHeight(height - clientHeight);
       setCurrentActive(null);
       setActive(false);
-      //   contentRef.current?.classList.remove('remove');
     } else {
       setHeight(height + clientHeight);
       setCurrentActive(contentRef);
       setActive(true);
-      //   contentRef.current?.classList.add('active');
+    }
+  };
+
+  const windowResized = () => {
+    if (active) {
+      const clientHeight = contentRef.current?.clientHeight || 0;
+      setHeight(accHeight + clientHeight);
     }
   };
 
@@ -55,17 +60,24 @@ const Accordion: FC<AccordionProps> = ({
     if (currentActive !== contentRef) {
       setHeight(accHeight);
       setActive(false);
-      //   contentRef.current?.classList.remove('remove');
     }
+    console.log('render2')
   }, [currentActive]);
+
+  useEffect(() => {
+    window.addEventListener('resize', windowResized);
+    console.log('render1')
+    return () => {
+      window.removeEventListener('resize', windowResized);
+    };
+  });
 
   return (
     <section
       className={active ? 'accordion active' : 'accordion'}
-      onClick={toggleAccordion}
       style={{ height: `${height}px` }}
     >
-      <div className="title">
+      <div className="title" onClick={toggleAccordion}>
         {title} {!active ? <Plus /> : <Minus />}
       </div>
       <div className="accordion-content" ref={contentRef}>

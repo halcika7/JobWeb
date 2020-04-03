@@ -2,6 +2,7 @@ import Footer from 'components/footer/Footer';
 import Navbar from 'components/navbar/Navbar';
 import React, { FC, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import Register from 'pages/Auth/Register/Register';
 
 const App: FC = (): JSX.Element => {
   useEffect(() => {
@@ -26,7 +27,9 @@ const App: FC = (): JSX.Element => {
         <title>Hello World</title>
       </Helmet>
       <Navbar />
-      <main className="main-content"></main>
+      <main className="main-content">
+        <Register />
+      </main>
       <Footer />
     </>
   );

@@ -1,11 +1,13 @@
 .accordion-wrapper {
+  height: 100%;
+
   .accordion {
     height: 45px;
     overflow: hidden;
     transition: height 0.3s ease-in-out;
     border: 1px solid #41b8ed;
     border-bottom: 1px solid #fdfdfd;
-    
+
     &.active {
       border-bottom: 1px solid #41b8ed;
     }
@@ -30,6 +32,17 @@
 
     .accordion-content {
       padding: 1.5rem 1rem;
+    }
+  }
+}
+
+body.dark {
+  .accordion-wrapper {
+    .accordion {
+      .accordion-content {
+        background: #fdfdfd;
+        color: #111;
+      }
     }
   }
 }
