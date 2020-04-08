@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-export interface InputProps {
+export interface TextareaProps {
   classNames: string;
   name: string;
   label: string;
@@ -9,7 +9,7 @@ export interface InputProps {
   rows?: number;
 }
 
-const Input: FC<InputProps> = ({
+const Textarea: FC<TextareaProps> = ({
   classNames,
   name,
   label,
@@ -20,11 +20,12 @@ const Input: FC<InputProps> = ({
   return (
     <div className={classNames}>
       <label htmlFor={name}>
-        {label} {required && <span>*</span>}
-        <textarea name={name} id={name} cols={cols} rows={rows}></textarea>
+        {label}
+        {required && <span>*</span>}
+        <textarea name={name} id={name} cols={cols} rows={rows} />
       </label>
     </div>
   );
 };
 
-export default Input;
+export default React.memo(Textarea);

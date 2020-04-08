@@ -195,7 +195,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
     margin-top: 1.5rem;
+    width: 100%;
 
     button {
       font-family: Poppins, sans-serif;
@@ -219,6 +221,24 @@
       font-weight: 400;
       line-height: 23.8px;
       text-align: right;
+
+      &.accept-terms {
+        font-family: Lato, sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 24px;
+        margin: 1.5rem 0;
+        text-align: left;
+
+        a {
+          font-family: Poppins, sans-serif;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 23.8px;
+          color: #41b8ed;
+          text-decoration: none;
+        }
+      }
 
       a {
         font-family: Poppins, sans-serif;
@@ -253,23 +273,6 @@
 
     @media (max-width: 576px) {
       width: 100%;
-    }
-  }
-
-  .accept-terms {
-    font-family: Lato, sans-serif;
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 24px;
-    margin: 1.5rem 0;
-
-    a {
-      font-family: Poppins, sans-serif;
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 23.8px;
-      color: #41b8ed;
-      text-decoration: none;
     }
   }
 }

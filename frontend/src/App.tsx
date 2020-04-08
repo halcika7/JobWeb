@@ -2,19 +2,22 @@ import Footer from 'components/footer/Footer';
 import Navbar from 'components/navbar/Navbar';
 import React, { FC, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import Register from 'pages/Auth/Register/Register';
+import { Route, Switch } from 'react-router-dom';
+import PageNotFound from './pages/404/404';
+import Login from './pages/Auth/Login/Login';
+import Register from './pages/Auth/Register/Register';
 
 const App: FC = (): JSX.Element => {
   useEffect(() => {
     const parts = document.cookie.split('; ');
     let changed = false;
-    for (let part of parts) {
-      const eq = part.split('=');
-      if (eq[0] === 'theme') {
-        document.body.classList.value = eq[1];
+    parts.forEach(part => {
+      const [name, value] = part.split('=');
+      if (name === 'theme') {
+        document.body.classList.value = value;
         changed = true;
       }
-    }
+    });
 
     if (!changed) {
       document.body.classList.value = 'light';
@@ -28,7 +31,11 @@ const App: FC = (): JSX.Element => {
       </Helmet>
       <Navbar />
       <main className="main-content">
-        <Register />
+        <Switch>
+          <Route path="/login" exact component={Login} />
+          <Route path="/register" exact component={Register} />
+          <Route component={PageNotFound} />
+        </Switch>
       </main>
       <Footer />
     </>

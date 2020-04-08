@@ -7,7 +7,7 @@ const LoginSubmit = () => (
       <button type="button">Login</button>
     </div>
     <p className="col-12 col-md-6">
-      Don't have an account? <Link to="/registration">Sign up here</Link>
+      Don&apos;t have an account? <Link to="/register">Sign up here</Link>
     </p>
   </div>
 );

@@ -4,7 +4,7 @@ import './Contact.scss';
 import ContactCards from './ContactCards';
 import ContactInputs from './ContactInputs';
 
-const Contact = () => {
+const Contact = (): JSX.Element => {
   return (
     <>
       <Breadcrumb

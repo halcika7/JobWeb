@@ -16,4 +16,4 @@ const NotFound = (): JSX.Element => (
   </section>
 );
 
-export default React.memo(NotFound);
+export default NotFound;

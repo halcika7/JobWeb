@@ -4,10 +4,7 @@ import { rootReducer } from 'store/RootReducer';
 
 const store = createStore(
   rootReducer,
-  compose(
-    applyMiddleware(thunk),
-    compose
-  )
+  compose(applyMiddleware(thunk), compose)
 );
 
 export default store;

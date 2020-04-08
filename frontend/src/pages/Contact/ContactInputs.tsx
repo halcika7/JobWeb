@@ -1,11 +1,11 @@
-import Input from 'components/UI/input/Input';
+// import Input from 'components/UI/input/Input';
 import TextArea from 'components/UI/input/TextArea';
 import React from 'react';
 
-const ContactInputs = () => (
+const ContactInputs = (): JSX.Element => (
   <section className="contact-inputs card">
     <div className="row">
-      <Input
+      {/* <Input
         classNames="form-group col-12 col-md-6"
         name="name"
         type="text"
@@ -32,7 +32,7 @@ const ContactInputs = () => (
         type="tel"
         required={false}
         label="Phone"
-      />
+      /> */}
       <TextArea
         classNames="form-group col-12"
         name="message"

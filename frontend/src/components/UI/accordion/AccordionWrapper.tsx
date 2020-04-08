@@ -13,12 +13,12 @@ const AccordionWrapper: FC<AccordionWrapperProps> = ({
 
   return (
     <section className="accordion-wrapper">
-      {accordions.map(({ title, content, icon }, index) => (
+      {accordions.map(({ title, content, icon }) => (
         <Accordion
           title={title}
           content={content}
           icon={icon}
-          key={`${title}-${index}`}
+          key={`${title}-${content}`}
           currentActive={currentActive}
           setCurrentActive={setCurrentActive}
         />

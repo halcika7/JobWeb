@@ -20,7 +20,7 @@ const Login = () => {
           <LoginInputs />
           <LoginSubmit />
           <div className="social-divider">
-            <span className="line"></span>
+            <span className="line" />
             <span className="circle">Or</span>
           </div>
           <LoginSocial />

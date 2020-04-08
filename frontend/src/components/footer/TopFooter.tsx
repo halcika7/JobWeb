@@ -7,10 +7,12 @@ const TopFooter = (): JSX.Element => (
     <NavLink to="/" exact>
       <img src={Logo} alt="Alt text" />
       <span>
-        Djina<span className="blue">Ba</span>Sopo
+        Djina
+        <span className="blue">Ba</span>
+        Sopo
       </span>
     </NavLink>
   </div>
 );
 
-export default React.memo(TopFooter);
+export default TopFooter;

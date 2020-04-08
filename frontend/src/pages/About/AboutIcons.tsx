@@ -6,7 +6,7 @@ import { ReactComponent as Secure } from 'assets/svgs/secure.svg';
 import { ReactComponent as StackPapers } from 'assets/svgs/stack-papers.svg';
 import React from 'react';
 
-const AboutIcons = () => (
+const AboutIcons = (): JSX.Element => (
   <section className="about-icons">
     <div className="about-grid-item card">
       <div className="icon">

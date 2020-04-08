@@ -28,9 +28,9 @@ const Brand: FC<BrandProps> = ({
       onClick={toggleNav}
       aria-label="toggle navigation"
     >
-      <span></span>
-      <span></span>
-      <span></span>
+      <span />
+      <span />
+      <span />
     </button>
   </div>
 );

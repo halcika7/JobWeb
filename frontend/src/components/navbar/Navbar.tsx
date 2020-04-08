@@ -1,16 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { FiLogIn, FiUser } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import Brand from './Brand';
 import Nav from './Nav';
 import './Navbar.scss';
 
 const Navbar = (): JSX.Element => {
-  const [cookies, setCookie] = useCookies(['theme']);
+  const [cookies, setCookie] = useCookies(['theme', 'accessToken']);
   const [switchTheme, setTheme] = useState<string>('dark');
   const [toggled, setToggled] = useState<boolean>(false);
+  const [showShadow, setShowShadow] = useState<boolean>(false);
   const [currentHeight, setCurrentHeight] = useState<number>(80);
   const currentWidth = useRef<number>(1200);
+  const scrolled = useRef<boolean>(false);
 
   const windowResized = (e: Event) => {
     const w = e.target as Window;
@@ -24,28 +27,16 @@ const Navbar = (): JSX.Element => {
     }
   };
 
-  useEffect(() => {
-    if (window.innerWidth <= 768) {
-      currentWidth.current = 768;
+  const windowOnScrolll = (e: Event) => {
+    const w = e.currentTarget as Window;
+    if (w.pageYOffset > 30 && !scrolled.current) {
+      scrolled.current = true;
+      setShowShadow(true);
+    } else if (w.pageYOffset <= 30 && scrolled.current) {
+      scrolled.current = false;
+      setShowShadow(false);
     }
-
-    window.addEventListener('resize', windowResized);
-    return () => {
-      window.removeEventListener('resize', windowResized);
-    };
-  }, []);
-
-  useEffect(() => {
-    const { theme } = cookies;
-    const currentTheme = theme ? theme : 'light';
-    const prevTheme = theme === 'dark' || !theme ? 'light' : 'dark';
-
-    setTheme(prev => (currentTheme === 'dark' ? 'light' : 'dark'));
-    setCookie('theme', currentTheme, { path: '/' });
-
-    document.body.classList.remove(prevTheme);
-    document.body.classList.add(currentTheme);
-  }, [cookies, setCookie]);
+  };
 
   const changeTheme = (theme: string) => {
     setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
@@ -62,9 +53,51 @@ const Navbar = (): JSX.Element => {
     }
   };
 
+  useEffect(() => {
+    if (window.innerWidth <= 768) {
+      currentWidth.current = 768;
+    }
+
+    window.addEventListener('scroll', windowOnScrolll);
+    window.addEventListener('resize', windowResized);
+    return () => {
+      window.removeEventListener('resize', windowResized);
+      window.removeEventListener('scroll', windowOnScrolll);
+    };
+  }, []);
+
+  useEffect(() => {
+    const { theme } = cookies;
+    const currentTheme = theme || 'light';
+    const prevTheme = theme === 'dark' || !theme ? 'light' : 'dark';
+
+    setTheme(prev => (currentTheme === 'dark' ? 'light' : 'dark'));
+    setCookie('theme', currentTheme, { path: '/' });
+
+    document.body.classList.remove(prevTheme);
+    document.body.classList.add(currentTheme);
+  }, [cookies, setCookie]);
+
+  useEffect(() => {
+    // console.log('globalThis', globalThis.navigator.userAgent);
+    // console.log('globalThis', globalThis.navigator.appCodeName);
+    // console.log('globalThis', globalThis.navigator.appName);
+    // console.log('globalThis', globalThis.navigator.appVersion);
+    // console.log('globalThis', globalThis.navigator.vendor);
+    // console.log('globalThis', globalThis.navigator.platform);
+    // console.log('globalThis', globalThis.navigator.product);
+    // console.log('globalThis', globalThis.navigator.userAgent);
+    // console.log('globalThis', globalThis.navigator.geolocation.getCurrentPosition(pos => {
+    //   console.log(pos)
+    // }))
+    // console.log('globalThis', globalThis.navigator.geolocation.watchPosition(pos => console.log(pos)))
+    // console.log('globalThis', globalThis.navigator)
+    // globalThis
+  }, []);
+
   return (
     <header
-      className={toggled ? 'box-shadow' : ''}
+      className={toggled || showShadow ? 'box-shadow' : ''}
       style={{ height: `${currentHeight}px` }}
     >
       <Brand
@@ -76,14 +109,14 @@ const Navbar = (): JSX.Element => {
       <div className="collapsible">
         <Nav />
         <div className="buttons">
-          <button type="button">
+          <Link to="/login">
             <FiLogIn />
             Login
-          </button>
-          <button type="button">
+          </Link>
+          <Link to="/register">
             <FiUser />
             Signup
-          </button>
+          </Link>
         </div>
       </div>
     </header>

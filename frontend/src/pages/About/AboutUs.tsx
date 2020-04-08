@@ -2,7 +2,7 @@ import { ReactComponent as RightArrowCircle } from 'assets/svgs/right-arrow-circ
 import AccordionWrapper from 'components/UI/accordion/AccordionWrapper';
 import React from 'react';
 
-const AboutUs = () => (
+const AboutUs = (): JSX.Element => (
   <section className="about-us">
     <div className="content">
       <h3>Who We Are</h3>

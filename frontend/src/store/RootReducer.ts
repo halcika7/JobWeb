@@ -1,9 +1,16 @@
 import { combineReducers, Reducer } from 'redux';
+import {
+  RegisterState,
+  RegisterReducer,
+} from 'pages/Auth/Register/store/RegisterReducer';
+import { CountryState, CountryReducer } from './country/CountryReducer';
 
 export interface AppState {
-  someState: any[];
+  country: CountryState;
+  register: RegisterState;
 }
 
 export const rootReducer: Reducer<AppState> = combineReducers<AppState>({
-  someState: [],
+  country: CountryReducer,
+  register: RegisterReducer,
 } as any);

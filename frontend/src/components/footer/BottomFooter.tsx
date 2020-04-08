@@ -33,4 +33,4 @@ const BottomFooter = (): JSX.Element => (
   </div>
 );
 
-export default React.memo(BottomFooter);
+export default BottomFooter;

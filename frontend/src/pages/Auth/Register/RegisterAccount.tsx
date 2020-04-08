@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { FiUsers } from 'react-icons/fi';
 import { GiBriefcase } from 'react-icons/gi';
-import { AccountRegistrationType } from './Register';
+import { AccountRegistrationType } from './IRegister';
 
 interface RegisterAccountProps {
   accountType: AccountRegistrationType;

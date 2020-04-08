@@ -1,10 +1,10 @@
 import aboutImg from 'assets/images/about.png';
 import React from 'react';
 
-const AboutIntro = () => (
+const AboutIntro = (): JSX.Element => (
   <section className="intro row">
     <div className="col-12 col-md-6">
-      <h1>Millions of jobs, finds the one that's right for you</h1>
+      <h1>Millions of jobs, finds the one that&apos;s right for you</h1>
     </div>
     <div className="col-lg-10">
       <p>

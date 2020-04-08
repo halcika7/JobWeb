@@ -9,11 +9,11 @@ import React, {
   useState,
 } from 'react';
 
-export interface IAccordion {
+export type IAccordion = {
   title: string;
   content: string;
   icon?: ReactElement;
-}
+};
 
 export interface AccordionProps {
   title: string;
@@ -61,12 +61,10 @@ const Accordion: FC<AccordionProps> = ({
       setHeight(accHeight);
       setActive(false);
     }
-    console.log('render2')
   }, [currentActive]);
 
   useEffect(() => {
     window.addEventListener('resize', windowResized);
-    console.log('render1')
     return () => {
       window.removeEventListener('resize', windowResized);
     };
@@ -77,9 +75,10 @@ const Accordion: FC<AccordionProps> = ({
       className={active ? 'accordion active' : 'accordion'}
       style={{ height: `${height}px` }}
     >
-      <div className="title" onClick={toggleAccordion}>
-        {title} {!active ? <Plus /> : <Minus />}
-      </div>
+      <button className="title" type="button" onClick={toggleAccordion}>
+        {title}
+        {!active ? <Plus /> : <Minus />}
+      </button>
       <div className="accordion-content" ref={contentRef}>
         {content}
       </div>
@@ -87,4 +86,4 @@ const Accordion: FC<AccordionProps> = ({
   );
 };
 
-export default React.memo(Accordion);
+export default Accordion;

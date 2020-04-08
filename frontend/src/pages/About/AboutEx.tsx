@@ -1,7 +1,7 @@
 import { ReactComponent as Check } from 'assets/svgs/check.svg';
 import React from 'react';
 
-const AboutEx = () => (
+const AboutEx = (): JSX.Element => (
   <section className="about-ex">
     <div className="row">
       <div className="col-12 col-lg-6">

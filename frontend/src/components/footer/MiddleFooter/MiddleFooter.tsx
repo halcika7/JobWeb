@@ -26,4 +26,4 @@ const MiddleFooter = (): JSX.Element => (
   </div>
 );
 
-export default React.memo(MiddleFooter);
+export default MiddleFooter;

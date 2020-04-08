@@ -1,38 +1,44 @@
+import { config } from 'dotenv';
 import { Pool } from 'pg';
-import { DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USERNAME } from './configs';
+import { LoggerFactory } from '../util/logger/LoggerFactory';
+
+const logger = LoggerFactory.getLogger('create-db');
+
+config();
+
+const { DB_USER, DB_PASSWORD, DB_PORT, DB_HOST, DB_NAME } = process.env;
 
 const pg = new Pool({
-  connectionString: `postgres://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/postgres`,
+  connectionString: `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/postgres`,
 });
-  console.log('`postgres://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/postgres`', `postgres://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/postgres`)
 
 pg.connect()
   .then(client => {
     client
       .query(`CREATE DATABASE ${DB_NAME}`)
       .then(() => {
-        console.log('db created');
+        logger.info('db created', 'create-db');
         client
           .query(`ALTER USER postgres SET timezone='UTC'`)
           .then(() => {
-            console.log('timezone set to UTC');
+            logger.warning('timezone set to UTC', 'set-utc');
             client.release();
             process.kill(process.pid);
           })
           .catch(err => {
             client.release();
-            console.log('timezone not set to UTC');
+            logger.warning('timezone not set to UTC', 'errpr-utc');
+            logger.error(err, 'error-utc');
             process.kill(process.pid);
           });
       })
       .catch(err => {
         client.release();
-        console.log('db exists');
+        logger.info('db exists', 'create-db');
         process.kill(process.pid);
       });
   })
   .catch(err => {
-    console.log('TCL: err', err);
-    console.log('unable to connect to postgres db');
+    logger.error(err, 'db-connection');
     process.kill(process.pid);
   });

@@ -1,10 +1,8 @@
 import passport from 'passport';
 import passportFacebook from 'passport-facebook';
-import passportLocal from 'passport-local';
 // import { User, UserType } from '../models/User';
 // import { User } from '../models/User';
 
-const LocalStrategy = passportLocal.Strategy;
 const FacebookStrategy = passportFacebook.Strategy;
 
 // passport.serializeUser<any, any>((user, done) => {

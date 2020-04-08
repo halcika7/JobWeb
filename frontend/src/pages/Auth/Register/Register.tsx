@@ -1,21 +1,51 @@
 import Breadcrumb from 'components/UI/breadcrumb/breadcrumb';
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { FC, useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { AppState } from 'store/RootReducer';
 import '../Auth.scss';
+import {
+  AccountRegistrationType,
+  DispatchToProps,
+  mapDispatchToProps,
+  mapStateToProps,
+  Props,
+  StateToProps,
+} from './IRegister';
 import RegisterAccount from './RegisterAccount';
-import RegisterInputs from './RegisterInputs';
-import RegisterSubmit from './RegisterSubmit';
+import RegisterFormik from './RegisterFormik/RegisterFormik';
 
-export type AccountRegistrationType = 'user' | 'company';
-
-const Register = () => {
+const Register: FC<Props> = ({
+  countries,
+  cities,
+  errors,
+  values,
+  touched,
+  message,
+  status,
+  getCountries,
+  registerUser,
+  registerReset,
+}): JSX.Element => {
   const [active, setActive] = useState<AccountRegistrationType>('user');
+  const [loading, setLoading] = useState<boolean>(false);
 
   const changeAccount = (value: AccountRegistrationType) => {
     if (value !== active) {
       setActive(value);
+      setLoading(true);
+      registerReset();
     }
   };
+
+  useEffect(() => {
+    getCountries();
+  }, [getCountries]);
+
+  useEffect(() => {
+    if (loading) {
+      setLoading(false);
+    }
+  }, [loading]);
 
   return (
     <>
@@ -29,13 +59,20 @@ const Register = () => {
         <section className="registration">
           <h1>Create Your Account</h1>
           <RegisterAccount accountType={active} changeAccount={changeAccount} />
-          <RegisterInputs accountType={active} />
-          <p className="accept-terms">
-            By hitting the "Sign up" button, you agree to the{' '}
-            <Link to="/">Terms conditions</Link> and{' '}
-            <Link to="/">Privacy Policy</Link>
-          </p>
-          <RegisterSubmit />
+          {!loading ? (
+            <RegisterFormik
+              accountType={active}
+              countries={countries}
+              cities={cities}
+              errors={errors}
+              values={values}
+              onSubmit={registerUser}
+              status={status}
+              touched={touched}
+            />
+          ) : (
+            <div style={{ height: '100vh' }} />
+          )}
           <p className="warning">
             In case you are using a public/shared computer we recommend that you
             logout to prevent any un-authorized access to your account
@@ -46,4 +83,9 @@ const Register = () => {
   );
 };
 
-export default React.memo(Register);
+export default React.memo(
+  connect<StateToProps, DispatchToProps, {}, AppState>(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Register)
+);

@@ -1,15 +1,15 @@
 import React, { FC } from 'react';
 import { FaCaretRight } from 'react-icons/fa';
 
-interface FooterLinksProps {
+type FooterLinksProps = {
   title: string;
   linksType: 'candidates' | 'employers' | 'information';
-}
+};
 
-interface Links {
+type Links = {
   href: string;
   text: string;
-}
+};
 
 const links: {
   candidates: Links[];
@@ -72,12 +72,15 @@ const links: {
   ],
 };
 
-const FooterLinks: FC<FooterLinksProps> = ({ title, linksType }): JSX.Element => (
+const FooterLinks: FC<FooterLinksProps> = ({
+  title,
+  linksType,
+}): JSX.Element => (
   <div className="grid-item">
     <h3>{title}</h3>
     <ul>
       {links[linksType].map(({ href, text }, index) => (
-        <li key={`${href}${text}-${index}]`}>
+        <li key={`${href}${text}-${index + 2}]`}>
           <FaCaretRight />
           <a href={href}>{text}</a>
         </li>
@@ -86,4 +89,4 @@ const FooterLinks: FC<FooterLinksProps> = ({ title, linksType }): JSX.Element =>
   </div>
 );
 
-export default React.memo(FooterLinks);
+export default FooterLinks;
