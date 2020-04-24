@@ -19,7 +19,6 @@ interface LogError {
 }
 
 enum LogLevels {
-  // WE MUST NOT ENABLE DEBUG LOGS IN PROD UNLESS REQUIRED
   DEBUG = 'debug',
   INFO = 'info',
   WARN = 'warn',
@@ -54,8 +53,8 @@ if (
 export class Logger {
   private winstonLogger: Winston = WinstonLogger;
 
-  constructor(public clazz: string) {
-    this.clazz = clazz;
+  constructor(public Class: string) {
+    this.Class = Class;
   }
 
   private formatMessage(msg: any, method: string): Log {
@@ -63,7 +62,7 @@ export class Logger {
       app: Configuration.appConfig.appName,
       timestamp: new Date().toISOString(),
       hostName: os.hostname(),
-      class: this.clazz,
+      class: this.Class,
       method,
       event: msg,
     } as Log;
@@ -76,7 +75,7 @@ export class Logger {
       app: Configuration.appConfig.appName,
       timestamp: new Date().toISOString(),
       hostName: os.hostname(),
-      class: this.clazz,
+      class: this.Class,
       method,
       err: {} as LogError,
     } as Log;

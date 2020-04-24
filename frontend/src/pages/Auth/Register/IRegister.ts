@@ -1,33 +1,29 @@
+// types
 import { MapDispatchToProps, MapStateToProps } from 'react-redux';
 import { AppThunkDispatch } from 'store/AppThunkDispatch';
-import { getCountries as getCountriesAction } from 'store/country/CountryActions';
-import { Select, SelectCities } from 'store/country/CountryActionTypes';
+import { Select, SelectCities } from 'util/country/types';
+import { AccountRegistrationType, AuthValues } from '../store/types';
 import { AppState } from 'store/RootReducer';
+
 import {
-  registerReset as registerResetAction,
-  registerUser as registerUserAction,
-} from './store/RegisterActions';
-import { RegisterTouched, RegisterValues } from './store/RegisterActionTypes';
+  AuthDispatchToProps,
+  authMapDispatchToProps,
+  authMapStateToProps,
+  AuthStateToProps,
+} from '../IAuth';
 
-export type AccountRegistrationType = 'user' | 'company';
+import { registerUser as registerUserAction } from '../store/actions';
 
-export interface DispatchToProps {
-  getCountries: () => void;
+export interface DispatchToProps extends AuthDispatchToProps {
   registerUser: (
-    userData: RegisterValues,
-    acccountType: AccountRegistrationType
+    userData: AuthValues,
+    accountType: AccountRegistrationType
   ) => void;
-  registerReset: () => void;
 }
 
-export interface StateToProps {
+export interface StateToProps extends AuthStateToProps {
   countries: Select[];
   cities: SelectCities;
-  errors: RegisterValues;
-  values: RegisterValues;
-  touched: RegisterTouched;
-  message: string;
-  status: number | null;
 }
 
 export type Props = StateToProps & DispatchToProps & {};
@@ -38,11 +34,7 @@ export const mapStateToProps: MapStateToProps<StateToProps, {}, AppState> = (
 ): StateToProps => ({
   countries: state.country.countries,
   cities: state.country.cities,
-  errors: state.register.errors,
-  values: state.register.values,
-  touched: state.register.touched,
-  message: state.register.message,
-  status: state.register.status,
+  ...authMapStateToProps(state, ownProps),
   ...ownProps,
 });
 
@@ -50,10 +42,9 @@ export const mapDispatchToProps: MapDispatchToProps<DispatchToProps, {}> = (
   dispatch: AppThunkDispatch,
   ownProps: {}
 ): DispatchToProps => ({
-  getCountries: async () => dispatch(getCountriesAction()),
   registerUser: async (
-    userData: RegisterValues,
-    acccountType: AccountRegistrationType
-  ) => dispatch(registerUserAction(userData, acccountType)),
-  registerReset: () => dispatch(registerResetAction()),
+    userData: AuthValues,
+    accountType: AccountRegistrationType
+  ) => dispatch(registerUserAction({ userData, accountType })),
+  ...authMapDispatchToProps(dispatch, ownProps),
 });

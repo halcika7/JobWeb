@@ -1,6 +1,11 @@
 import Axios from 'axios';
-// import store from 'store/index';
-import { getLocalItem, setLocalItem } from './localStorage';
+import store from 'store';
+
+// actions
+import { loginSuccess, getTokenRole } from 'pages/Auth/store/actions';
+
+// utils
+import { SessionStorage } from './shared/sessionStorage';
 
 const rejectPromise = (error: any) => Promise.reject(error);
 
@@ -8,11 +13,12 @@ const axios = Axios.create({
   baseURL: process.env.REACT_APP_BACKEND_URL,
   withCredentials: true,
   validateStatus: status => true,
+  xsrfCookieName: '_csrf',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
 });
 
 axios.interceptors.request.use(
   config => {
-    // const token = getLocalItem('token');
     const newConfig = { ...config };
 
     newConfig.headers = {
@@ -42,16 +48,23 @@ axios.interceptors.response.use(
     if (status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       return axios.get('/auth/refresh').then(res => {
-        if (res.status === 200) {
-          // 1) put token to LocalStorage
-          setLocalItem('token', res.data);
-          // 2) Change Authorization header
-          const token = getLocalItem('token');
+        if (res.data.accessToken) {
+          const { accessToken } = res.data;
+          const { role, token } = getTokenRole(accessToken);
           axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 
-          // 3) return originalRequest object with Axios.
+          // dispatch refresh success
+          store.dispatch(loginSuccess(true, role, token));
+          SessionStorage.setValue('isAuthenticated', true);
+
+          // return originalRequest object with Axios.
           return axios(originalRequest);
         }
+
+        // dispatch logout
+        // store.dispatch();
+        SessionStorage.removeItem('isAuthenticated');
+
         return rejectPromise(error);
       });
     }

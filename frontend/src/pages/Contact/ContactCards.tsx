@@ -1,8 +1,10 @@
+import React from 'react';
+
+// svg icons
 import { ReactComponent as Email } from 'assets/svgs/email.svg';
 import { ReactComponent as Fax } from 'assets/svgs/fax.svg';
 import { ReactComponent as MapMarker } from 'assets/svgs/map-marker.svg';
 import { ReactComponent as Phone } from 'assets/svgs/phone.svg';
-import React from 'react';
 
 const ContactCards = (): JSX.Element => (
   <section className="contact-icons-grid">

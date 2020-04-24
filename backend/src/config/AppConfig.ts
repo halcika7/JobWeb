@@ -2,17 +2,6 @@ import { config } from 'dotenv';
 
 config();
 
-interface AppConfig {
-  appName: string;
-  url: string;
-  jwt: JWTConfig;
-  environment: string;
-  db: DbConfig;
-  server: ServerConfig;
-  logging: LoggingConfig;
-  cookie: CookieConfig;
-}
-
 interface ServerConfig {
   PORT: number;
   REDIS_PORT: number;
@@ -32,14 +21,38 @@ interface LoggingConfig {
   errorLogsPath: string;
 }
 
-interface JWTConfig {
-  ACCESS_TOKEN_SECRET: string;
-  REFRESH_TOKEN_SECRET: string;
-}
-
 interface CookieConfig {
   COOKIE_SECRET: string;
   COOKIE_KEY: string;
+}
+
+interface JSONWebToken {
+  ACCESS_SECRET: string;
+  REFRESH_SECRET: string;
+  REFRESH_TOKEN_NAME: string;
+  REFRESH_TOKEN_PATH: string;
+}
+
+interface Twilio {
+  secret: string;
+  key: string;
+}
+
+interface NeverBounce {
+  url: string;
+}
+
+interface AppConfig {
+  appName: string;
+  url: string;
+  environment: string;
+  db: DbConfig;
+  server: ServerConfig;
+  logging: LoggingConfig;
+  cookie: CookieConfig;
+  twilio: Twilio;
+  neverBounce: NeverBounce;
+  webToken: JSONWebToken;
 }
 
 export class Configuration {
@@ -47,10 +60,6 @@ export class Configuration {
     appName: 'backend',
     environment: process.env.NODE_ENV,
     url: process.env.URL,
-    jwt: {
-      ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET,
-      REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET,
-    } as JWTConfig,
     db: {
       DB_USERNAME: process.env.USER,
       DB_PASSWORD: process.env.DB_PASSWORD,
@@ -71,5 +80,18 @@ export class Configuration {
       COOKIE_KEY: process.env.COOKIE_KEY,
       COOKIE_SECRET: process.env.COOKIE_SECRET,
     },
+    twilio: {
+      secret: process.env.TWILIO_SID,
+      key: process.env.TWILIO_AUTH_TOKEN,
+    } as Twilio,
+    neverBounce: {
+      url: `https://api.neverbounce.com/v4/single/check?key=${process.env.NEVERBOUNCE_API_KEY}`,
+    } as NeverBounce,
+    webToken: {
+      ACCESS_SECRET: process.env.ACCESS_TOKEN_SECRET,
+      REFRESH_SECRET: process.env.REFRESH_TOKEN_SECRET,
+      REFRESH_TOKEN_NAME: process.env.REFRESH_TOKEN_NAME,
+      REFRESH_TOKEN_PATH: process.env.REFRESH_TOKEN_PATH,
+    } as JSONWebToken,
   };
 }

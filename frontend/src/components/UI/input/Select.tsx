@@ -1,6 +1,10 @@
 import React, { FC, useState } from 'react';
+
+// types
+import { Select } from 'util/country/types';
+
+// components
 import SelectWrapper from 'react-select';
-import { Select } from 'store/country/CountryActionTypes';
 
 export interface InterfaceSelect {
   classNames: string;
@@ -42,6 +46,8 @@ const SelectInput: FC<SelectProps> = ({
         {required && <span>*</span>}
         <SelectWrapper
           value={value ? localVal : defValue}
+          defaultInputValue={value}
+          defaultValue={value ? localVal : defValue}
           options={options}
           inputId={name}
           placeholder=""

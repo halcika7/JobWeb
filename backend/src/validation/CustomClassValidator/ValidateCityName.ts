@@ -3,15 +3,21 @@ import {
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator';
+import { Country } from '../../model/Country';
+import { User } from '../../model/User';
 
-@ValidatorConstraint({ name: 'customText', async: false })
-export class CustomTextLength implements ValidatorConstraintInterface {
-  validate(text: string, args: ValidationArguments) {
-    return text.length > 1 && text.length < 10; // for async validations you must return a Promise<boolean> here
+@ValidatorConstraint({ async: true })
+export class ValidateCity implements ValidatorConstraintInterface {
+  async validate(city: string, args: ValidationArguments): Promise<boolean> {
+    const user: User = args.object as User;
+    const country = await Country.findOne({
+      where: { name: user.country },
+      select: ['cities'],
+    });
+    return country && country.cities.includes(city);
   }
 
   defaultMessage(args: ValidationArguments) {
-    // here you can provide default error message if validation failed
-    return 'Text ($value) is too short or too long!';
+    return 'Please select valid city';
   }
 }

@@ -1,5 +1,7 @@
-import aboutImg from 'assets/images/about.png';
 import React from 'react';
+
+// images
+import aboutImg from 'assets/images/about.png';
 
 const AboutIntro = (): JSX.Element => (
   <section className="intro row">

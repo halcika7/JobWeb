@@ -1,5 +1,3 @@
-import { ReactComponent as Minus } from 'assets/svgs/minus.svg';
-import { ReactComponent as Plus } from 'assets/svgs/plus.svg';
 import React, {
   FC,
   ReactElement,
@@ -8,6 +6,10 @@ import React, {
   useRef,
   useState,
 } from 'react';
+
+// svg icons
+import { ReactComponent as Minus } from 'assets/svgs/minus.svg';
+import { ReactComponent as Plus } from 'assets/svgs/plus.svg';
 
 export type IAccordion = {
   title: string;
@@ -28,7 +30,6 @@ const accHeight = 45;
 const Accordion: FC<AccordionProps> = ({
   title,
   content,
-  icon,
   currentActive,
   setCurrentActive,
 }) => {

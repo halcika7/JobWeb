@@ -1,52 +1,57 @@
 import React from 'react';
+
+// icons
 import { FaFacebookF, FaGoogle, FaLinkedinIn, FaTwitter } from 'react-icons/fa';
+
+const icons = [
+  {
+    id: 1,
+    text: 'Facebook',
+    href: '/',
+    icon: <FaFacebookF />,
+    aclass: 'facebook',
+  },
+  {
+    id: 2,
+    text: 'Google',
+    href: '/',
+    icon: <FaGoogle />,
+    aclass: 'google',
+  },
+  {
+    id: 3,
+    text: 'Twitter',
+    href: '/',
+    icon: <FaTwitter />,
+    aclass: 'twitter',
+  },
+  {
+    id: 4,
+    text: 'Linkedin',
+    href: '/',
+    icon: <FaLinkedinIn />,
+    aclass: 'linkedin',
+  },
+];
 
 const LoginSocial = () => (
   <fieldset className="mt-3">
     <legend>Login with</legend>
     <ul className="options login">
-      <li>
-        <a href="/" className="social facebook">
-          <div className="wrap">
-            <FaFacebookF />
-            <div className="content">
-              <p>Login with Facebook</p>
+      {icons.map(({ id, aclass, href, icon, text }) => (
+        <li key={id}>
+          <a href={href} className={`social ${aclass}`}>
+            <div className="wrap">
+              {icon}
+              <div className="content">
+                <p>Login with {text}</p>
+              </div>
             </div>
-          </div>
-        </a>
-      </li>
-      <li>
-        <a href="/" className="social google">
-          <div className="wrap">
-            <FaGoogle />
-            <div className="content">
-              <p>Login with Google</p>
-            </div>
-          </div>
-        </a>
-      </li>
-      <li>
-        <a href="/" className="social twitter">
-          <div className="wrap">
-            <FaTwitter />
-            <div className="content">
-              <p>Login with Twitter</p>
-            </div>
-          </div>
-        </a>
-      </li>
-      <li>
-        <a href="/" className="social linkedin">
-          <div className="wrap">
-            <FaLinkedinIn />
-            <div className="content">
-              <p>Login with Linkedin</p>
-            </div>
-          </div>
-        </a>
-      </li>
+          </a>
+        </li>
+      ))}
     </ul>
   </fieldset>
 );
 
-export default LoginSocial;
+export default React.memo(LoginSocial);

@@ -1,35 +1,61 @@
-import compression from 'compression'; // compresses requests
+import compression from 'compression';
 import cookieparser from 'cookie-parser';
 import cors from 'cors';
-import express from 'express';
+import csrf from 'csurf';
+import express, { Response } from 'express';
+import session from 'express-session';
 import helmet from 'helmet';
 import hpp from 'hpp';
 import passport from 'passport';
 import path from 'path';
 import 'reflect-metadata';
 import { Configuration } from './config/AppConfig';
-import router from './routes';
 import { connect } from './config/db-connect';
+import router from './routes';
 
 // Create Express server
 const app = express();
 
 // Express configuration
-app.use(cookieparser(Configuration.appConfig.cookie.COOKIE_SECRET));
+app.use(cookieparser());
 app.use(cors({ origin: Configuration.appConfig.url, credentials: true }));
-app.use(express.urlencoded({ extended: true, limit: '1kb' }));
+app.use(
+  express.urlencoded({
+    extended: false,
+    limit: '1kb',
+    parameterLimit: 10,
+  })
+);
+
 app.use(express.json({ limit: '1kb' }));
 
 app.use(compression());
 app.use(helmet());
 app.use(hpp());
+app.use(
+  session({
+    secret: Configuration.appConfig.cookie.COOKIE_SECRET,
+    cookie: { httpOnly: true, sameSite: true, path: '/' },
+    resave: false,
+    saveUninitialized: false,
+    rolling: true,
+    name: 'ses',
+  })
+);
+
+app.use(csrf({ cookie: false }));
+
+app.all('*', (req, res: Response, next) => {
+  res.cookie('_csrf', req.csrfToken(), { sameSite: true });
+  return next();
+});
+
+app.use('/api', router);
 
 app.set('env', Configuration.appConfig.environment);
 app.set('port', Configuration.appConfig.server.PORT || 5000);
 
 app.use(passport.initialize());
-
-app.use('/api', router);
 
 connect();
 
@@ -42,5 +68,20 @@ if (Configuration.appConfig.environment === 'production') {
     res.sendFile(path.resolve(__dirname, '../../frontend/build', 'index.html'));
   });
 }
+
+// eslint-disable-next-line max-params
+app.use((err, req, res, _) => {
+  console.log('err', typeof err);
+  console.log('err', typeof err);
+  if (err.code !== 'EBADCSRFTOKEN') return _(err);
+  console.log('err', err);
+  console.log('err', err);
+  console.log('err', req.csrfToken());
+  console.log('err', req.headers);
+
+  return res.status(403).json({
+    message: 'Someone tempered this request. CSRF token was not provided.',
+  });
+});
 
 export default app;

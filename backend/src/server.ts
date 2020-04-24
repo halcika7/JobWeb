@@ -3,9 +3,6 @@ import { LoggerFactory } from './util/logger/LoggerFactory';
 
 const logger = LoggerFactory.getLogger('Server');
 
-/**
- * Start Express server.
- */
 const server = app.listen(app.get('port'), () => {
   logger.info(
     `App is running at http://localhost:${app.get('port')} in ${app.get(

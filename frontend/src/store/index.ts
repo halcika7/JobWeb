@@ -1,10 +1,21 @@
-import { applyMiddleware, compose, createStore } from 'redux';
+import { applyMiddleware, compose, createStore, Middleware } from 'redux';
 import thunk from 'redux-thunk';
+
+// reducer
 import { rootReducer } from 'store/RootReducer';
+
+// logger
+import { appLoggerMiddleware } from './logger';
+
+const middlewares: Middleware[] = [thunk];
+
+if (process.env.NODE_ENV !== 'production') {
+  middlewares.push(appLoggerMiddleware);
+}
 
 const store = createStore(
   rootReducer,
-  compose(applyMiddleware(thunk), compose)
+  compose(applyMiddleware(...middlewares), compose)
 );
 
 export default store;

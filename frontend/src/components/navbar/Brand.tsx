@@ -1,6 +1,10 @@
-import Logo from 'assets/images/logo.png';
 import React, { FC } from 'react';
+
+// navigation
 import { NavLink } from 'react-router-dom';
+
+// images
+import Logo from 'assets/images/logo.png';
 
 interface BrandProps {
   changeTheme: (value: string) => void;

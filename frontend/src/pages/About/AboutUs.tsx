@@ -1,6 +1,10 @@
-import { ReactComponent as RightArrowCircle } from 'assets/svgs/right-arrow-circle.svg';
-import AccordionWrapper from 'components/UI/accordion/AccordionWrapper';
 import React from 'react';
+
+// components
+import AccordionWrapper from 'components/UI/accordion';
+
+// svg icons
+import { ReactComponent as RightArrowCircle } from 'assets/svgs/right-arrow-circle.svg';
 
 const AboutUs = (): JSX.Element => (
   <section className="about-us">

@@ -1,10 +1,12 @@
+import React from 'react';
+
+// svg icons
 import { ReactComponent as Bell } from 'assets/svgs/bell.svg';
 import { ReactComponent as JobPaper } from 'assets/svgs/job-paper.svg';
 import { ReactComponent as Loupe } from 'assets/svgs/loupe.svg';
 import { ReactComponent as PaperLupa } from 'assets/svgs/paper-lupa.svg';
 import { ReactComponent as Secure } from 'assets/svgs/secure.svg';
 import { ReactComponent as StackPapers } from 'assets/svgs/stack-papers.svg';
-import React from 'react';
 
 const AboutIcons = (): JSX.Element => (
   <section className="about-icons">

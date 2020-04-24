@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
+
+// navigation
 import { NavLink } from 'react-router-dom';
 
-const Nav = (): JSX.Element => (
+const Nav: FC = (): JSX.Element => (
   <nav className="top-navigation">
     <NavLink to="/listings" activeClassName="active-link">
       Listings

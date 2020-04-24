@@ -1,5 +1,9 @@
+// types
 import { Input } from 'components/UI/input/Input';
 import { InterfaceSelect } from 'components/UI/input/Select';
+import { Select, SelectCities } from 'util/country/types';
+import { AccountRegistrationType, AuthValues } from '../../store/types';
+import { FormikProps } from 'pages/Auth/formik/IFormik';
 
 type ValidNameValues =
   | 'username'
@@ -7,7 +11,7 @@ type ValidNameValues =
   | 'password'
   | 'password2'
   | 'phone'
-  | 'web'
+  | 'website'
   | 'company';
 
 type ValidSelectNames = 'country' | 'city';
@@ -27,6 +31,7 @@ export const inputs: RegisterInputs[] = [
     type: 'text',
     required: true,
     label: 'Username',
+    autoComplete: 'new-password',
   },
   {
     classNames: 'form-group col-12 col-md-6',
@@ -34,6 +39,7 @@ export const inputs: RegisterInputs[] = [
     type: 'email',
     required: true,
     label: 'Email Address',
+    autoComplete: 'new-password',
   },
   {
     classNames: 'form-group col-12 col-md-6',
@@ -41,6 +47,7 @@ export const inputs: RegisterInputs[] = [
     type: 'password',
     required: true,
     label: 'Password',
+    autoComplete: 'new-password',
   },
   {
     classNames: 'form-group col-12 col-md-6',
@@ -48,6 +55,7 @@ export const inputs: RegisterInputs[] = [
     type: 'password',
     required: true,
     label: 'Confirm Password',
+    autoComplete: 'new-password',
   },
   {
     classNames: 'form-group col-12 hide-spinners',
@@ -55,6 +63,7 @@ export const inputs: RegisterInputs[] = [
     type: 'tel',
     required: true,
     label: 'Phone',
+    autoComplete: 'new-password',
   },
 ];
 
@@ -76,7 +85,7 @@ export const selects: RegisterSelectInputs[] = [
 export const companyInputs: RegisterInputs[] = [
   {
     classNames: 'form-group col-12 col-md-6',
-    name: 'web',
+    name: 'website',
     type: 'text',
     required: false,
     label: 'Website',
@@ -89,3 +98,10 @@ export const companyInputs: RegisterInputs[] = [
     label: 'Company Name',
   },
 ];
+
+export interface RegisterFormikProps extends FormikProps {
+  accountType: AccountRegistrationType;
+  countries: Select[];
+  cities: SelectCities;
+  onSubmit: (data: AuthValues, accountType: AccountRegistrationType) => void;
+}

@@ -1,21 +1,39 @@
 import {
-  IsEmail,
-  IsNotEmpty,
-  IsPhoneNumber,
-  IsString,
-  Matches,
-  MaxLength,
-  MinLength,
-} from 'class-validator';
-import {
   BaseEntity,
+  BeforeInsert,
   Column,
   Entity,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+
+// validators
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsPhoneNumber,
+  IsString,
+  IsUrl,
+  Matches,
+  MaxLength,
+  MinLength,
+  Validate,
+  ValidateIf,
+} from 'class-validator';
+import {
+  EqualPasswords,
+  UniqueEmail,
+  UniqueUsername,
+  ValidateCity,
+  ValidateCountry,
+} from '../validation/CustomClassValidator';
+
+// moodels
 import { Role } from './Role';
+
+// services
+import BcryptService from '../service/Bcrypt';
 
 @Entity({ name: 'users' })
 export class User extends BaseEntity {
@@ -25,12 +43,14 @@ export class User extends BaseEntity {
   @Column('varchar', { unique: true, nullable: false, length: 15 })
   @IsNotEmpty({ message: 'Username is required' })
   @IsString({ message: 'Username must be a string' })
+  @Validate(UniqueUsername)
   @MinLength(6, { message: 'Username must contain at least 6 characters' })
   @MaxLength(15, { message: 'Username cannot exceed 15 characters' })
   username: string;
 
   @Column('varchar', { unique: true, nullable: false, length: 100 })
   @IsNotEmpty({ message: 'Email is required' })
+  @Validate(UniqueEmail)
   @MaxLength(100, { message: 'Email cannot exceed 100 characters' })
   @IsEmail({ message: 'Please provide valid email' })
   email: string;
@@ -46,25 +66,32 @@ export class User extends BaseEntity {
         'Password needs to contain both lower and upper case characters, number and a special character',
     }
   )
+  @Validate(EqualPasswords)
   password: string;
 
-  @Column()
+  @Column('varchar', { nullable: false })
   @IsNotEmpty({ message: 'Country is required' })
+  @Validate(ValidateCountry)
   country: string;
 
-  @Column()
+  @Column('varchar', { nullable: false })
   @IsNotEmpty({ message: 'City is required' })
+  @Validate(ValidateCity, [this.country])
   city: string;
 
-  @Column()
+  @Column('varchar', { nullable: false })
   @IsNotEmpty({ message: 'Phone is required' })
   @IsPhoneNumber(null, { message: 'Please provide valid phone number' })
   phone: string;
 
-  @Column()
-  company_name: string;
+  @Column('varchar', { nullable: true })
+  @ValidateIf(o => o.role === 2)
+  @IsNotEmpty({ message: 'Company name is required' })
+  company: string;
 
-  @Column()
+  @Column('varchar', { nullable: true })
+  @ValidateIf(o => o.website !== '')
+  @IsUrl({ message: 'Please provide valid website url.' })
   website: string;
 
   @Column('varchar', { nullable: true, default: null })
@@ -73,10 +100,13 @@ export class User extends BaseEntity {
   @Column('varchar', { nullable: true })
   activation_token: string;
 
-  @Column('varchar', { nullable: true })
-  some_field: string;
-
   @ManyToOne(type => Role)
   @JoinColumn({ name: 'role' })
   role: number;
+
+  @BeforeInsert()
+  async hashPassword() {
+    const salt = await BcryptService.generateSalt(12);
+    this.password = await BcryptService.hash(this.password, salt);
+  }
 }

@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
+
+// styles
 import './Spinner.scss';
 
-const LargeSpinner = (): JSX.Element => (
+const LargeSpinner: FC = (): JSX.Element => (
   <div className="wrapper-large">
     <div className="large-spinner" />
   </div>

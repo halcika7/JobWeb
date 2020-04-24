@@ -7,6 +7,8 @@ export interface Input {
   label: string;
   required?: boolean;
   type: string;
+  autoComplete?: 'on' | 'off' | 'password' | 'new-password';
+  autoCorrect?: 'on' | 'off';
 }
 
 interface InputProps extends Input {
@@ -30,11 +32,13 @@ const InputElement: FC<InputProps> = ({
   onChange: handleChange,
   onBlur,
   onTouch,
+  autoComplete = 'on',
+  autoCorrect = 'off',
 }): JSX.Element => (
   <div className={error && touched ? `${classNames} with-error` : classNames}>
     <label htmlFor={name}>
       {label}
-      {required && <span>*</span>}
+      {required && <span> *</span>}
       {type !== 'tel' ? (
         <input
           type={type}
@@ -44,8 +48,8 @@ const InputElement: FC<InputProps> = ({
           onChange={handleChange}
           onBlur={onBlur}
           onTouchStart={onTouch}
-          // autoComplete="password"
-          // autoCorrect="off"
+          autoComplete={autoComplete}
+          autoCorrect={autoCorrect}
         />
       ) : (
         <PhoneInputWrapper

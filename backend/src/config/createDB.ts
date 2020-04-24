@@ -1,5 +1,5 @@
-import { config } from 'dotenv';
 import { Pool } from 'pg';
+import { config } from 'dotenv';
 import { LoggerFactory } from '../util/logger/LoggerFactory';
 
 const logger = LoggerFactory.getLogger('create-db');

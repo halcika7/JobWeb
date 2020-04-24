@@ -1,5 +1,7 @@
-import { ReactComponent as Check } from 'assets/svgs/check.svg';
 import React from 'react';
+
+// svg icons
+import { ReactComponent as Check } from 'assets/svgs/check.svg';
 
 const AboutEx = (): JSX.Element => (
   <section className="about-ex">

@@ -1,4 +1,6 @@
 import React from 'react';
+
+// icons
 import {
   FaFacebookF,
   FaInstagram,

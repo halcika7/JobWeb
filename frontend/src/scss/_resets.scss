@@ -42,10 +42,15 @@ body {
   background: #f5f6fa;
   font-family: Montserrat, sans-serif;
   position: relative;
+  box-sizing: border-box;
 
   &.dark {
     background: linear-gradient(#1e1e2f,#1e1e24);
     color: #fdfdfd;
+  }
+
+  &.no-scroll {
+    overflow: hidden;
   }
 }
 

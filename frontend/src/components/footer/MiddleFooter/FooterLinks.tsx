@@ -1,9 +1,11 @@
 import React, { FC } from 'react';
 import { FaCaretRight } from 'react-icons/fa';
 
+type link = 'candidates' | 'employers' | 'information';
+
 type FooterLinksProps = {
   title: string;
-  linksType: 'candidates' | 'employers' | 'information';
+  linksType: link;
 };
 
 type Links = {
@@ -11,11 +13,13 @@ type Links = {
   text: string;
 };
 
-const links: {
+type LinksObj = {
   candidates: Links[];
   employers: Links[];
   information: Links[];
-} = {
+};
+
+const links: LinksObj = {
   candidates: [
     {
       href: '/',
@@ -79,12 +83,14 @@ const FooterLinks: FC<FooterLinksProps> = ({
   <div className="grid-item">
     <h3>{title}</h3>
     <ul>
-      {links[linksType].map(({ href, text }, index) => (
-        <li key={`${href}${text}-${index + 2}]`}>
-          <FaCaretRight />
-          <a href={href}>{text}</a>
-        </li>
-      ))}
+      {links[linksType].map(({ href, text }, index) => {
+        return (
+          <li key={`${href}${text}-${index + 2}]`}>
+            <FaCaretRight />
+            <a href={href}>{text}</a>
+          </li>
+        );
+      })}
     </ul>
   </div>
 );

@@ -1,19 +1,20 @@
-import { AuthControllerinstance as AuthController } from '../../controller/AuthController';
 import { router } from '../Router';
+
+// middlewares
+import { authMiddleware } from '../../middleware/auth';
+
+// controllers
+import AuthController from '../../controller/Auth';
 
 router.post('/', AuthController.register);
 
 router.post('/login', AuthController.login);
 
+router.post('/check', authMiddleware, (req, res) => {
+  return res.status(200).json({ ok: 'ok' });
+});
+
 router.post('/logout', AuthController.logout);
-
-router.post('/forgot', AuthController.forgotPassword);
-
-router.post('/reset', AuthController.resetPassword);
-
-router.post('/activate', AuthController.activateAccount);
-
-router.post('/reactivate', AuthController.reactivateAccount);
 
 router.get('/refresh', AuthController.refreshToken);
 

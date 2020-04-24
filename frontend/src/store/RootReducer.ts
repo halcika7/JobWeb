@@ -1,16 +1,15 @@
 import { combineReducers, Reducer } from 'redux';
-import {
-  RegisterState,
-  RegisterReducer,
-} from 'pages/Auth/Register/store/RegisterReducer';
-import { CountryState, CountryReducer } from './country/CountryReducer';
+
+// reducers
+import { AuthReducer as auth, AuthState } from 'pages/Auth/store/reducer';
+import { CountryReducer as country, CountryState } from 'util/country/reducer';
 
 export interface AppState {
   country: CountryState;
-  register: RegisterState;
+  auth: AuthState;
 }
 
 export const rootReducer: Reducer<AppState> = combineReducers<AppState>({
-  country: CountryReducer,
-  register: RegisterReducer,
+  country,
+  auth,
 } as any);

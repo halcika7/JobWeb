@@ -1,12 +1,20 @@
-import App from 'App';
 import React from 'react';
-import { CookiesProvider } from 'react-cookie';
 import ReactDOM from 'react-dom';
+import App from 'pages/App';
+
+// providers
+import { CookiesProvider } from 'react-cookie';
 import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
+
+// service worker
 import * as serviceWorker from 'serviceWorker';
+
+// store
 import store from 'store/index';
+
+// styles
 import './index.scss';
 
 const app = (
@@ -21,6 +29,8 @@ const app = (
   </HelmetProvider>
 );
 
-ReactDOM.render(app, document.getElementById('root'));
+const root = document.getElementById('root') as HTMLDivElement;
+
+ReactDOM.render(app, root);
 
 serviceWorker.register();

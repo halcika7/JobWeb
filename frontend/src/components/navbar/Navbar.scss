@@ -146,7 +146,7 @@ header {
 .buttons {
   display: flex;
 
-  a {
+  a, button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -166,6 +166,14 @@ header {
 
     &:hover {
       border-color: #366bf5;
+    }
+
+    @media (max-width: 768px) {
+      width: 150px;
+
+      &:nth-child(1) {
+        margin-bottom: 1.5rem;
+      }
     }
   }
 }
