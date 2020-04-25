@@ -1,9 +1,14 @@
+// services
 import { BaseService } from './Base';
 import { NeverBounceService } from './NeverBounce';
 import { TwilioService } from './Twilio';
+
+// types
+import { ValidationResponse } from '@ctypes';
+
+// vaidation
 import { validate } from 'class-validator';
-import { ValidationResponse } from '../types';
-import { checkIfObjectEmpty } from '../util/isEmpty';
+import { checkIfObjectEmpty } from '@validation/isEmpty';
 
 export class ValidationService extends BaseService {
   private twilioService: TwilioService;
@@ -17,7 +22,7 @@ export class ValidationService extends BaseService {
   }
 
   async transformErrors(
-    Model,
+    Model: any,
     additionalObj: object = {}
   ): Promise<{ [key: string]: any }> {
     const validationValues = await validate(Model, additionalObj);

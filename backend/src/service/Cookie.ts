@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { Configuration } from '../config/AppConfig';
+import { Configuration } from '@config/AppConfig';
 
 export class CookieService {
   private static instance: CookieService;

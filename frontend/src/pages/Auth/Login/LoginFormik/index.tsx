@@ -7,13 +7,13 @@ import { Link } from 'react-router-dom';
 import { Field, Form, Formik } from 'formik';
 
 // validation
-import { UserLoginSchema } from '../../yup';
+import { UserLoginSchema } from '@pages/Auth/yup';
 
 // types
 import { Inputs, LoginFormikProps } from './LoginFormikProps';
 
 // components
-import Input from 'components/UI/input/Input';
+import Input from '@components/UI/input/Input';
 
 const LoginFormik: FC<LoginFormikProps> = ({
   errors: initialErrors,

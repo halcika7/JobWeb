@@ -2,7 +2,7 @@
 import React from 'react';
 
 // components
-import TextArea from 'components/UI/input/TextArea';
+import TextArea from '@components/UI/input/TextArea';
 
 const ContactInputs = (): JSX.Element => (
   <section className="contact-inputs card">

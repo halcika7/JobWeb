@@ -1,6 +1,6 @@
 import os from 'os';
 import winston, { Logger as Winston } from 'winston';
-import { Configuration } from '../../config/AppConfig';
+import { Configuration } from '@config/AppConfig';
 
 interface Log {
   app: string;

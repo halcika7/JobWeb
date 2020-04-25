@@ -1,10 +1,15 @@
 /* eslint-disable no-param-reassign */
-import { Logger } from '../util/logger/Logger';
-import { LoggerFactory } from '../util/logger/LoggerFactory';
 import stringEscape from 'js-string-escape';
+import { Logger, LoggerFactory } from '@logger';
 
 // types
-import { ResponseMessage, ResponseObject, ResponseTokens } from 'ResponseTypes';
+import {
+  ResponseMessage,
+  ResponseObject,
+  ResponseTokens,
+  RedirectResponse,
+} from '@ctypes';
+import { Response } from 'express';
 
 export class BaseService {
   protected logger: Logger;
@@ -49,20 +54,28 @@ export class BaseService {
     return { ...data };
   }
 
-  redirectAfterLogin(res, { accessToken, message, err }) {
+  redirectAfterLogin(
+    res: Response,
+    { accessToken, message, err }: RedirectResponse
+  ) {
     if (err) return res.redirect(`${URL}/login?err=${err}`);
 
     return res.redirect(`${URL}/login?token=${accessToken}&message=${message}`);
   }
 
   createModelInstance(
-    Model,
+    Model: any,
     values: { [key: string]: string | number | boolean }
   ) {
     const obj = new Model();
 
-    Object.keys(values).forEach(key => {
-      obj[`${key}`] = stringEscape(values[`${key}`]);
+    Object.keys(values).forEach((key: string) => {
+      const value = values[`${key}`];
+      if (typeof value === 'string') {
+        obj[`${key}`] = stringEscape(value);
+      } else {
+        obj[`${key}`] = value;
+      }
     });
 
     return obj;

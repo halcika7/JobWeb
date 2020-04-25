@@ -1,11 +1,11 @@
 import Axios from 'axios';
-import store from 'store';
+import store from '@store/index';
 
 // actions
-import { loginSuccess, getTokenRole } from 'pages/Auth/store/actions';
+import { loginSuccess, getTokenRole } from '@pages/Auth/store/actions';
 
 // utils
-import { SessionStorage } from './shared/sessionStorage';
+import { SessionStorage } from '@shared/sessionStorage';
 
 const rejectPromise = (error: any) => Promise.reject(error);
 

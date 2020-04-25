@@ -1,7 +1,7 @@
-import axios from 'util/axios';
+import axios from '@axios';
 
 // types
-import { AppThunkDispatch } from 'store/AppThunkDispatch';
+import { AppThunkDispatch } from '@store/AppThunkDispatch';
 import { CountryActions, CountryActionTypes } from './types';
 
 export const getCountries = async (

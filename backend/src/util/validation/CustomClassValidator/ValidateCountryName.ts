@@ -1,9 +1,12 @@
+// validation
 import {
   ValidationArguments,
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator';
-import { Country } from '../../model/Country';
+
+// models
+import { Country } from '@model/Country';
 
 @ValidatorConstraint({ async: true })
 export class ValidateCountry implements ValidatorConstraintInterface {

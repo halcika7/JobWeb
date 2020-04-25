@@ -1,7 +1,7 @@
 import twilio, { Twilio } from 'twilio';
 import { BaseService } from './Base';
-import { Configuration } from '../config/AppConfig';
-import { ResponseMessage } from '../types';
+import { Configuration } from '@config/AppConfig';
+import { ResponseMessage } from '@ctypes';
 
 export class TwilioService extends BaseService {
   private twilioClient: Twilio;

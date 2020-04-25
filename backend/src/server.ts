@@ -1,5 +1,9 @@
+import 'reflect-metadata';
+import './util/moduleAlias';
+
 import app from './app';
-import { LoggerFactory } from './util/logger/LoggerFactory';
+
+import { LoggerFactory } from '@logger';
 
 const logger = LoggerFactory.getLogger('Server');
 

@@ -15,6 +15,7 @@ export interface AuthState {
   token: string;
   role: Role | null;
   isAuthenticated: boolean;
+  limit: string;
 }
 
 const values: AuthValues = {
@@ -50,6 +51,7 @@ const INITIAL_STATE: AuthState = {
   token: '',
   role: null,
   isAuthenticated: false,
+  limit: '',
 };
 
 export function AuthReducer(
@@ -59,6 +61,8 @@ export function AuthReducer(
   switch (action.type) {
     case AuthActions.AUTH_RESET:
       return { ...INITIAL_STATE };
+    case AuthActions.AUTH_RESET_MESSAGE:
+      return { ...prevState, message: '', status: null };
     case AuthActions.AUTH_START:
       return {
         ...INITIAL_STATE,
@@ -78,17 +82,20 @@ export function AuthReducer(
         errors: action.payload.errors
           ? { ...prevState.errors, ...action.payload.errors }
           : INITIAL_STATE.errors,
-        touched: {
-          username: true,
-          email: true,
-          password: true,
-          password2: true,
-          country: true,
-          city: true,
-          phone: true,
-          web: true,
-          company: true,
-        },
+        touched: !action.payload.refresh
+          ? {
+              username: true,
+              email: true,
+              password: true,
+              password2: true,
+              country: true,
+              city: true,
+              phone: true,
+              web: true,
+              company: true,
+            }
+          : { ...INITIAL_STATE.touched },
+        limit: action.payload.limit || '',
       };
     case AuthActions.LOGIN_SUCCESS:
       return {

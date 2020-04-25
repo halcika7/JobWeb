@@ -1,6 +1,6 @@
 import { FC, ComponentClass } from 'react';
 import { connect, MapStateToProps, MapDispatchToProps } from 'react-redux';
-import { AppState } from 'store/RootReducer';
+import { AppState } from '@store/RootReducer';
 
 export const useConnect = (
   Component: FC<any> | ComponentClass,

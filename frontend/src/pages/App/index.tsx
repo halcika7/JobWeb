@@ -4,19 +4,19 @@ import React, { FC, Suspense, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 // routes
-import Routes from 'routes';
+import Routes from '@routes';
 
 // actions
-import { refreshToken } from 'pages/Auth/store/actions';
+import { refreshToken } from '@pages/Auth/store/actions';
 
 // hooks
-import { useThunkDispatch } from 'store/AppThunkDispatch';
+import { useThunkDispatch } from '@store/AppThunkDispatch';
 
 // components
-import Footer from 'components/footer';
-import Navbar from 'components/navbar';
-import ScrollToTop from 'components/scrollToTop';
-import LargeSpinner from 'components/UI/Spinner/LargeSpinner';
+import Footer from '@components/footer';
+import Navbar from '@components/navbar';
+import ScrollToTop from '@components/scrollToTop';
+import LargeSpinner from '@components/UI/Spinner/LargeSpinner';
 
 const App: FC = (): JSX.Element => {
   const dispatch = useThunkDispatch();

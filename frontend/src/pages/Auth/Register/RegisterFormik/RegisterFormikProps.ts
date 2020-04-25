@@ -1,9 +1,9 @@
 // types
-import { Input } from 'components/UI/input/Input';
-import { InterfaceSelect } from 'components/UI/input/Select';
-import { Select, SelectCities } from 'util/country/types';
-import { AccountRegistrationType, AuthValues } from '../../store/types';
-import { FormikProps } from 'pages/Auth/formik/IFormik';
+import { Input } from '@components/UI/input/Input';
+import { InterfaceSelect } from '@components/UI/input/Select';
+import { Select, SelectCities } from '@country/types';
+import { AccountRegistrationType, AuthValues } from '@pages/Auth/store/types';
+import { FormikProps } from '@pages/Auth/formik/IFormik';
 
 type ValidNameValues =
   | 'username'

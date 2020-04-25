@@ -8,8 +8,8 @@ import React, {
 } from 'react';
 
 // svg icons
-import { ReactComponent as Minus } from 'assets/svgs/minus.svg';
-import { ReactComponent as Plus } from 'assets/svgs/plus.svg';
+import { ReactComponent as Minus } from '@svgs/minus.svg';
+import { ReactComponent as Plus } from '@svgs/plus.svg';
 
 export type IAccordion = {
   title: string;

@@ -1,12 +1,9 @@
-import { Request, Response, response } from 'express';
+import { Request, Response } from 'express';
 import { BaseController } from './Base';
 
 // services
-import { AuthService } from '../service/Auth';
-import { CookieService } from '../service/Cookie';
-
-// types
-import { RequestUser } from '../types';
+import { AuthService } from '@service/Auth';
+import { CookieService } from '@service/Cookie';
 
 class AuthController extends BaseController {
   private authService: AuthService;
@@ -34,7 +31,10 @@ class AuthController extends BaseController {
       this.cookieService.setRefreshToken(res, refreshToken);
     }
 
-    return this.sendResponse(res, status, { ...rest });
+    return this.sendResponse(res, status, {
+      ...rest,
+      limit: this.getLimit(req),
+    });
   };
 
   public logout = (req: Request, res: Response): Response => {
@@ -44,7 +44,7 @@ class AuthController extends BaseController {
   };
 
   public refreshToken = async (
-    req: RequestUser,
+    req: Request,
     res: Response
   ): Promise<Response> => {
     const token = req.cookies[this.cookieService.refreshName];

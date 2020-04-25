@@ -1,4 +1,4 @@
-import { AuthTouched, AuthValues } from 'pages/Auth/store/types';
+import { AuthTouched, AuthValues } from '@pages/Auth/store/types';
 
 export interface FormikProps {
   errors: AuthValues;

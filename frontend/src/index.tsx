@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from 'pages/App';
+import App from './pages/App';
 
 // providers
 import { CookiesProvider } from 'react-cookie';
@@ -9,10 +9,10 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 // service worker
-import * as serviceWorker from 'serviceWorker';
+import * as serviceWorker from './serviceWorker';
 
 // store
-import store from 'store/index';
+import store from './store/index';
 
 // styles
 import './index.scss';

@@ -6,13 +6,19 @@ import { JWTService } from './JWT';
 import { ValidationService } from './Validation';
 
 // models
-import { User } from '../model/User';
+import { User } from '@model/User';
 
 // types
-import { LoginData, ResponseTokens, ValidationResponse, Token } from '../types';
+import {
+  LoginData,
+  ResponseTokens,
+  ValidationResponse,
+  Token,
+  RegisterPostData,
+} from '@ctypes';
 
 // validation
-import { checkIfObjectEmpty } from '../util/isEmpty';
+import { checkIfObjectEmpty } from '@validation/isEmpty';
 
 export class AuthService extends BaseService {
   private validation: ValidationService;
@@ -28,7 +34,10 @@ export class AuthService extends BaseService {
     this.jwt = new JWTService();
   }
 
-  async register({ userData, accountType }): Promise<ValidationResponse> {
+  async register({
+    userData,
+    accountType,
+  }: RegisterPostData): Promise<ValidationResponse> {
     try {
       const user: User = super.createModelInstance(User, userData);
       user.role = accountType === 'user' ? 1 : 2;

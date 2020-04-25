@@ -27,13 +27,13 @@ import {
   UniqueUsername,
   ValidateCity,
   ValidateCountry,
-} from '../validation/CustomClassValidator';
+} from '@validation/CustomClassValidator';
 
-// moodels
-import { Role } from './Role';
+// models
+import { Role } from '@model/Role';
 
 // services
-import BcryptService from '../service/Bcrypt';
+import BcryptService from '@service/Bcrypt';
 
 @Entity({ name: 'users' })
 export class User extends BaseEntity {
@@ -52,7 +52,7 @@ export class User extends BaseEntity {
   @IsNotEmpty({ message: 'Email is required' })
   @Validate(UniqueEmail)
   @MaxLength(100, { message: 'Email cannot exceed 100 characters' })
-  @IsEmail({ message: 'Please provide valid email' })
+  @IsEmail({}, { message: 'Please provide valid email' })
   email: string;
 
   @Column('varchar', { nullable: false })
@@ -76,7 +76,7 @@ export class User extends BaseEntity {
 
   @Column('varchar', { nullable: false })
   @IsNotEmpty({ message: 'City is required' })
-  @Validate(ValidateCity, [this.country])
+  @Validate(ValidateCity)
   city: string;
 
   @Column('varchar', { nullable: false })
@@ -91,7 +91,7 @@ export class User extends BaseEntity {
 
   @Column('varchar', { nullable: true })
   @ValidateIf(o => o.website !== '')
-  @IsUrl({ message: 'Please provide valid website url.' })
+  @IsUrl({}, { message: 'Please provide valid website url.' })
   website: string;
 
   @Column('varchar', { nullable: true, default: null })

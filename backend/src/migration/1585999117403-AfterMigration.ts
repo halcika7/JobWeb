@@ -1,7 +1,9 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
-import { Country } from '../model/Country';
-import { Role } from '../model/Role';
 import countries from './seederFiles/countryValues';
+
+// models
+import { Country } from '@model/Country';
+import { Role } from '@model/Role';
 
 export class AfterMigration1585999117403 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {

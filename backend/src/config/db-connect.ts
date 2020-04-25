@@ -1,5 +1,5 @@
 import { createConnection } from 'typeorm';
-import { LoggerFactory } from '../util/logger/LoggerFactory';
+import { LoggerFactory } from '@logger';
 
 const logger = LoggerFactory.getLogger('db-connection');
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 // components
-import Breadcrumb from 'components/UI/breadcrumb';
+import Breadcrumb from '@components/UI/breadcrumb';
 import ContactCards from './ContactCards';
 import ContactInputs from './ContactInputs';
 

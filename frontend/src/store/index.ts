@@ -2,7 +2,7 @@ import { applyMiddleware, compose, createStore, Middleware } from 'redux';
 import thunk from 'redux-thunk';
 
 // reducer
-import { rootReducer } from 'store/RootReducer';
+import { rootReducer } from '@store/RootReducer';
 
 // logger
 import { appLoggerMiddleware } from './logger';

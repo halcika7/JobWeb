@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { Configuration } from '../config/AppConfig';
+import { Configuration } from '@config/AppConfig';
 
 export class JWTService {
   private static instance: JWTService;

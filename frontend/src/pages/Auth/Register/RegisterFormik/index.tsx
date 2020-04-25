@@ -9,7 +9,7 @@ import {
 } from './RegisterFormikProps';
 
 // validation
-import { CompanySignupSchema, UserSignupSchema } from '../../yup';
+import { CompanySignupSchema, UserSignupSchema } from '@pages/Auth/yup';
 
 // navigation
 import { Link } from 'react-router-dom';
@@ -18,8 +18,8 @@ import { Link } from 'react-router-dom';
 import { Field, Form, Formik } from 'formik';
 
 // components
-import Input from 'components/UI/input/Input';
-import SelectInput from 'components/UI/input/Select';
+import Input from '@components/UI/input/Input';
+import SelectInput from '@components/UI/input/Select';
 
 const RegisterFormik: FC<RegisterFormikProps> = ({
   accountType,
@@ -58,37 +58,37 @@ const RegisterFormik: FC<RegisterFormikProps> = ({
     >
       {({ errors, touched, setFieldValue, values }) => (
         <Form className="inputs row">
-          {inputs.map(properties => (
+          {inputs.map(props => (
             <Field
-              key={`${properties.name}-${properties.type}-${properties.label}`}
+              key={`${props.name}-${props.type}-${props.label}`}
               as={Input}
-              error={errors[properties.name]}
-              touched={touched[properties.name]}
-              {...properties}
+              error={errors[props.name]}
+              touched={touched[props.name]}
+              {...props}
             />
           ))}
-          {selects.map(properties => (
+          {selects.map(props => (
             <Field
-              key={`${properties.name}-${properties.label}`}
+              key={`${props.name}-${props.label}`}
               as={SelectInput}
-              error={errors[properties.name]}
-              touched={touched[properties.name]}
+              error={errors[props.name]}
+              touched={touched[props.name]}
               setFieldValue={setFieldValue}
               options={
-                properties.name === 'city' ? cities[values.country] : countries
+                props.name === 'city' ? cities[values.country] : countries
               }
               type="hidden"
-              {...properties}
+              {...props}
             />
           ))}
           {accountType === 'company' &&
-            companyInputs.map(properties => (
+            companyInputs.map(props => (
               <Field
-                key={`${properties.name}-${properties.type}-${properties.label}`}
+                key={`${props.name}-${props.type}-${props.label}`}
                 as={Input}
-                error={errors[properties.name]}
-                touched={touched[properties.name]}
-                {...properties}
+                error={errors[props.name]}
+                touched={touched[props.name]}
+                {...props}
               />
             ))}
           <div className="submit">

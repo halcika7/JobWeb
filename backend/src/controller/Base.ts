@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { Request, Response } from 'express';
-import { Logger } from '../util/Logger/Logger';
-import { LoggerFactory } from '../util/logger/LoggerFactory';
+import { Logger, LoggerFactory } from '@logger';
 
 export class BaseController {
   protected logger: Logger;
@@ -52,5 +51,14 @@ export class BaseController {
 
   getCsrfToken(req: Request): string {
     return req.csrfToken();
+  }
+
+  getLimit(req: Request): string {
+    const { limit, remaining, resetTime } = req.rateLimit;
+    const attempt = remaining === 1 ? 'attempt' : 'attempts';
+
+    return `Limit for this action is ${limit}. ${remaining} ${attempt} remaining. Remaining attempts will reset on ${resetTime
+      .toUTCString()
+      .slice(0, -4)}.`;
   }
 }

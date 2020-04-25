@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom';
 
 // hooks
-import { useAuthenticated } from 'util/hooks/useAuthenticated';
+import { useAuthenticated } from '@hooks/useAuthenticated';
 
 interface Props extends RouteProps {
   restricted?: boolean;

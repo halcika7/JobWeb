@@ -1,8 +1,8 @@
 import { combineReducers, Reducer } from 'redux';
 
 // reducers
-import { AuthReducer as auth, AuthState } from 'pages/Auth/store/reducer';
-import { CountryReducer as country, CountryState } from 'util/country/reducer';
+import { AuthReducer as auth, AuthState } from '@pages/Auth/store/reducer';
+import { CountryReducer as country, CountryState } from '@country/reducer';
 
 export interface AppState {
   country: CountryState;

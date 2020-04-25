@@ -1,18 +1,19 @@
-import { router } from '../Router';
+import { router } from '@route/Router';
 
 // middlewares
-import { authMiddleware } from '../../middleware/auth';
+// import { authMiddleware } from '../../middleware/auth';
+import { limiter } from '@middleware/rateLimiter';
 
 // controllers
-import AuthController from '../../controller/Auth';
+import AuthController from '@controller/Auth';
+
+const loginLimit = limiter(60 * 60 * 1000, 5);
+
+const registerLimit = limiter(60 * 60 * 1000 * 24, 10);
 
 router.post('/', AuthController.register);
 
-router.post('/login', AuthController.login);
-
-router.post('/check', authMiddleware, (req, res) => {
-  return res.status(200).json({ ok: 'ok' });
-});
+router.post('/login', loginLimit, AuthController.login);
 
 router.post('/logout', AuthController.logout);
 

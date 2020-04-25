@@ -1,7 +1,7 @@
 // types
 import { MapDispatchToProps, MapStateToProps } from 'react-redux';
-import { AppThunkDispatch } from 'store/AppThunkDispatch';
-import { AppState } from 'store/RootReducer';
+import { AppThunkDispatch } from '@store/AppThunkDispatch';
+import { AppState } from '@store/RootReducer';
 import { AuthTouched, AuthValues } from './store/types';
 
 // actions
@@ -17,6 +17,7 @@ export interface AuthStateToProps {
   touched: AuthTouched;
   message: string;
   status: number | null;
+  limit: string;
 }
 
 export const authMapStateToProps: MapStateToProps<
@@ -29,6 +30,7 @@ export const authMapStateToProps: MapStateToProps<
   touched: state.auth.touched,
   message: state.auth.message,
   status: state.auth.status,
+  limit: state.auth.limit,
   ...ownProps,
 });
 

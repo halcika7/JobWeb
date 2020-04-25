@@ -2,10 +2,10 @@ import { Request, Response } from 'express';
 import { BaseController } from './Base';
 
 // models
-import { Country } from '../model/Country';
+import { Country } from '@model/Country';
 
 // services
-import { RedisService as Redis } from '../service/Redis';
+import { RedisService as Redis } from '@service/Redis';
 
 class CountryController extends BaseController {
   constructor() {

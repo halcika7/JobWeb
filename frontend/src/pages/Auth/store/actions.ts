@@ -1,8 +1,8 @@
-import axios from 'util/axios';
-import { TokenDecode } from 'util/shared/decode';
+import axios from '@axios';
+import { TokenDecode } from '@shared/decode';
 
 // types
-import { AppThunkDispatch } from 'store/AppThunkDispatch';
+import { AppThunkDispatch } from '@store/AppThunkDispatch';
 import {
   AuthActions,
   AuthActionTypes,
@@ -14,7 +14,7 @@ import {
 } from './types';
 
 // utils
-import { SessionStorage } from 'util/shared/sessionStorage';
+import { SessionStorage } from '@shared/sessionStorage';
 
 const authStart = (values: AuthValues | LoginData): AuthActionTypes => ({
   type: AuthActions.AUTH_START,
@@ -51,6 +51,11 @@ export const authReset = (): AuthActionTypes => ({
   payload: {},
 });
 
+export const resetMessage = (): AuthActionTypes => ({
+  type: AuthActions.AUTH_RESET_MESSAGE,
+  payload: {},
+});
+
 export const registerUser = (postObject: AuthPostData) => async (
   dispatch: AppThunkDispatch
 ): Promise<AuthActionTypes> => {
@@ -77,7 +82,6 @@ export const loginUser = (loginData: LoginData) => async (
     message: string;
     accessToken: string;
   }>('/auth/login', { ...loginData });
-
   if (status === 200) {
     dispatch(authSuccess(data.message, status));
 
@@ -123,5 +127,5 @@ export const refreshToken = async (dispatch: AppThunkDispatch) => {
 
   SessionStorage.removeItem('isAuthenticated');
 
-  return dispatch(authFailed({ ...data, status }));
+  return dispatch(authFailed({ ...data, status, refresh: true }));
 };

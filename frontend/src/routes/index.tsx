@@ -4,7 +4,7 @@ import React, { FC } from 'react';
 import { Switch } from 'react-router-dom';
 
 // lazy load component
-import lazy from 'util/lazy';
+import lazy from '@lazy';
 
 // route component
 import PublicRoute from './PublicRoute';

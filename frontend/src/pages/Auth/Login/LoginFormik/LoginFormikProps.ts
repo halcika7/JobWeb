@@ -1,7 +1,7 @@
 // types
-import { Input } from 'components/UI/input/Input';
-import { LoginData } from 'pages/Auth/store/types';
-import { FormikProps } from 'pages/Auth/formik/IFormik';
+import { Input } from '@components/UI/input/Input';
+import { LoginData } from '@pages/Auth/store/types';
+import { FormikProps } from '@pages/Auth/formik/IFormik';
 
 type ValidNameValues = 'username' | 'password';
 

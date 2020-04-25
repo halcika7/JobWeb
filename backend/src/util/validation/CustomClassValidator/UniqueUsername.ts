@@ -3,7 +3,7 @@ import {
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator';
-import { User } from '../../model/User';
+import { User } from '@model/User';
 
 @ValidatorConstraint({ async: true })
 export class UniqueUsername implements ValidatorConstraintInterface {

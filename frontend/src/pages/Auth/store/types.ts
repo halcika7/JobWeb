@@ -34,7 +34,13 @@ export type LoginData = {
   password: string;
 };
 
-export type Failed = { message?: string; status: number; errors?: AuthValues };
+export type Failed = {
+  message?: string;
+  status: number;
+  errors?: AuthValues;
+  refresh?: boolean;
+  limit?: string;
+};
 
 export interface Role {
   id: number;
@@ -46,6 +52,7 @@ export enum AuthActions {
   AUTH_SUCCESS = 'AUTH_SUCCESS',
   AUTH_FAILED = 'AUTH_FAILED',
   AUTH_RESET = 'AUTH_RESET',
+  AUTH_RESET_MESSAGE = 'AUTH_RESET_MESSAGE',
   LOGIN_SUCCESS = 'LOGIN_SUCCESS',
 }
 
@@ -61,11 +68,16 @@ interface AuthSuccess {
 
 interface AuthFailed {
   type: typeof AuthActions.AUTH_FAILED;
-  payload: { message?: string; status: number; errors?: AuthValues };
+  payload: Failed;
 }
 
 interface AuthReset {
   type: typeof AuthActions.AUTH_RESET;
+  payload: {};
+}
+
+interface AuthResetMessage {
+  type: typeof AuthActions.AUTH_RESET_MESSAGE;
   payload: {};
 }
 
@@ -79,4 +91,5 @@ export type AuthActionTypes =
   | AuthFailed
   | AuthStart
   | AuthReset
+  | AuthResetMessage
   | LoginSuccess;

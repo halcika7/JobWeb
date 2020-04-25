@@ -1,17 +1,18 @@
+import express, { Response, Request, NextFunction } from 'express';
+import path from 'path';
+
 import compression from 'compression';
 import cookieparser from 'cookie-parser';
 import cors from 'cors';
 import csrf from 'csurf';
-import express, { Response } from 'express';
 import session from 'express-session';
 import helmet from 'helmet';
 import hpp from 'hpp';
+
 import passport from 'passport';
-import path from 'path';
-import 'reflect-metadata';
-import { Configuration } from './config/AppConfig';
-import { connect } from './config/db-connect';
-import router from './routes';
+import { Configuration } from '@config/AppConfig';
+import { connect } from '@config/db-connect';
+import router from '@router';
 
 // Create Express server
 const app = express();
@@ -70,14 +71,10 @@ if (Configuration.appConfig.environment === 'production') {
 }
 
 // eslint-disable-next-line max-params
-app.use((err, req, res, _) => {
+app.use((err: any, req: Request, res: Response, _: NextFunction) => {
   console.log('err', typeof err);
-  console.log('err', typeof err);
-  if (err.code !== 'EBADCSRFTOKEN') return _(err);
+  if (err?.code !== 'EBADCSRFTOKEN') return _(err);
   console.log('err', err);
-  console.log('err', err);
-  console.log('err', req.csrfToken());
-  console.log('err', req.headers);
 
   return res.status(403).json({
     message: 'Someone tempered this request. CSRF token was not provided.',

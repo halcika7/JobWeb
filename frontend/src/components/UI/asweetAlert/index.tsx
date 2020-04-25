@@ -10,9 +10,12 @@ import WarningIcon from './icons/warningIcon';
 // styles
 import './sweetAlert.scss';
 
+export type AlertType = 'success' | 'warning' | 'info' | 'error';
+
 interface SweetAlertProps {
   message: string;
-  type?: 'success' | 'warning' | 'info' | 'error';
+  additionalMessage?: string;
+  type?: AlertType;
   successButton?: string;
   failedButton?: string;
   withButtons?: boolean;
@@ -22,6 +25,7 @@ interface SweetAlertProps {
 
 const SweetAlert: FC<SweetAlertProps> = ({
   message,
+  additionalMessage,
   type = 'success',
   successButton,
   failedButton,
@@ -44,6 +48,7 @@ const SweetAlert: FC<SweetAlertProps> = ({
           {type === 'info' && <InfoIcon />}
           {type === 'error' && <ErrorIcon />}
           <p>{message}</p>
+          {additionalMessage && <p>{additionalMessage}</p>}
           {withButtons && (
             <div className="buttons">
               {failedButton && type === 'error' && (

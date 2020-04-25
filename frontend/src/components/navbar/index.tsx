@@ -1,18 +1,18 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 
 // actions
-import { logoutUser } from 'pages/Auth/store/actions';
+import { logoutUser } from '@pages/Auth/store/actions';
 
 // navigation
 import { NavLink } from 'react-router-dom';
 
 // hooks
 import { useCookies } from 'react-cookie';
-import { useAuthenticated } from 'util/hooks/useAuthenticated';
-import { useThunkDispatch } from 'store/AppThunkDispatch';
+import { useAuthenticated } from '@hooks/useAuthenticated';
+import { useThunkDispatch } from '@store/AppThunkDispatch';
 
 // utils
-import { SessionStorage } from 'util/shared/sessionStorage';
+import { SessionStorage } from '@shared/sessionStorage';
 
 // icons
 import { FiLogIn, FiUser } from 'react-icons/fi';

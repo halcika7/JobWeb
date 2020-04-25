@@ -1,22 +1,22 @@
 import React, { FC, useEffect, useState } from 'react';
 
 // actions
-import { getCountries } from 'util/country/actions';
+import { getCountries } from '@country/actions';
 
 // types
 import { AccountRegistrationType } from '../store/types';
 import { Props, mapStateToProps, mapDispatchToProps } from './IRegister';
 
 // hooks
-import { useThunkDispatch } from 'store/AppThunkDispatch';
+import { useThunkDispatch } from '@store/AppThunkDispatch';
 import { useHistory } from 'react-router';
-import { useConnect } from 'util/hooks/useConnect';
+import { useConnect } from '@hooks/useConnect';
 
 // components
 import RegisterAccount from './RegisterAccount';
 import RegisterFormik from './RegisterFormik';
-import SweetAlert from 'components/UI/asweetAlert';
-import Breadcrumb from 'components/UI/breadcrumb';
+import SweetAlert from '@components/UI/asweetAlert';
+import Breadcrumb from '@components/UI/breadcrumb';
 
 // styles
 import '../Auth.scss';
@@ -38,10 +38,7 @@ const Register: FC<Props> = ({
   const dispatch = useThunkDispatch();
 
   const changeAccount = (value: AccountRegistrationType) => {
-    if (value !== active) {
-      setActive(value);
-      authReset();
-    }
+    if (value !== active) setActive(value);
   };
 
   const alertCallback = () => {
@@ -58,12 +55,12 @@ const Register: FC<Props> = ({
   }, [dispatch]);
 
   useEffect(() => {
-    if (status) setShowAlert(true);
-  }, [status]);
+    if (status && message) setShowAlert(true);
+  }, [status, message]);
 
   return (
     <>
-      {message && status && showAlert && (
+      {showAlert && (
         <SweetAlert
           message={message}
           withButtons

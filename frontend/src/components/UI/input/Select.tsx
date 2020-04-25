@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 
 // types
-import { Select } from 'util/country/types';
+import { Select } from '@country/types';
 
 // components
 import SelectWrapper from 'react-select';
@@ -43,7 +43,7 @@ const SelectInput: FC<SelectProps> = ({
     <div className={error && touched ? `${classNames} with-error` : classNames}>
       <label htmlFor={name}>
         {label}
-        {required && <span>*</span>}
+        {required && <span> *</span>}
         <SelectWrapper
           value={value ? localVal : defValue}
           defaultInputValue={value}

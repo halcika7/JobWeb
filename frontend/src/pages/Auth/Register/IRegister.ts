@@ -1,9 +1,9 @@
 // types
 import { MapDispatchToProps, MapStateToProps } from 'react-redux';
-import { AppThunkDispatch } from 'store/AppThunkDispatch';
-import { Select, SelectCities } from 'util/country/types';
+import { AppThunkDispatch } from '@store/AppThunkDispatch';
+import { Select, SelectCities } from '@country/types';
 import { AccountRegistrationType, AuthValues } from '../store/types';
-import { AppState } from 'store/RootReducer';
+import { AppState } from '@store/RootReducer';
 
 import {
   AuthDispatchToProps,

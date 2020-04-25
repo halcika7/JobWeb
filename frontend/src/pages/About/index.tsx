@@ -1,7 +1,7 @@
 import React from 'react';
 
 // components
-import Breadcrumb from 'components/UI/breadcrumb';
+import Breadcrumb from '@components/UI/breadcrumb';
 import AboutEx from './AboutEx';
 import AboutIcons from './AboutIcons';
 import AboutIntro from './AboutIntro';

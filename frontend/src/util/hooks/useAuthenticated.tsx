@@ -1,6 +1,6 @@
 // types
-import { Role } from 'pages/Auth/store/types';
-import { AppState } from 'store/RootReducer';
+import { Role } from '@pages/Auth/store/types';
+import { AppState } from '@store/RootReducer';
 
 // hooks
 import { useSelector } from 'react-redux';

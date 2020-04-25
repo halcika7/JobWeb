@@ -1,7 +1,10 @@
 import axios from 'axios';
 import { BaseService } from './Base';
-import { Configuration } from '../config/AppConfig';
-import { ResponseMessage } from '../types';
+
+import { Configuration } from '@config/AppConfig';
+
+// types
+import { ResponseMessage } from '@ctypes';
 
 export class NeverBounceService extends BaseService {
   private url: string;

@@ -4,6 +4,7 @@ export {
   ResponseObject,
   ResponseTokens,
   ValidationResponse,
+  RedirectResponse,
 } from './ResponseTypes';
 export {
   AccountType,

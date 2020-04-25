@@ -18,3 +18,9 @@ export interface ResponseTokens extends ResponseMessage {
   accessToken?: string;
   refreshToken?: string;
 }
+
+export interface RedirectResponse {
+  message?: string;
+  accessToken?: string;
+  err?: string;
+}

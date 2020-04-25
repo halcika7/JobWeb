@@ -1,20 +1,24 @@
 // types
 import { MapDispatchToProps, MapStateToProps } from 'react-redux';
-import { AppThunkDispatch } from 'store/AppThunkDispatch';
-import { AppState } from 'store/RootReducer';
+import { AppThunkDispatch } from '@store/AppThunkDispatch';
+import { AppState } from '@store/RootReducer';
 import {
   AuthDispatchToProps,
   authMapDispatchToProps,
   authMapStateToProps,
   AuthStateToProps,
-} from '../IAuth';
-import { LoginData } from '../store/types';
+} from '@pages/Auth/IAuth';
+import { LoginData } from '@pages/Auth/store/types';
 
 // actions
-import { loginUser as loginUserAction } from '../store/actions';
+import {
+  loginUser as loginUserAction,
+  resetMessage as resetMessageAction,
+} from '@pages/Auth/store/actions';
 
 interface DispatchToProps extends AuthDispatchToProps {
   loginUser: (loginData: LoginData) => void;
+  resetMessages: () => void;
 }
 
 export type Props = AuthStateToProps & DispatchToProps & {};
@@ -32,6 +36,7 @@ export const mapDispatchToProps: MapDispatchToProps<DispatchToProps, {}> = (
   dispatch: AppThunkDispatch,
   ownProps: {}
 ): DispatchToProps => ({
+  resetMessages: () => dispatch(resetMessageAction()),
   loginUser: async (loginData: LoginData) =>
     dispatch(loginUserAction(loginData)),
   ...authMapDispatchToProps(dispatch, ownProps),
