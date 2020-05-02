@@ -1,4 +1,9 @@
 export class SessionStorage {
+  static readonly tokenSecret = process.env.REACT_APP_TOKEN_SECRET as string;
+
+  static readonly tokenSecretValue = process.env
+    .REACT_APP_TOKEN_SECRET_VALUE as string;
+
   static setValue(key: string, value: any): void {
     sessionStorage.setItem(key, JSON.stringify(value));
   }
@@ -16,6 +21,17 @@ export class SessionStorage {
   }
 
   static getAuthenticated(): string | null {
-    return sessionStorage.getItem(process.env.REACT_APP_TOKEN_SECRET as string);
+    return sessionStorage.getItem(SessionStorage.tokenSecret);
+  }
+
+  static setAuthenticated() {
+    sessionStorage.setItem(
+      SessionStorage.tokenSecret,
+      SessionStorage.tokenSecretValue
+    );
+  }
+
+  static removeAuthenticated() {
+    sessionStorage.removeItem(SessionStorage.tokenSecret);
   }
 }

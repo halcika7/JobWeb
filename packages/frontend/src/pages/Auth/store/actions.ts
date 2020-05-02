@@ -32,7 +32,7 @@ const authFailed = (obj: Failed): AuthActionTypes => ({
   payload: { ...obj },
 });
 
-const authReset = (): AuthActionTypes => ({
+export const authReset = (): AuthActionTypes => ({
   type: AuthActions.AUTH_RESET,
   payload: {},
 });
@@ -87,10 +87,7 @@ export const loginUser = (loginData: LoginData) => async (
 
     const { role, token } = getTokenRole(data.accessToken);
 
-    SessionStorage.setValue(
-      process.env.REACT_APP_TOKEN_SECRET as string,
-      process.env.REACT_APP_TOKEN_SECRET_VALUE
-    );
+    SessionStorage.setAuthenticated();
 
     return dispatch(loginSuccess(true, role, token));
   }
@@ -107,7 +104,7 @@ export const logoutUser = async (
   );
 
   if (status === HTTPCodes.OK) {
-    SessionStorage.removeItem('isAuthenticated');
+    SessionStorage.removeAuthenticated();
     return dispatch(authReset());
   }
 
@@ -123,12 +120,12 @@ export const refreshToken = async (dispatch: AppThunkDispatch) => {
   if (data.accessToken) {
     const { role, token } = getTokenRole(data.accessToken);
 
-    SessionStorage.setValue('isAuthenticated', true);
+    SessionStorage.setAuthenticated();
 
     return dispatch(loginSuccess(true, role, token));
   }
 
-  SessionStorage.removeItem('isAuthenticated');
+  SessionStorage.removeAuthenticated();
 
   return dispatch(authFailed({ ...data, status, refresh: true }));
 };

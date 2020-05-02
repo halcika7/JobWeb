@@ -4,3 +4,4 @@
 **/build
 *.todo
 **/yarn.lock
+packages/backend/logs

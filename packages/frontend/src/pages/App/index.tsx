@@ -23,7 +23,7 @@ const App: FC = (): JSX.Element => {
   const dispatch = useThunkDispatch();
 
   useEffect(() => {
-    if (SessionStorage.getItem('isAuthenticated')) {
+    if (SessionStorage.getAuthenticated()) {
       dispatch(refreshToken);
     }
   }, [dispatch]);

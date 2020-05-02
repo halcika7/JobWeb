@@ -102,8 +102,8 @@ export class AuthService extends BaseService {
     });
   }
 
-  public async refreshToken(_: string): Promise<ResponseTokens> {
-    const { id, role } = (await this.jwt.verifyToken('', true)) as Token;
+  public async refreshToken(token: string): Promise<ResponseTokens> {
+    const { id, role } = (await this.jwt.verifyToken(token, true)) as Token;
 
     return this.returnResponseTokens({
       status: HTTPCodes.OK,

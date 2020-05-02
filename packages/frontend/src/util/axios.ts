@@ -1,7 +1,11 @@
 import Axios from 'axios';
 import store from '@store/index';
 
-import { loginSuccess, getTokenRole } from '@pages/Auth/store/actions';
+import {
+  loginSuccess,
+  getTokenRole,
+  authReset,
+} from '@pages/Auth/store/actions';
 
 import { SessionStorage } from '@shared/sessionStorage';
 
@@ -54,15 +58,14 @@ axios.interceptors.response.use(
 
           // dispatch refresh success
           store.dispatch(loginSuccess(true, role, token));
-          SessionStorage.setValue('isAuthenticated', true);
+          SessionStorage.setAuthenticated();
 
           // return originalRequest object with Axios.
           return axios(originalRequest);
         }
 
-        // dispatch logout
-        // store.dispatch();
-        SessionStorage.removeItem('isAuthenticated');
+        store.dispatch(authReset());
+        SessionStorage.removeAuthenticated();
 
         return rejectPromise(error);
       });
