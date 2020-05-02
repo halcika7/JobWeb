@@ -1,0 +1,23 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "baseUrl": ".",
+    "isolatedModules": true,
+    "paths": {
+      "@env": ["./src/configs/index"],
+      "@config/*": ["./src/configs/*"],
+      "@controller/*": ["./src/controllers/*"],
+      "@middleware/*": ["./src/middlewares/*"],
+      "@model/*": ["./src/models/*"],
+      "@service/*": ["./src/services/*"],
+      "@logger": ["./src/utils/logger/index"],
+      "@ctypes": ["./src/utils/types/index"],
+      "@model-validator": ["src/utils/CustomClassValidator/index"],
+      "@decorator/*": ["./src/utils/decorators/*"],
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "logs"]
+}

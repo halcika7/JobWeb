@@ -17,13 +17,14 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint", "prettier", "react-hooks"],
+  "plugins": ["react", "@typescript-eslint", "prettier", "react-hooks", "security"],
   "extends": [
     "plugin:react/recommended",
     "airbnb",
     "plugin:prettier/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:security/recommended"
   ],
   "rules": {
     "prettier/prettier": "error",
@@ -32,7 +33,7 @@
     "import/no-unresolved": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }],
     "no-var": 2,
-    "max-params": 2,
+    "max-params": [2, 4],
     "space-in-parens": 2,
     "space-before-blocks": 2,
     "no-trailing-spaces": 1,
@@ -56,9 +57,20 @@
     "no-extra-semi": 2,
     "no-empty": 2,
     "no-dupe-keys": 2,
-    "@typescript-eslint/no-explicit-any": 0,
     "no-underscore-dangle": 0,
-    "react/jsx-wrap-multilines": 0,
+    "import/extensions": 0,
+    "import/prefer-default-export": 0,
+    "react/prop-types": 0,
+    "class-methods-use-this": 0,
+    "react/jsx-one-expression-per-line": 0,
+    "@typescript-eslint/no-explicit-any": 0,
+    "import/order": 0,
+    "react/jsx-props-no-spreading": 0,
+    "jsx-a11y/no-static-element-interactions": 0,
+    "jsx-a11y/click-events-have-key-events": 0,
     "@typescript-eslint/camelcase": 0
+    // "react/jsx-wrap-multilines": 0,
+    // "security/detect-object-injection": 0,
+    // "no-unneeded-ternary": 0,
   }
 }
