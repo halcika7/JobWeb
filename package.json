@@ -1,26 +1,24 @@
 {
-  "name": "job-listing",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "server": "npm run watch --prefix backend",
-    "server-prod": "npm start --prefix backend",
-    "frontend": "npm start --prefix frontend",
-    "frontend-prod": "npm run build --prefix frontend",
-    "dev": "concurrently \"npm run server\" \"npm run frontend\"",
-    "prod": "concurrently \"npm run server-prod\" \"npm run frontend-prod\"",
+    "build": "lerna run build",
+    "server": "yarn --cwd packages/backend watch",
+    "server-prod": "yarn --cwd packages/backend start",
+    "frontend": "yarn --cwd packages/frontend start",
+    "frontend-prod": "yarn --cwd packages/frontend build",
+    "dev": "concurrently \"yarn server\" \"yarn frontend\"",
+    "prod": "concurrently \"yarn server-prod\" \"yarn frontend-prod\"",
     "lint": "eslint --fix frontend/src/**/*.{ts,tsx} backend/src/**/*.ts"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "concurrently": "^5.2.0"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^2.29.0",
-    "@typescript-eslint/parser": "^2.29.0",
+    "@typescript-eslint/eslint-plugin": "^2.30.0",
+    "@typescript-eslint/parser": "^2.30.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-prettier": "^6.11.0",
@@ -31,7 +29,9 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^3.0.0",
     "eslint-plugin-security": "^1.4.0",
+    "lerna": "^3.20.2",
     "prettier": "^2.0.5",
     "typescript": "^3.8.3"
-  }
+  },
+  "name": "job-listing"
 }
