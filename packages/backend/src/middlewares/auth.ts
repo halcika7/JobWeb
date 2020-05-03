@@ -1,17 +1,17 @@
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction, Request } from 'express';
 
 // static services
 import { JWTService } from '@service/JWT';
 
 // types
-import { Token } from '@ctypes';
+import { Token, UserRequest } from '@ctypes';
 
 import { HTTPCodes } from '@job/common';
 
 import { Logger, LoggerFactory } from '@logger';
 
 export async function authMiddleware(
-  req: Request,
+  req: UserRequest & Request,
   res: Response,
   next: NextFunction
 ) {

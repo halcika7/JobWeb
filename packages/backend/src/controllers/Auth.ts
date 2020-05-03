@@ -6,7 +6,7 @@ import { AuthService } from '@service/Auth';
 import { CookieService } from '@service/Cookie';
 
 // decorators
-import { Controller, Injectable } from '@decorator/class';
+import { Controller } from '@decorator/class';
 import { Middleware, ErrorMiddleware } from '@decorator/middleware';
 import { Get, Post } from '@decorator/method';
 import { Res, Body, Rate, Cookie } from '@decorator/param';
@@ -22,13 +22,15 @@ import { RateLimitInfo } from 'express-rate-limit';
 
 import { HTTPCodes } from '@job/common';
 
-@Injectable()
 @Controller('api/auth')
 export class AuthController extends BaseController {
   private readonly cookie = CookieService;
 
-  constructor(private readonly auth: AuthService) {
+  private readonly auth: AuthService;
+
+  constructor() {
     super(AuthController);
+    this.auth = new AuthService();
   }
 
   @Post('')
@@ -73,9 +75,7 @@ export class AuthController extends BaseController {
       token
     );
 
-    if (!refreshToken) return this.sendResponse(res, status, {});
-
-    this.cookie.setRefreshToken(res, refreshToken);
+    this.cookie.setRefreshToken(res, refreshToken || '');
 
     return this.sendResponse(res, status, { ...rest });
   }

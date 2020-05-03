@@ -24,9 +24,8 @@ export class JWTService {
 
   static async verifyToken(token: string, refresh = false) {
     try {
-      const verified = jwt.verify(token, JWTService.getSecret(refresh)) || '';
-      return verified;
-    } catch (error) {
+      return jwt.verify(token, JWTService.getSecret(refresh));
+    } catch {
       throw new UnauthorizedException({ message: 'Invalid token...' });
     }
   }

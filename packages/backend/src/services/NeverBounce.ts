@@ -27,7 +27,7 @@ export class NeverBounceService extends BaseService {
       }
 
       return this.returnResponseMessage(HTTPCodes.OK, 'Email is vaild');
-    } catch (error) {
+    } catch {
       return this.returnResponseMessage(
         HTTPCodes.BAD_REQUEST,
         'Please provide valid email'

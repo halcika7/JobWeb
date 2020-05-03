@@ -12,17 +12,17 @@ import { User } from '@model/User';
 // vaidation
 import { validate, ValidatorOptions } from 'class-validator';
 
-import { Injectable } from '@decorator/class';
-
 import { HTTPCodes, checkIfObjectEmpty } from '@job/common';
 
-@Injectable()
 export class ValidationService extends BaseService {
-  constructor(
-    private readonly twilioService: TwilioService,
-    private readonly neverbounceSevice: NeverBounceService
-  ) {
+  private readonly twilioService: TwilioService;
+
+  private readonly neverbounceSevice: NeverBounceService;
+
+  constructor() {
     super(ValidationService);
+    this.twilioService = new TwilioService();
+    this.neverbounceSevice = new NeverBounceService();
   }
 
   async transformErrors<T extends BaseEntity, U extends ValidatorOptions | {}>(
@@ -66,7 +66,7 @@ export class ValidationService extends BaseService {
           errors,
         }
       );
-    } catch (error) {
+    } catch {
       return this.returnGenericFailed(HTTPCodes.BAD_REQUEST);
     }
   }

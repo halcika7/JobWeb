@@ -28,7 +28,7 @@ export class TwilioService extends BaseService {
       }
 
       return this.returnResponseMessage(HTTPCodes.OK, 'Phone number is valid');
-    } catch (error) {
+    } catch {
       return this.returnResponseMessage(
         HTTPCodes.BAD_REQUEST,
         'Invalid phone number'

@@ -1,5 +1,4 @@
 import * as controllers from '@controller/index';
-import * as injectableServices from '@service/index';
 import { RedisService } from '@service/Redis';
 
 import { Server } from '@config/server-config';
@@ -24,10 +23,11 @@ import helmet from 'helmet';
 import hpp from 'hpp';
 
 import { LoggerFactory, Logger } from '@logger';
-import { initialize } from 'passport';
+// import { initialize } from 'passport';
 import { Configuration } from '@env';
 import { connect } from './configs/db-connect';
-import { container } from 'tsyringe';
+
+import { Server as HTTPServer } from 'http';
 
 class App extends Server {
   private readonly port = Configuration.appConfig.server.PORT;
@@ -35,6 +35,8 @@ class App extends Server {
   private readonly env = Configuration.appConfig.environment;
 
   private readonly logger = LoggerFactory.getLogger(App.name) as Logger;
+
+  private server: HTTPServer | null = null;
 
   constructor() {
     super();
@@ -45,7 +47,6 @@ class App extends Server {
     connect();
 
     this.setupControllers();
-    this.setupServices();
   }
 
   private setAppMiddlewares(): void {
@@ -64,7 +65,7 @@ class App extends Server {
         name: 'ses',
       }),
       csrf({ cookie: false }),
-      initialize(),
+      // initialize(),
       hpp(),
       helmet(),
       compression(),
@@ -85,24 +86,14 @@ class App extends Server {
   private setupControllers(): void {
     const controllerInstances: any[] = [];
 
-    Object.keys(controllers).forEach((name: any) => {
+    Object.keys(controllers).forEach((name: string) => {
       const Controller = (controllers as any)[`${name}`];
       if (typeof Controller === 'function') {
-        const inst = container.resolve(Controller);
-        controllerInstances.push(inst);
+        controllerInstances.push(new Controller());
       }
     });
 
     super.addControllers(controllerInstances);
-  }
-
-  private setupServices(): void {
-    Object.keys(injectableServices).forEach((name: any) => {
-      const Service = (injectableServices as any)[`${name}`];
-      if (typeof Service === 'function') {
-        container.resolve(Service);
-      }
-    });
   }
 
   public start(): void {
@@ -117,22 +108,29 @@ class App extends Server {
     }
 
     // eslint-disable-next-line max-params
-    this.app.use((err: any, __: Request, res: Response, _: NextFunction) => {
-      console.log('err', typeof err);
-      if (err.code !== 'EBADCSRFTOKEN') return _(err);
-      console.log('err', err);
+    this.app.use(
+      (err: Error | any, __: Request, res: Response, _: NextFunction) => {
+        console.log('err', typeof err);
+        if (err.code !== 'EBADCSRFTOKEN') return _(err);
+        console.log('err', err);
 
-      return res.status(403).json({
-        message: 'Someone tempered this request. CSRF token was not provided.',
-      });
-    });
+        return res.status(403).json({
+          message:
+            'Someone tempered this request. CSRF token was not provided.',
+        });
+      }
+    );
 
-    this.app.listen(this.port, () => {
+    this.server = this.app.listen(this.port, () => {
       this.logger.info(
         `App is running at http://localhost:${this.port} in ${this.env} mode.`,
         'this.app.listen'
       );
     });
+  }
+
+  public async close() {
+    return this.server?.close();
   }
 }
 

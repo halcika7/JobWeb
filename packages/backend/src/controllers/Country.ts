@@ -8,13 +8,12 @@ import { Country } from '@model/Country';
 import { RedisService } from '@service/Redis';
 
 // decorators
-import { Controller, Injectable } from '@decorator/class';
+import { Controller } from '@decorator/class';
 import { Get } from '@decorator/method';
 import { Res } from '@decorator/param';
 
 import { HTTPCodes } from '@job/common';
 
-@Injectable()
 @Controller('api/country')
 export class CountryController extends BaseController {
   private readonly redis = RedisService;
@@ -50,7 +49,7 @@ export class CountryController extends BaseController {
 
       this.redis.setex(
         'countryCity',
-        420,
+        20,
         JSON.stringify({ countries, cities })
       );
 
