@@ -5,3 +5,6 @@
 *.todo
 **/yarn.lock
 packages/backend/logs
+
+**/coverage
+**/.nyc_output

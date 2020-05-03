@@ -11,12 +11,11 @@ const req = mockRequest();
 const res = mockResponse();
 const next = mockNextFunction();
 
-afterAll(async () => {
-  await shutdown();
-});
-
 describe('Testing error handling middlleware', () => {
-  it('should throw error with status 400', async () => {
+  afterAll(async () => {
+    await shutdown();
+  });
+  test('should throw error with status 400', async () => {
     try {
       throw new BadRequestException();
     } catch (error) {
@@ -25,7 +24,7 @@ describe('Testing error handling middlleware', () => {
     }
   });
 
-  it('should throw error with status 500', async () => {
+  test('should throw error with status 500', async () => {
     try {
       throw new Error();
     } catch (error) {

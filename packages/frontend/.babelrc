@@ -1,0 +1,60 @@
+{
+  "presets": [
+    "@babel/preset-env",
+    ["@babel/preset-typescript", { "onlyRemoveTypeImports": true }]
+  ],
+  "plugins": [
+    "@babel/plugin-transform-runtime",
+    [
+      "babel-plugin-root-import",
+      {
+        "paths": [
+          {
+            "rootPathSuffix": "./src/components",
+            "rootPathPrefix": "@components/"
+          },
+          {
+            "rootPathSuffix": "./src/assets/images",
+            "rootPathPrefix": "@images/"
+          },
+          {
+            "rootPathSuffix": "./src/assets/svgs",
+            "rootPathPrefix": "@svgs/"
+          },
+          {
+            "rootPathSuffix": "./src/pages",
+            "rootPathPrefix": "@pages/"
+          },
+          {
+            "rootPathSuffix": "./src/routes/index",
+            "rootPathPrefix": "@routes"
+          },
+          {
+            "rootPathSuffix": "./src/store",
+            "rootPathPrefix": "@store/"
+          },
+          {
+            "rootPathSuffix": "./src/util/country",
+            "rootPathPrefix": "@country/"
+          },
+          {
+            "rootPathSuffix": "./src/util/hooks",
+            "rootPathPrefix": "@hooks/"
+          },
+          {
+            "rootPathSuffix": "./src/util/shared",
+            "rootPathPrefix": "@shared/"
+          },
+          {
+            "rootPathSuffix": "./src/util/axios",
+            "rootPathPrefix": "@axios"
+          },
+          {
+            "rootPathSuffix": "./src/util/lazy",
+            "rootPathPrefix": "@lazy"
+          }
+        ]
+      }
+    ]
+  ]
+}

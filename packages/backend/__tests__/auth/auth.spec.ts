@@ -9,18 +9,17 @@ let contr: any = null;
 let connection: any = null;
 const res = mockResponse();
 
-beforeAll(async () => {
-  connection = await createConnection();
-  contr = new AuthController();
-});
-
-afterAll(async () => {
-  await connection.close();
-  await shutdown();
-});
-
 describe('Testing Auth controller', () => {
-  it('Failed Login', async () => {
+  beforeAll(async () => {
+    connection = await createConnection();
+    contr = new AuthController();
+  });
+
+  afterAll(async () => {
+    await connection.close();
+    await shutdown();
+  });
+  test('Failed Login', async () => {
     try {
       await contr.login(
         {
@@ -43,30 +42,30 @@ describe('Testing Auth controller', () => {
     }
   });
 
-  // it('Success Login', async () => {
-  //   await contr.login(
-  //     {
-  //       username: '**********',
-  //       password: '**********',
-  //     },
-  //     {
-  //       limit: 5,
-  //       current: 1,
-  //       remaining: 4,
-  //       resetTime: new Date(),
-  //     },
-  //     res
-  //   );
+  test('Success Login', async () => {
+    await contr.login(
+      {
+        username: 'hallcika123@gmail.com',
+        password: '!Q1234567890',
+      },
+      {
+        limit: 5,
+        current: 1,
+        remaining: 4,
+        resetTime: new Date(),
+      },
+      res
+    );
 
-  //   expect(res.status).toHaveBeenCalledWith(200);
-  // });
+    expect(res.status).toHaveBeenCalledWith(200);
+  });
 
-  it('Success LogOut', async () => {
+  test('Success LogOut', async () => {
     await contr.logout(res);
     expect(res.status).toHaveBeenCalledWith(200);
   });
 
-  it('Failed refresh', async () => {
+  test('Failed refresh', async () => {
     try {
       await contr.refreshToken('', res);
     } catch (error) {
@@ -75,7 +74,7 @@ describe('Testing Auth controller', () => {
     }
   });
 
-  it('Success refresh', async () => {
+  test('Success refresh', async () => {
     const token = JWTService.signToken({ id: 1, role: 1 }, true);
 
     await contr.refreshToken(token, res);
@@ -83,7 +82,7 @@ describe('Testing Auth controller', () => {
     expect(res.status).toBeCalledWith(200);
   });
 
-  it('should fail register', async () => {
+  test('should fail register', async () => {
     try {
       await contr.register({ userData: {}, accountType: 'user' }, res);
     } catch (error) {
@@ -100,7 +99,7 @@ describe('Testing Auth controller', () => {
     }
   });
 
-  it('should fail phone number register', async () => {
+  test('should fail phone number register', async () => {
     try {
       await contr.register(
         {
@@ -125,12 +124,12 @@ describe('Testing Auth controller', () => {
     }
   });
 
-  it('should fail unique username', async () => {
+  test('should fail unique username', async () => {
     try {
       await contr.register(
         {
           userData: {
-            username: 'halcika',
+            username: 'ufhiduffsassddf',
             email: 'halcika_788@hotmail.com',
             password: '@Qasuhdihuasd9',
             password2: '@Qasuhdihuasd9',
@@ -150,32 +149,32 @@ describe('Testing Auth controller', () => {
     }
   });
 
-  // it('should fail unique email', async () => {
-  //   try {
-  //     await contr.register(
-  //       {
-  //         userData: {
-  //           username: 'halcikaoijioo',
-  //           email: '********',
-  //           password: '@Qasuhdihuasd9',
-  //           password2: '@Qasuhdihuasd9',
-  //           phone: '+38761444444',
-  //           country: 'Bosnia and Herzegovina',
-  //           city: 'Sarajevo',
-  //         },
-  //         accountType: 'user',
-  //       },
-  //       res
-  //     );
-  //   } catch (error) {
-  //     expect(error.status).toBe(400);
-  //     expect(error.response.errors).toEqual({
-  //       email: 'Email already in use',
-  //     });
-  //   }
-  // });
+  test('should fail unique email', async () => {
+    try {
+      await contr.register(
+        {
+          userData: {
+            username: 'halcikaoijioo',
+            email: 'hallcika123@gmail.com',
+            password: '@Qasuhdihuasd9',
+            password2: '@Qasuhdihuasd9',
+            phone: '+38761444444',
+            country: 'Bosnia and Herzegovina',
+            city: 'Sarajevo',
+          },
+          accountType: 'user',
+        },
+        res
+      );
+    } catch (error) {
+      expect(error.status).toBe(400);
+      expect(error.response.errors).toEqual({
+        email: 'Email already in use',
+      });
+    }
+  });
 
-  it('should fail not equal passwords', async () => {
+  test('should fail not equal passwords', async () => {
     try {
       await contr.register(
         {

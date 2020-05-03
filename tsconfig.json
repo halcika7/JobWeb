@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "module": "commonjs",
+    "module": "CommonJS",
     "declaration": true,
     "sourceMap": false,
     "removeComments": true,
@@ -29,6 +29,6 @@
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "noEmitOnError": true,
-    "noErrorTruncation": true,
+    "noErrorTruncation": true
   }
 }

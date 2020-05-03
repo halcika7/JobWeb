@@ -11,10 +11,15 @@
     "frontend-prod": "yarn --cwd packages/frontend build",
     "dev": "concurrently \"yarn server\" \"yarn frontend\"",
     "prod": "concurrently \"yarn server-prod\" \"yarn frontend-prod\"",
-    "lint": "eslint --fix frontend/src/**/*.{ts,tsx} backend/src/**/*.ts"
+    "lint": "eslint --fix frontend/src/**/*.{ts,tsx} backend/src/**/*.ts",
+    "typeorm": "ts-node ./node_modules/typeorm/cli.js",
+    "typeorm:test": "NODE_ENV=test yarn typeorm",
+    "typeorm:dev": "NODE_ENV=dev yarn typeorm",
+    "migrate": "yarn typeorm:test migration:run && yarn typeorm:dev migration:run"
   },
   "dependencies": {
-    "concurrently": "^5.2.0"
+    "concurrently": "^5.2.0",
+    "dotenv": "^8.2.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.30.0",

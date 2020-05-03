@@ -26,31 +26,30 @@ class Basic extends BaseService {
 
 const err = new Basic();
 
-afterAll(async () => {
-  await shutdown();
-});
-
 describe('Testing Base service', () => {
-  it('should throw error with status 400', async () => {
+  afterAll(async () => {
+    await shutdown();
+  });
+  test('should throw error with status 400', async () => {
     const r = err.generic();
 
     expect(r.status).toBe(400);
   });
 
-  it('should return 200', async () => {
+  test('should return 200', async () => {
     const r = err.rsp();
 
     expect(r.status).toBe(200);
   });
 
-  it('should return 200', async () => {
+  test('should return 200', async () => {
     const r = err.rspm();
 
     expect(r.status).toBe(200);
     expect(r.message).toBe('Message');
   });
 
-  it('should return 200', async () => {
+  test('should return 200', async () => {
     err.logg();
 
     expect(true).toBe(true);

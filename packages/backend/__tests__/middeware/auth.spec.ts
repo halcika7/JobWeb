@@ -11,12 +11,11 @@ const req = mockRequest();
 const res = mockResponse();
 const next = mockNextFunction();
 
-afterAll(async () => {
-  await shutdown();
-});
-
 describe('Testing error handling middlleware', () => {
-  it('should throw error with status 401', async () => {
+  afterAll(async () => {
+    await shutdown();
+  });
+  test('should throw error with status 401', async () => {
     try {
       await authMiddleware(req, res, next);
     } catch {
@@ -25,7 +24,7 @@ describe('Testing error handling middlleware', () => {
     }
   });
 
-  it('should throw error with status 500', async () => {
+  test('should throw error with status 500', async () => {
     req.headers.authorization = 'Bearer aocajsdfjoaf';
     try {
       await authMiddleware(req, res, next);
@@ -35,7 +34,7 @@ describe('Testing error handling middlleware', () => {
     }
   });
 
-  it('should pass', async () => {
+  test('should pass', async () => {
     const token = JWTService.signToken({
       id: 1,
       role: { id: 10, type: 'sdadasdasd' },

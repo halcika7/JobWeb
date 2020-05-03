@@ -10,17 +10,16 @@ const data = {} as LoginData;
 
 let connection: any = null;
 
-beforeAll(async () => {
-  connection = await createConnection();
-});
-
-afterAll(async () => {
-  await connection.close();
-  await shutdown();
-});
-
 describe('Testing auth service', () => {
-  it('should throw error with status 400', async () => {
+  beforeAll(async () => {
+    connection = await createConnection();
+  });
+
+  afterAll(async () => {
+    await connection.close();
+    await shutdown();
+  });
+  test('should throw error with status 400', async () => {
     try {
       await service.login(data);
     } catch (error) {
@@ -28,7 +27,7 @@ describe('Testing auth service', () => {
     }
   });
 
-  it('should throw error invalid account type', async () => {
+  test('should throw error invalid account type', async () => {
     try {
       const type = 'ja' as AccountType;
       await service.register({ userData: {}, accountType: type });

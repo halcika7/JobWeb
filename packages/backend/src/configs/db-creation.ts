@@ -1,12 +1,17 @@
+/* eslint-disable no-console */
 import { Pool } from 'pg';
 import { config } from 'dotenv';
-import { LoggerFactory, Logger } from '@logger';
-
-const logger = LoggerFactory.getLogger('create-db') as Logger;
 
 config();
 
-const { DB_USER, DB_PASSWORD, DB_PORT, DB_HOST, DB_NAME } = process.env;
+const {
+  DB_USER,
+  DB_PASSWORD,
+  DB_PORT,
+  DB_HOST,
+  DB_NAME,
+  TEST_DB_NAME,
+} = process.env;
 
 const pg = new Pool({
   connectionString: `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/postgres`,
@@ -17,28 +22,40 @@ pg.connect()
     client
       .query(`CREATE DATABASE ${DB_NAME}`)
       .then(() => {
-        logger.info('db created', 'create-db');
+        console.info('db created');
         client
           .query(`ALTER USER postgres SET timezone='UTC'`)
           .then(() => {
-            logger.warning('timezone set to UTC', 'set-utc');
+            console.warn('timezone set to UTC');
             client.release();
             process.kill(process.pid);
           })
           .catch(err => {
             client.release();
-            logger.warning('timezone not set to UTC', 'errpr-utc');
-            logger.error(err, 'error-utc');
+            console.warn('timezone not set to UTC');
+            console.error(err);
             process.kill(process.pid);
           });
       })
-      .catch(() => {
+      .catch(err => {
+        console.log('err', err);
         client.release();
-        logger.info('db exists', 'create-db');
+        console.info('db exists');
+        process.kill(process.pid);
+      });
+    client
+      .query(`CREATE DATABASE ${TEST_DB_NAME}`)
+      .then(() => {
+        console.info('db TEST_DB created');
+      })
+      .catch(err => {
+        console.log('err', err);
+        client.release();
+        console.info('db TEST_DB exists');
         process.kill(process.pid);
       });
   })
   .catch(err => {
-    logger.error(err, 'db-connection');
+    console.error(err);
     process.kill(process.pid);
   });

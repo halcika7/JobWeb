@@ -18,7 +18,6 @@ interface SweetAlertProps {
   failedButton?: string;
   withButtons?: boolean;
   callBack?: () => void;
-  successCB?: () => void;
 }
 
 const SweetAlert: FC<SweetAlertProps> = ({
