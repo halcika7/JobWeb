@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { Logger, LoggerFactory } from '@logger';
 import { RateLimitInfo } from 'express-rate-limit';
 
@@ -24,12 +24,6 @@ export class BaseController {
     resObj: object
   ): Response {
     return res.status(status).json({ ...resObj });
-  }
-
-  protected getAuthorizationHeader(req: Request) {
-    return req.headers.authorization
-      ? req.headers.authorization.split(' ')[1]
-      : '';
   }
 
   protected getLimit(rateLimit: RateLimitInfo): string {

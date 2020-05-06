@@ -19,10 +19,12 @@
       "./node_modules/@types"
     ],
     "resolveJsonModule": true,
-    "useDefineForClassFields": true
+    "useDefineForClassFields": true,
+    "isolatedModules": true
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "src/__tests__/**/*"
   ],
   "exclude": [
     "node_modules",

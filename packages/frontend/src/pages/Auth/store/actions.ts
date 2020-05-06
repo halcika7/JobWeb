@@ -17,17 +17,20 @@ import {
 // utils
 import { SessionStorage } from '@shared/sessionStorage';
 
-const authStart = (values: AuthValues | LoginData): AuthActionTypes => ({
+export const authStart = (values: AuthValues | LoginData): AuthActionTypes => ({
   type: AuthActions.AUTH_START,
   payload: { values },
 });
 
-const authSuccess = (message: string, status: number): AuthActionTypes => ({
+export const authSuccess = (
+  message: string,
+  status: number
+): AuthActionTypes => ({
   type: AuthActions.AUTH_SUCCESS,
   payload: { message, status },
 });
 
-const authFailed = (obj: Failed): AuthActionTypes => ({
+export const authFailed = (obj: Failed): AuthActionTypes => ({
   type: AuthActions.AUTH_FAILED,
   payload: { ...obj },
 });
@@ -82,6 +85,7 @@ export const loginUser = (loginData: LoginData) => async (
     message: string;
     accessToken: string;
   }>('/auth/login', { ...loginData });
+
   if (status === HTTPCodes.OK) {
     dispatch(authSuccess(data.message, status));
 
@@ -116,7 +120,7 @@ export const refreshToken = async (dispatch: AppThunkDispatch) => {
     message: string;
     accessToken: string;
   }>('/auth/refresh');
-
+  
   if (data.accessToken) {
     const { role, token } = getTokenRole(data.accessToken);
 

@@ -9,15 +9,8 @@ export type SelectCities = {
 
 // types
 export enum CountryActions {
-  COUNTRY_START = 'COUNTRY_START',
   COUNTRY_SUCCESS = 'COUNTRY_SUCCESS',
   COUNTRY_FAILED = 'COUNTRY_FAILED',
-}
-
-// creators
-interface CountryStart {
-  type: typeof CountryActions.COUNTRY_START;
-  payload: {};
 }
 
 interface CountrySuccess {
@@ -30,4 +23,4 @@ interface CountryFailed {
   payload: { message: string; status: number };
 }
 
-export type CountryActionTypes = CountryStart | CountrySuccess | CountryFailed;
+export type CountryActionTypes = CountrySuccess | CountryFailed;

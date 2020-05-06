@@ -1,5 +1,5 @@
-export { UniqueUsername } from './UniqueUsername';
-export { UniqueEmail } from './UniqueEmail';
-export { ValidateCity } from './ValidateCityName';
-export { ValidateCountry } from './ValidateCountryName';
-export { EqualPasswords } from './EqualPasswords';
+export * from './UniqueUsername';
+export * from './UniqueEmail';
+export * from './ValidateCityName';
+export * from './ValidateCountryName';
+export * from './EqualPasswords';

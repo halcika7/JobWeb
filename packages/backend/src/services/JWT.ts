@@ -1,18 +1,14 @@
-/* eslint-disable no-useless-constructor */
 import jwt from 'jsonwebtoken';
 import { Configuration } from '@env';
 
 import { UnauthorizedException } from '@job/common';
 
-export class JWTService {
+export abstract class JWTService {
   private static readonly access_secret =
     Configuration.appConfig.webToken.ACCESS_SECRET;
 
   private static readonly refresh_secret =
     Configuration.appConfig.webToken.REFRESH_SECRET;
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  private constructor() {}
 
   private static getSecret(refresh: boolean): string {
     return !refresh ? JWTService.access_secret : JWTService.refresh_secret;
@@ -24,9 +20,8 @@ export class JWTService {
 
   static async verifyToken(token: string, refresh = false) {
     try {
-      const verified = jwt.verify(token, JWTService.getSecret(refresh)) || '';
-      return verified;
-    } catch (error) {
+      return jwt.verify(token, JWTService.getSecret(refresh));
+    } catch {
       throw new UnauthorizedException({ message: 'Invalid token...' });
     }
   }

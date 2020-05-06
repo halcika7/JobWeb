@@ -6,31 +6,31 @@ import ErrorBoundary from './components/ErrorBoundary';
 // providers
 import { CookiesProvider } from 'react-cookie';
 import { HelmetProvider } from 'react-helmet-async';
-import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
+import ReduxProvider from './store/provider';
 
 import * as serviceWorker from './serviceWorker';
-
-import store from './store/index';
 
 import './index.scss';
 
 const app = (
   <HelmetProvider>
-    <ErrorBoundary>
-      <Provider store={store}>
-        <Router>
-          <CookiesProvider>
+    <ReduxProvider>
+      <Router>
+        <CookiesProvider>
+          <ErrorBoundary>
             <App />
-          </CookiesProvider>
-        </Router>
-      </Provider>
-    </ErrorBoundary>
+          </ErrorBoundary>
+        </CookiesProvider>
+      </Router>
+    </ReduxProvider>
   </HelmetProvider>
 );
 
-const root = document.getElementById('root') as HTMLDivElement;
+const root = document.getElementById('root') || document.createElement('div');
 
 ReactDOM.render(app, root);
 
 serviceWorker.register();
+
+export default app;

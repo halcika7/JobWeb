@@ -1,2 +1,2 @@
-export { AuthController } from './Auth';
-export { CountryController } from './Country';
+export * from './Auth';
+export * from './Country';

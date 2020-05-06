@@ -8,14 +8,24 @@
   "scripts": {
     "start": "yarn build && yarn serve",
     "serve": "node dist/server.js",
-    "watch": "nodemon src/server.ts",
-    "build": "tsc",
-    "create-db": "ts-node ./src/config/db-creation.ts",
-    "typeorm": "ts-node ./node_modules/typeorm/cli.js"
+    "watch": "nodemon --exec ts-node src/server.ts --watch src",
+    "build": "yarn build:types && yarn build:js",
+    "build:types": "tsc -p tsconfig.prod.json --emitDeclarationOnly",
+    "build:js": "babel src --out-dir dist --extensions \".ts\" --source-maps true",
+    "test": "NODE_ENV=test jest",
+    "test:coverage": "yarn test --collectCoverage --detectOpenHandles",
+    "create-db": "ts-node ./src/configs/db-creation.ts",
+    "drop-db": "ts-node ./src/configs/db-drop.ts"
   },
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.6",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-decorators": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "@babel/preset-typescript": "^7.9.0",
     "@types/bcryptjs": "^2.4.2",
-    "@types/chai": "^4.2.11",
     "@types/compression": "^1.7.0",
     "@types/connect-redis": "^0.0.13",
     "@types/cookie-parser": "^1.4.2",
@@ -41,19 +51,19 @@
     "@types/pug": "^2.0.4",
     "@types/rate-limit-redis": "^1.7.1",
     "@types/redis": "^2.8.18",
+    "@types/sinon": "^9.0.0",
     "@types/socket.io": "^2.1.4",
-    "@types/supertest": "^2.0.8",
     "@types/twilio": "^2.11.0",
     "@types/web-push": "^3.3.0",
     "acorn": "^7.1.1",
-    "chai": "^4.2.0",
+    "babel-plugin-parameter-decorator": "^1.0.16",
+    "babel-plugin-root-import": "^6.5.0",
     "concurrently": "^5.2.0",
     "eslint": "^6.8.0",
-    "jest": "^25.5.2",
+    "jest": "^25.5.4",
     "kind-of": "^6.0.3",
+    "mocha": "^7.1.2",
     "nodemon": "^2.0.3",
-    "supertest": "^4.0.2",
-    "ts-jest": "^25.4.0",
     "ts-node": "8.9.1",
     "tsconfig-paths": "^3.9.0",
     "typescript": "3.8.3"
@@ -101,5 +111,19 @@
     "typeorm": "^0.2.24",
     "web-push": "^3.4.3",
     "winston": "^3.2.1"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "verbose": true,
+    "moduleFileExtensions": [
+      "ts", "js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "collectCoverage": true,
+    "testMatch": [
+        "**/*.spec.ts"
+     ]
   }
 }

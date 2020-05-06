@@ -11,7 +11,6 @@ import {
 // validators
 import {
   IsEmail,
-  IsNotEmpty,
   IsPhoneNumber,
   IsString,
   IsUrl,
@@ -42,7 +41,6 @@ export class User extends BaseEntity {
   id!: number;
 
   @Column('varchar', { unique: true, nullable: false, length: 15 })
-  @IsNotEmpty({ message: 'Username is required' })
   @IsString({ message: 'Username must be a string' })
   @Validate(UniqueUsername)
   @MinLength(6, { message: 'Username must contain at least 6 characters' })
@@ -50,14 +48,12 @@ export class User extends BaseEntity {
   username!: string;
 
   @Column('varchar', { unique: true, nullable: false, length: 100 })
-  @IsNotEmpty({ message: 'Email is required' })
   @Validate(UniqueEmail)
   @MaxLength(100, { message: 'Email cannot exceed 100 characters' })
   @IsEmail({}, { message: 'Please provide valid email' })
   email!: string;
 
   @Column('varchar', { nullable: false })
-  @IsNotEmpty({ message: 'Passworrd is required' })
   @MinLength(6, { message: 'Password must contain at least 6 characters' })
   @MaxLength(15, { message: 'Password cannot exceed 15 characters' })
   @Matches(
@@ -71,27 +67,24 @@ export class User extends BaseEntity {
   password!: string;
 
   @Column('varchar', { nullable: false })
-  @IsNotEmpty({ message: 'Country is required' })
   @Validate(ValidateCountry)
   country!: string;
 
   @Column('varchar', { nullable: false })
-  @IsNotEmpty({ message: 'City is required' })
   @Validate(ValidateCity)
   city!: string;
 
   @Column('varchar', { nullable: false })
-  @IsNotEmpty({ message: 'Phone is required' })
   @IsPhoneNumber(null, { message: 'Please provide valid phone number' })
   phone!: string;
 
   @Column('varchar', { nullable: true })
   @ValidateIf(o => o.role === 2)
-  @IsNotEmpty({ message: 'Company name is required' })
+  @IsString({ message: 'Company  is required' })
   company!: string | null;
 
   @Column('varchar', { nullable: true })
-  @ValidateIf(o => o.website !== '')
+  @ValidateIf(o => o.website)
   @IsUrl({}, { message: 'Please provide valid website url.' })
   website!: string | null;
 

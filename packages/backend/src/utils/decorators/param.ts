@@ -45,9 +45,9 @@ export const Headers: (
 
 /** @Query('user') user: string */
 /** @Query() user: string */
-export function Query(property?: string): ParameterDecorator {
-  return createRouteParamDecorator(RouteParamtypes.QUERY)(property);
-}
+// export function Query(property?: string): ParameterDecorator {
+//   return createRouteParamDecorator(RouteParamtypes.QUERY)(property);
+// }
 
 /** @Body('role') role: string */
 /** @Body() body: string */
@@ -59,6 +59,6 @@ export function Body(property?: string): ParameterDecorator {
  * findOne(@Param() params: string[])
  * findOne(@Param('id') id: string)
  */
-export function Param(property?: string): ParameterDecorator {
-  return createRouteParamDecorator(RouteParamtypes.PARAM)(property);
-}
+// export function Param(property?: string): ParameterDecorator {
+//   return createRouteParamDecorator(RouteParamtypes.PARAM)(property);
+// }

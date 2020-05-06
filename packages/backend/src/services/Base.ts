@@ -4,19 +4,15 @@ import { Logger, LoggerFactory } from '@logger';
 
 // types
 import { BaseEntity } from 'typeorm';
-import { ResponseMessage, ResponseObject, RedirectResponse } from '@ctypes';
-import { Response } from 'express';
-import { Configuration } from '@env';
+import { ResponseMessage, ResponseObject } from '@ctypes';
 
 export class BaseService {
   private readonly _logger: Logger | undefined = undefined;
 
   constructor(ChildClass: any) {
-    if (!this._logger) {
-      this._logger = LoggerFactory.getLogger(ChildClass.name);
-    }
     if (!ChildClass.instance) {
       ChildClass.instance = this;
+      this._logger = LoggerFactory.getLogger(ChildClass.name);
     }
 
     return ChildClass.instance;
@@ -48,19 +44,6 @@ export class BaseService {
 
   protected returnResponseTokens<T>(data: T) {
     return { ...data };
-  }
-
-  protected redirectAfterLogin(
-    res: Response,
-    { accessToken, message, err }: RedirectResponse
-  ) {
-    if (err) {
-      return res.redirect(`${Configuration.appConfig.url}/login?err=${err}`);
-    }
-
-    return res.redirect(
-      `${Configuration.appConfig.url}/login?token=${accessToken}&message=${message}`
-    );
   }
 
   protected createModelInstance<

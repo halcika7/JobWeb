@@ -14,7 +14,7 @@ import { exchangeKeyForValue } from '@decorator/helpers/paramExchange';
 
 import { ROUTE_ARGS_METADATA } from '@decorator/constants/constants';
 
-type Controller = InstanceType<any>;
+import { Controller } from '@ctypes';
 
 type RouterLib = (options?: any) => any;
 

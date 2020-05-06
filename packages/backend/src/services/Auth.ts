@@ -20,9 +20,6 @@ import {
   isValidAccountType,
 } from '@ctypes';
 
-// decorators
-import { Injectable } from '@decorator/class';
-
 // exceptions
 import {
   BadRequestException,
@@ -31,14 +28,16 @@ import {
   checkIfObjectEmpty,
 } from '@job/common';
 
-@Injectable()
 export class AuthService extends BaseService {
   private readonly bcrypt = BcryptService;
 
   private readonly jwt = JWTService;
 
-  constructor(private readonly validation: ValidationService) {
+  private readonly validation: ValidationService;
+
+  constructor() {
     super(AuthService);
+    this.validation = new ValidationService();
   }
 
   async register({
@@ -54,9 +53,7 @@ export class AuthService extends BaseService {
 
     const errors = await this.validation.transformErrors(user, {});
 
-    if (!checkIfObjectEmpty(errors)) {
-      throw new BadRequestException({ errors });
-    }
+    if (!checkIfObjectEmpty(errors)) throw new BadRequestException({ errors });
 
     const { status, ...rest } = await this.validation.phoneEmail(user);
 

@@ -13,26 +13,23 @@ export type AlertType = 'success' | 'warning' | 'info' | 'error';
 interface SweetAlertProps {
   message: string;
   additionalMessage?: string;
-  type?: AlertType;
+  type: AlertType;
   successButton?: string;
   failedButton?: string;
-  withButtons?: boolean;
-  callBack?: () => void;
-  successCB?: () => void;
+  withButtons: boolean;
+  callBack: () => void;
 }
 
 const SweetAlert: FC<SweetAlertProps> = ({
   message,
   additionalMessage,
-  type = 'success',
+  type,
   successButton,
   failedButton,
-  withButtons = true,
+  withButtons,
   callBack,
 }): JSX.Element => {
-  const close = () => {
-    if (callBack) callBack();
-  };
+  const close = () => callBack();
 
   return (
     <Portal>

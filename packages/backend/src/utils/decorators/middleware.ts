@@ -1,7 +1,7 @@
 import {
   MiddlewareType,
   ErrorMiddlewareType,
-  WrapperFunction,
+  // WrapperFunction,
 } from './constants/types';
 
 // Middleware Decorator
@@ -38,6 +38,6 @@ export function ErrorMiddleware(
 }
 
 // Wrapper Decorator
-export function Wrapper(wrapperFunction: WrapperFunction) {
-  return middlewareHelper('routeWrapper', wrapperFunction);
-}
+// export function Wrapper(wrapperFunction: WrapperFunction) {
+//   return middlewareHelper('routeWrapper', wrapperFunction);
+// }

@@ -42,7 +42,7 @@ const touched: AuthTouched = {
   company: false,
 };
 
-const INITIAL_STATE: AuthState = {
+export const INITIAL_STATE: AuthState = {
   errors: values,
   values,
   touched,

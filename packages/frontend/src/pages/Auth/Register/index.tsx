@@ -11,7 +11,7 @@ import { Props, mapStateToProps, mapDispatchToProps } from './IRegister';
 // hooks
 import { useThunkDispatch } from '@store/AppThunkDispatch';
 import { useHistory } from 'react-router';
-import { useConnect } from '@hooks/useConnect';
+import { connect } from '@hooks/connect';
 
 // components
 import RegisterAccount from './RegisterAccount';
@@ -74,10 +74,12 @@ const Register: FC<Props> = ({
       if (
         status === HTTPCodes.BAD_REQUEST ||
         status === HTTPCodes.NOT_ACCEPTABLE ||
-        status === HTTPCodes.FORBIDDEN
+        status === HTTPCodes.FORBIDDEN ||
+        status === HTTPCodes.OK
       ) {
         setShowSweetAlert(true);
-      } else if (status === HTTPCodes.TOO_MANY_REQUESTS) {
+      }
+      if (status === HTTPCodes.TOO_MANY_REQUESTS) {
         setShowAlert(true);
       }
     }
@@ -103,7 +105,7 @@ const Register: FC<Props> = ({
         ]}
       />
 
-      <div className="container">
+      <div className="container" data-testid="register">
         <section className="registration">
           <h1>Create Your Account</h1>
 
@@ -113,7 +115,7 @@ const Register: FC<Props> = ({
               onClose={alertCallback}
               type="warning"
               autoDismiss
-              autoDismissTime={4000}
+              autoDismissTime={2000}
             />
           )}
 
@@ -142,5 +144,5 @@ const Register: FC<Props> = ({
 };
 
 export default React.memo(
-  useConnect(Register, mapStateToProps, mapDispatchToProps)
+  connect(Register, mapStateToProps, mapDispatchToProps)
 );

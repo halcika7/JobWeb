@@ -19,8 +19,7 @@ export class RedisService {
   }
 
   static getManyAsync(values: string[]): Promise<string[]> {
-    const promisses = values.map(value => this.getAsync(value));
-    return Promise.all(promisses);
+    return Promise.all(values.map(value => this.getAsync(value)));
   }
 
   static setex(key: string, duration: number, value: string): boolean {
