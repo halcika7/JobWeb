@@ -24,8 +24,6 @@ export function CountryReducer(
   action: CountryActionTypes
 ): CountryState {
   switch (action.type) {
-    case CountryActions.COUNTRY_START:
-      return { ...INITIAL_STATE };
     case CountryActions.COUNTRY_SUCCESS:
       return {
         ...INITIAL_STATE,

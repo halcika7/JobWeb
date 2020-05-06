@@ -60,7 +60,7 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "tsc -p tsconfig.prod.json && react-app-rewired build",
-    "test": "react-app-rewired test --verbose --detectOpenHandles --collectCoverage",
+    "test": "react-app-rewired test --verbose --coverage --watchAll=false",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

@@ -20,9 +20,7 @@ const Portal: FC<PortalProps> = ({ id = 'portal', children }) => {
     document.body.appendChild(current);
 
     return () => {
-      if (current.parentElement) {
-        current.parentElement.removeChild(current);
-      }
+      current.parentElement!.removeChild(current);
       document.body.classList.remove('no-scroll');
     };
   }, [id]);

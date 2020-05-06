@@ -8,6 +8,8 @@ import Login from '@pages/Auth/Login';
 import Breadcrumb from '@components/UI/breadcrumb';
 import LoginFormik from '@pages/Auth/Login/LoginFormik';
 import LoginSocial from '@pages/Auth/Login/LoginSocial';
+import sweetAlert from '@components/UI/sweetAlert';
+import Alert from '@components/UI/alert';
 import store from '@store/index';
 
 import { authFailed } from '@pages/Auth/store/actions';
@@ -47,10 +49,12 @@ describe('Testing Login Page', () => {
 
     component.update();
 
-    expect(component.find(LoginFormik).prop('status')).toBe(HTTPCodes.BAD_REQUEST);
+    expect(component.find(LoginFormik).prop('status')).toBe(
+      HTTPCodes.BAD_REQUEST
+    );
   });
 
-  test('should simulate autoclosing alert after limit', async (done) => {
+  test('should simulate autoclosing alert after limit', async done => {
     await act(async () => {
       store.dispatch(
         authFailed({
@@ -66,6 +70,61 @@ describe('Testing Login Page', () => {
           resolve(
             expect(component.find(LoginFormik).prop('status')).toBe(null)
           );
+          done();
+        }, 2100);
+      });
+    });
+  });
+
+  it('should close sweet alert', async done => {
+    await act(async () => {
+      store.dispatch(
+        authFailed({
+          status: HTTPCodes.BAD_REQUEST,
+          message: 'Invalid username',
+        })
+      );
+
+      setTimeout(() => {
+        component.update();
+        expect(component.find(sweetAlert).find('button').length).toBe(1);
+        component.find(sweetAlert).find('button').simulate('click');
+        done();
+      }, 100);
+    });
+  });
+
+  it('should close alert', async done => {
+    await act(async () => {
+      store.dispatch(
+        authFailed({
+          status: HTTPCodes.TOO_MANY_REQUESTS,
+          message: 'Invalid username',
+        })
+      );
+
+      setTimeout(() => {
+        component.update();
+        expect(component.find(Alert).find('button').length).toBe(1);
+        component.find(Alert).find('button').simulate('click');
+        done();
+      }, 100);
+    });
+  });
+
+  it('should close alert after 4s', async done => {
+    await act(async () => {
+      store.dispatch(
+        authFailed({
+          status: HTTPCodes.TOO_MANY_REQUESTS,
+          message: 'Invalid username',
+        })
+      );
+
+      await new Promise(resolve => {
+        setTimeout(() => {
+          component.update();
+          resolve(expect(component.find(Alert).find('button').length).toBe(0));
           done();
         }, 2100);
       });

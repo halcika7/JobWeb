@@ -1,7 +1,7 @@
 import {
   MiddlewareType,
   ErrorMiddlewareType,
-  WrapperFunction,
+  // WrapperFunction,
 } from './constants/types';
 
 // Middleware Decorator

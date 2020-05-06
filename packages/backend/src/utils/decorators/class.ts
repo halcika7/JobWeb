@@ -1,4 +1,4 @@
-import { RouterOptions } from 'express';
+// import { RouterOptions } from 'express';
 import { ClassKeys } from './constants/enums';
 
 export { injectable as Injectable } from 'tsyringe';

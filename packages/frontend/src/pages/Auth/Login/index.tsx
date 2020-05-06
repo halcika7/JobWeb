@@ -37,13 +37,13 @@ const Login: FC<Props> = ({
   };
 
   useEffect(() => {
-    if (
-      (status === HTTPCodes.BAD_REQUEST || status === HTTPCodes.FORBIDDEN) &&
-      message
-    ) {
-      setShowSweetAlert(true);
-    } else if (status === HTTPCodes.TOO_MANY_REQUESTS && message) {
-      setShowAlert(true);
+    if (message) {
+      if (status === HTTPCodes.BAD_REQUEST || status === HTTPCodes.FORBIDDEN) {
+        setShowSweetAlert(true);
+      }
+      if (status === HTTPCodes.TOO_MANY_REQUESTS) {
+        setShowAlert(true);
+      }
     }
   }, [status, message]);
 

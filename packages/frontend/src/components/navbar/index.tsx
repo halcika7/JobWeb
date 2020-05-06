@@ -52,7 +52,8 @@ const Navbar: FC = (): JSX.Element => {
     if (w.pageYOffset > 30 && !scrolled.current) {
       scrolled.current = true;
       setShowShadow(true);
-    } else if (w.pageYOffset <= 30 && scrolled.current) {
+    }
+    if (w.pageYOffset <= 30 && scrolled.current) {
       scrolled.current = false;
       setShowShadow(false);
     }
