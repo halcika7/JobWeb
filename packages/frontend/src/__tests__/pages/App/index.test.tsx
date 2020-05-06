@@ -1,16 +1,26 @@
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-// import App from '@pages/App';
+import React from 'react';
+import App from '@pages/App';
+import { BrowserRouter as Router } from 'react-router-dom';
+import ReduxProvider from '@store/provider';
+import { HelmetProvider } from 'react-helmet-async';
 
-describe('Testing App wrapper', () => {
-  it('shoulld render', () => {
-    expect(true).toBe(true);
+import { mount } from 'enzyme';
+import navbar from '@components/navbar';
+
+describe('Testing App component', () => {
+  it('should render', () => {
+    window.scroll = jest.fn();
+    const comp = mount(
+      <HelmetProvider>
+        <ReduxProvider>
+          <Router>
+            <App />
+          </Router>
+        </ReduxProvider>
+      </HelmetProvider>
+    );
+
+    expect(comp.find(navbar).length).toBe(1);
+    comp.unmount();
   });
-  // it('renders', () => {
-  //   const div = document.createElement('div');
-
-  //   ReactDOM.render(<App />, div);
-
-  //   ReactDOM.unmountComponentAtNode(div);
-  // });
 });

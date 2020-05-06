@@ -2,7 +2,7 @@
 import { AuthController } from '@controller/Auth';
 import { JWTService } from '@service/JWT';
 import { createConnection } from 'typeorm';
-import { shutdown } from '../utils';
+import { shutdown, makeString } from '../utils';
 import { mockResponse } from '../__mocks__/express';
 
 let contr: any = null;
@@ -96,6 +96,29 @@ describe('Testing Auth controller', () => {
         city: 'Please select valid city',
         phone: 'Please provide valid phone number',
       });
+    }
+  });
+
+  test('should pass register', async () => {
+    try {
+      const user = await contr.register(
+        {
+          userData: {
+            city: 'Zenica',
+            country: 'Bosnia and Herzegovina',
+            password: '@!Vv1234567890',
+            password2: '@!Vv1234567890',
+            phone: '+38761111111',
+            email: `${makeString(5)}@hotmail.com`,
+            username: `${makeString(12)}`,
+          },
+          accountType: 'user',
+        },
+        res
+      );
+      expect(user.status).toBeCalledWith(200);
+    } catch (error) {
+      expect(error.status).toBe(400);
     }
   });
 

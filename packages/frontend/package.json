@@ -9,7 +9,9 @@
     "@types/enzyme": "^3.10.5",
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/jest": "^24.9.0",
+    "@types/jsdom": "^16.2.1",
     "@types/jwt-decode": "^2.2.1",
+    "@types/moxios": "^0.4.9",
     "@types/node": "^13.13.4",
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.7",
@@ -23,6 +25,7 @@
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "enzyme-to-json": "^3.4.4",
+    "moxios": "^0.4.0",
     "redux-devtools": "^3.5.0"
   },
   "dependencies": {
@@ -57,9 +60,8 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "tsc -p tsconfig.prod.json && react-app-rewired build",
-    "test": "react-app-rewired test --verbose",
-    "eject": "react-scripts eject",
-    "test:coverage": "yarn test --collectCoverage --detectOpenHandles"
+    "test": "react-app-rewired test --verbose --detectOpenHandles --collectCoverage",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"

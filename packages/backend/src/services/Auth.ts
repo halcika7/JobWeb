@@ -53,9 +53,7 @@ export class AuthService extends BaseService {
 
     const errors = await this.validation.transformErrors(user, {});
 
-    if (!checkIfObjectEmpty(errors)) {
-      throw new BadRequestException({ errors });
-    }
+    if (!checkIfObjectEmpty(errors)) throw new BadRequestException({ errors });
 
     const { status, ...rest } = await this.validation.phoneEmail(user);
 

@@ -13,6 +13,7 @@ import { User } from '@model/User';
 import { validate, ValidatorOptions } from 'class-validator';
 
 import { HTTPCodes, checkIfObjectEmpty } from '@job/common';
+import { Configuration } from '@env';
 
 export class ValidationService extends BaseService {
   private readonly twilioService: TwilioService;
@@ -44,6 +45,9 @@ export class ValidationService extends BaseService {
   }
 
   async phoneEmail({ phone, email }: User): Promise<ValidationResponse> {
+    if (Configuration.appConfig.environment === 'test') {
+      return this.returnResponse(HTTPCodes.OK, { errors: {} });
+    }
     try {
       const [phoneResp, emailResp] = await Promise.all([
         this.twilioService.lookupNumber(phone),

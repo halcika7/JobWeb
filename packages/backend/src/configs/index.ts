@@ -79,7 +79,7 @@ export abstract class Configuration {
     cookie: {
       COOKIE_KEY: process.env.COOKIE_KEY as string,
       COOKIE_SECRET: process.env.COOKIE_SECRET as string,
-    },
+    } as CookieConfig,
     twilio: {
       secret: process.env.TWILIO_SID,
       key: process.env.TWILIO_AUTH_TOKEN,

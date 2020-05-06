@@ -10,11 +10,9 @@ export class BaseService {
   private readonly _logger: Logger | undefined = undefined;
 
   constructor(ChildClass: any) {
-    if (!this._logger) {
-      this._logger = LoggerFactory.getLogger(ChildClass.name);
-    }
     if (!ChildClass.instance) {
       ChildClass.instance = this;
+      this._logger = LoggerFactory.getLogger(ChildClass.name);
     }
 
     return ChildClass.instance;

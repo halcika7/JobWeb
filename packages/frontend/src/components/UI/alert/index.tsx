@@ -50,11 +50,9 @@ const Alert: FC<AlertProps> = ({
   return (
     <div className="alert-wrapper">
       <div className={!dismissing ? `alert ${type}` : `alert ${type} hiding`}>
-        {!autoDismiss && (
-          <button type="button" onClick={() => setDismissing(true)}>
-            <FaTimes />
-          </button>
-        )}
+        <button type="button" onClick={() => setDismissing(true)}>
+          <FaTimes />
+        </button>
         {message}
       </div>
     </div>

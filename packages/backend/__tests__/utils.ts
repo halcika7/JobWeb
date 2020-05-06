@@ -10,3 +10,15 @@ export async function shutdown() {
   // We wait until all threads have been run once to ensure the connection closes.
   await new Promise(resolve => setImmediate(resolve));
 }
+
+export function makeString(length: number): string {
+  const result = [];
+  const characters =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  for (let i = 0; i < length; i += 1) {
+    result.push(
+      characters.charAt(Math.floor(Math.random() * characters.length))
+    );
+  }
+  return result.join('');
+}

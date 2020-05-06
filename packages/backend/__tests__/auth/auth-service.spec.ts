@@ -1,7 +1,7 @@
 import { AuthService } from '@service/Auth';
 import { createConnection } from 'typeorm';
 
-import { shutdown } from '../utils';
+import { shutdown, makeString } from '../utils';
 import { LoginData, AccountType } from '@ctypes';
 
 const service = new AuthService();
@@ -31,6 +31,26 @@ describe('Testing auth service', () => {
     try {
       const type = 'ja' as AccountType;
       await service.register({ userData: {}, accountType: type });
+    } catch (error) {
+      expect(error.status).toBe(406);
+    }
+  });
+
+  test('should make new account', async () => {
+    try {
+      const user = await service.register({
+        userData: {
+          city: 'Zenica',
+          country: 'Bosnia and Herzegovina',
+          password: '@!Vv1234567890',
+          password2: '@!Vv1234567890',
+          phone: '+38761111111',
+          email: `${makeString(5)}@gmail.com`,
+          username: `${makeString(10)}`,
+        },
+        accountType: 'user',
+      });
+      expect(user.status).toBe(200);
     } catch (error) {
       expect(error.status).toBe(406);
     }

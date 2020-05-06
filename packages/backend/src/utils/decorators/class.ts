@@ -15,6 +15,6 @@ export function Controller(path: string): ClassDecorator {
   return classHelper(ClassKeys.BASE_PATH, `/${path}`);
 }
 
-export function ClassOptions(options: RouterOptions): ClassDecorator {
-  return classHelper(ClassKeys.OPTIONS, options);
-}
+// export function ClassOptions(options: RouterOptions): ClassDecorator {
+//   return classHelper(ClassKeys.OPTIONS, options);
+// }

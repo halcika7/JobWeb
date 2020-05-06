@@ -17,7 +17,7 @@ const RegisterAccount: FC<RegisterAccountProps> = ({
     <legend>Choose your Account Type</legend>
     <ul className="options">
       <li className={accountType === 'user' ? 'active' : ''}>
-        <button type="button" onClick={() => changeAccount('user')}>
+        <button type="button" className="user" onClick={() => changeAccount('user')}>
           <div className="wrap">
             <div className="icon">
               <FiUsers />
@@ -30,7 +30,7 @@ const RegisterAccount: FC<RegisterAccountProps> = ({
         </button>
       </li>
       <li className={accountType === 'company' ? 'active' : ''}>
-        <button type="button" onClick={() => changeAccount('company')}>
+        <button type="button" className="company" onClick={() => changeAccount('company')}>
           <div className="wrap">
             <div className="icon">
               <GiBriefcase />

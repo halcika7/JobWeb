@@ -5,13 +5,13 @@ import thunk from 'redux-thunk';
 import { rootReducer } from './RootReducer';
 
 // logger
-import { appLoggerMiddleware } from './logger';
+// import { appLoggerMiddleware } from './logger';
 
 const middlewares: Middleware[] = [thunk];
 
-if (process.env.NODE_ENV !== 'production') {
-  middlewares.push(appLoggerMiddleware);
-}
+// if (process.env.NODE_ENV !== 'production') {
+//   middlewares.push(appLoggerMiddleware);
+// }
 
 const store = createStore(
   rootReducer,

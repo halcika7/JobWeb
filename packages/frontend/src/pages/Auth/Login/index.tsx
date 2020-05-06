@@ -5,7 +5,7 @@ import { HTTPCodes } from '@job/common';
 import { mapDispatchToProps, mapStateToProps, Props } from './ILogin';
 
 // hooks
-import { useConnect } from '@hooks/useConnect';
+import { connect } from '@hooks/connect';
 
 // components
 import SweetAlert from '@components/UI/sweetAlert';
@@ -83,7 +83,7 @@ const Login: FC<Props> = ({
               onClose={alertCallback}
               type="warning"
               autoDismiss
-              autoDismissTime={4000}
+              autoDismissTime={2000}
             />
           )}
 
@@ -107,6 +107,4 @@ const Login: FC<Props> = ({
   );
 };
 
-export default React.memo(
-  useConnect(Login, mapStateToProps, mapDispatchToProps)
-);
+export default React.memo(connect(Login, mapStateToProps, mapDispatchToProps));

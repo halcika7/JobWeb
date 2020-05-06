@@ -28,8 +28,7 @@ export class CountryController extends BaseController {
       const countryCities = await this.redis.getAsync('countryCity');
 
       if (countryCities) {
-        const { countries, cities } = JSON.parse(countryCities);
-        return res.status(HTTPCodes.OK).json({ countries, cities });
+        return res.status(HTTPCodes.OK).json({ ...JSON.parse(countryCities) });
       }
 
       const allCountries: Country[] = await Country.find({
@@ -53,10 +52,7 @@ export class CountryController extends BaseController {
         JSON.stringify({ countries, cities })
       );
 
-      return res.status(HTTPCodes.OK).json({
-        countries: JSON.stringify(countries),
-        cities: JSON.stringify(cities),
-      });
+      return res.status(HTTPCodes.OK).json({ countries, cities });
     } catch (error) {
       this.logger.error(error, 'getCountries');
       return res.status(HTTPCodes.BAD_REQUEST).json({ error });

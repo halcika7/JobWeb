@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { BaseService } from '@service/Base';
 
 import { shutdown } from '../utils';
@@ -6,6 +7,10 @@ class Basic extends BaseService {
   constructor() {
     super(Basic);
   }
+
+  create = (model: any, values: any) => {
+    return this.createModelInstance(model, values);
+  };
 
   generic = () => {
     return this.returnGenericFailed(400);
@@ -22,6 +27,12 @@ class Basic extends BaseService {
   logg = () => {
     return this.logger;
   };
+}
+
+class Model {
+  public name: string | undefined;
+
+  public year: number | undefined;
 }
 
 const err = new Basic();
@@ -53,5 +64,16 @@ describe('Testing Base service', () => {
     err.logg();
 
     expect(true).toBe(true);
+  });
+
+  test('2 classes', () => {
+    const newClass = new Basic();
+
+    const model = newClass.create(new Model(), { name: 'Haris', year: 1995 });
+
+    expect(newClass).toEqual(err);
+    expect(newClass.logg).toEqual(err.logg);
+    expect(model.name).toBe('Haris');
+    expect(model.year).toEqual(1995);
   });
 });
