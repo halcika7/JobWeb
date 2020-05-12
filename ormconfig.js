@@ -40,22 +40,16 @@ module.exports = {
       : ['src/subscribers/**/*.ts'],
   cli: {
     entitiesDir:
-      MIGRATION === 'true'
+      MIGRATION === 'true' || NODE_ENV === 'production'
         ? 'packages/backend/dist/models'
-        : NODE_ENV === 'production'
-        ? 'dist/models'
-        : 'src/models',
+        : 'packages/backend/src/models',
     migrationsDir:
-      MIGRATION === 'true'
+      MIGRATION === 'true' || NODE_ENV === 'production'
         ? 'packages/backend/dist/migrations'
-        : NODE_ENV === 'production'
-        ? 'dist/migrations'
-        : 'src/migrations',
+        : 'packages/backend/src/migrations',
     subscribersDir:
-      MIGRATION === 'true'
+      MIGRATION === 'true' || NODE_ENV === 'production'
         ? 'packages/backend/dist/subscribers'
-        : NODE_ENV === 'production'
-        ? 'dist/subscribers'
-        : 'src/subscribers',
+        : 'packages/backend/src/subscribers',
   },
 };

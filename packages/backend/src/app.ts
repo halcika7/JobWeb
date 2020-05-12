@@ -16,7 +16,7 @@ import { resolve } from 'path';
 import compression from 'compression';
 import cookieparser from 'cookie-parser';
 import cors from 'cors';
-import csrf from 'csurf';
+// import csrf from 'csurf';
 import session from 'express-session';
 import connectRedis from 'connect-redis';
 import helmet from 'helmet';
@@ -42,7 +42,7 @@ class App extends Server {
     super();
 
     this.setAppMiddlewares();
-    this.setCsrf();
+    // this.setCsrf();
 
     connect();
 
@@ -64,7 +64,7 @@ class App extends Server {
         rolling: true,
         name: 'ses',
       }),
-      csrf({ cookie: false }),
+      // csrf({ cookie: false }),
       // initialize(),
       hpp(),
       helmet(),
@@ -76,12 +76,12 @@ class App extends Server {
     ]);
   }
 
-  private setCsrf() {
-    this.app.all('*', (req: Request, res: Response, next) => {
-      res.cookie('_csrf', req.csrfToken(), { sameSite: true });
-      return next();
-    });
-  }
+  // private setCsrf() {
+  //   this.app.all('*', (req: Request, res: Response, next) => {
+  //     res.cookie('_csrf', req.csrfToken(), { sameSite: true });
+  //     return next();
+  //   });
+  // }
 
   private setupControllers(): void {
     const controllerInstances: any[] = [];
