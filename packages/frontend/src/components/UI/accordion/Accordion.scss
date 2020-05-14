@@ -1,0 +1,55 @@
+.accordion-wrapper {
+  height: 100%;
+
+  .accordion {
+    height: 45px;
+    overflow: hidden;
+    transition: height 0.3s ease-in-out;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #fdfdfd;
+    }
+
+    .title {
+      padding: 0.64rem 1rem;
+      background: #41b8ed;
+      display: flex;
+      cursor: pointer;
+      color: #fdfdfd;
+      width: 100%;
+      outline: none;
+      border: none;
+
+      p {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+
+      svg {
+        margin-left: auto;
+        height: 24px;
+        width: 24px;
+
+        path {
+          fill: #fdfdfd;
+        }
+      }
+    }
+
+    .accordion-content {
+      padding: 1.5rem 1rem;
+    }
+  }
+}
+
+body.dark {
+  .accordion-wrapper {
+    .accordion {
+      .accordion-content {
+        color: #111;
+        background: #fdfdfd;
+      }
+    }
+  }
+}

@@ -13,7 +13,7 @@
     "build:types": "tsc -p tsconfig.prod.json --emitDeclarationOnly",
     "build:js": "babel src --out-dir dist --extensions \".ts\" --source-maps true",
     "test": "NODE_ENV=test jest",
-    "test:coverage": "yarn test --collectCoverage --detectOpenHandles",
+    "test:coverage": "yarn test --coverage --detectOpenHandles",
     "create-db": "ts-node ./src/configs/db-creation.ts",
     "drop-db": "ts-node ./src/configs/db-drop.ts"
   },
@@ -116,14 +116,29 @@
     "testEnvironment": "node",
     "verbose": true,
     "moduleFileExtensions": [
-      "ts", "js"
+      "ts",
+      "js"
     ],
     "testPathIgnorePatterns": [
       "/node_modules/"
     ],
     "collectCoverage": true,
     "testMatch": [
-        "**/*.spec.ts"
-     ]
+      "**/*.spec.ts"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{ts,js}",
+      "!src/migrations/**",
+      "!src/configs/db-connect.ts",
+      "!src/configs/db-creation.ts",
+      "!src/configs/db-drop.ts",
+      "!src/configs/server-config.ts",
+      "!src/services/NeverBounce.ts",
+      "!src/services/Twilio.ts",
+      "!src/utils/moduleAlias.ts",
+      "!src/middlewares/rateLimiter.ts",
+      "!src/app.ts",
+      "!src/server.ts"
+    ]
   }
 }

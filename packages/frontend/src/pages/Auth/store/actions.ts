@@ -120,7 +120,7 @@ export const refreshToken = async (dispatch: AppThunkDispatch) => {
     message: string;
     accessToken: string;
   }>('/auth/refresh');
-  
+
   if (data.accessToken) {
     const { role, token } = getTokenRole(data.accessToken);
 

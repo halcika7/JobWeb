@@ -3,7 +3,7 @@ import App from '@pages/App';
 import { BrowserRouter as Router } from 'react-router-dom';
 import ReduxProvider from '@store/provider';
 import { HelmetProvider } from 'react-helmet-async';
-import ErrorBoundary from '@components/ErrorBoundary/index';
+import ErrorBoundary from '@components/ErrorBoundary';
 import Nav from '@components/navbar';
 import Brand from '@components/navbar/Brand';
 
