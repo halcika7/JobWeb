@@ -1,73 +1,59 @@
 import React from 'react';
-import Contact from '@pages/Contact';
 import { mount } from 'enzyme';
 import { BrowserRouter } from 'react-router-dom';
 import ReduxProvider from '@store/provider';
 import { waitFor, render, fireEvent } from '@testing-library/react';
+
+import FAQ from '@pages/FAQ';
+import FaqFormik from '@pages/FAQ/FaqFormik';
 import store from '@store/index';
 import { contactMessageSuccess } from '@pages/Contact/store/actions';
 
-describe('Testing Contact component', () => {
-  it('should render', () => {
+describe('Testing Faq component', () => {
+  it('should render component', () => {
     const component = mount(
       <ReduxProvider>
         <BrowserRouter>
-          <Contact />
+          <FAQ />
         </BrowserRouter>
       </ReduxProvider>
     );
 
-    expect(component).toBeTruthy();
+    expect(component.find('h1').length).toBe(2);
+
     component.unmount();
   });
 
-  it('should simulate closing alert after success', async done => {
-    const component = mount(
+  it('should simulate closing alert', async done => {
+    const { container, rerender } = render(
       <ReduxProvider>
         <BrowserRouter>
-          <Contact />
+          <FAQ />
         </BrowserRouter>
       </ReduxProvider>
     );
 
-    store.dispatch(contactMessageSuccess('message', 201));
+    store.dispatch(contactMessageSuccess('message', 200));
 
-    component.update();
+    rerender(
+      <ReduxProvider>
+        <BrowserRouter>
+          <FAQ />
+        </BrowserRouter>
+      </ReduxProvider>
+    );
 
-    const button = component.find('button');
-
-    button.at(0).simulate('click');
+    const button = container.querySelector(
+      '.alert-wrapper button'
+    ) as HTMLButtonElement;
 
     await waitFor(() => {
-      setTimeout(() => {
-        expect(component.find('button').length).toBe(1);
-        component.unmount();
-        done();
-      }, 2000);
+      fireEvent.click(button);
     });
-  });
-
-  it('should simulate closing alert after failed', async done => {
-    const component = mount(
-      <ReduxProvider>
-        <BrowserRouter>
-          <Contact />
-        </BrowserRouter>
-      </ReduxProvider>
-    );
-
-    store.dispatch(contactMessageSuccess('message', 400));
-
-    component.update();
-
-    const button = component.find('button');
-
-    button.at(0).simulate('click');
 
     await waitFor(() => {
       setTimeout(() => {
-        expect(component.find('button').length).toBe(1);
-        component.unmount();
+        expect(container.querySelectorAll('.alert-wrapper').length).toBe(0);
         done();
       }, 2000);
     });
@@ -77,7 +63,7 @@ describe('Testing Contact component', () => {
     const { container } = render(
       <ReduxProvider>
         <BrowserRouter>
-          <Contact />
+          <FaqFormik disabled={false} status={null} />
         </BrowserRouter>
       </ReduxProvider>
     );
@@ -96,7 +82,7 @@ describe('Testing Contact component', () => {
     const { container, rerender } = render(
       <ReduxProvider>
         <BrowserRouter>
-          <Contact />
+          <FaqFormik disabled={false} status={null} />
         </BrowserRouter>
       </ReduxProvider>
     );
@@ -138,7 +124,7 @@ describe('Testing Contact component', () => {
 
       fireEvent.change(phone, {
         target: {
-          value: '+38761111111',
+          value: '',
         },
       });
 
@@ -159,11 +145,11 @@ describe('Testing Contact component', () => {
     rerender(
       <ReduxProvider>
         <BrowserRouter>
-          <Contact />
+          <FaqFormik disabled={false} status={200} />
         </BrowserRouter>
       </ReduxProvider>
     );
 
-    expect(container.querySelector('button')?.disabled).toBe(true);
+    expect(container.querySelector('button')?.disabled).toBe(false);
   });
 });

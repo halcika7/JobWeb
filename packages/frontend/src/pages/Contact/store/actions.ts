@@ -13,7 +13,7 @@ const contactMessageStart = (values: ContactMessage): ContactActionTypes => ({
   payload: { values },
 });
 
-const contactMessageSuccess = (
+export const contactMessageSuccess = (
   message: string,
   status: number
 ): ContactActionTypes => ({
@@ -21,7 +21,7 @@ const contactMessageSuccess = (
   payload: { message, status },
 });
 
-const contactMessageFailed = (obj: ContactFailed): ContactActionTypes => ({
+export const contactMessageFailed = (obj: ContactFailed): ContactActionTypes => ({
   type: ContactActions.CONTACT_MESSAGE_FAILED,
   payload: { ...obj },
 });

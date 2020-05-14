@@ -5,8 +5,7 @@ import { mount } from 'enzyme';
 import { BrowserRouter } from 'react-router-dom';
 
 interface CustomNodeJsGlobal extends NodeJS.Global {
-    dispatchEvent: (prop: Event) => void;
-    // You can declare anything you need.
+  dispatchEvent: (prop: Event) => void;
 }
 
 // Tell Typescript to use this type for the already existent global `global` variable.

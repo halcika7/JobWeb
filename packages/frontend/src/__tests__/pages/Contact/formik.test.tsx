@@ -1,102 +1,63 @@
 import React from 'react';
-import Contact from '@pages/Contact';
-import { mount } from 'enzyme';
 import { BrowserRouter } from 'react-router-dom';
 import ReduxProvider from '@store/provider';
 import { waitFor, render, fireEvent } from '@testing-library/react';
-import store from '@store/index';
-import { contactMessageSuccess } from '@pages/Contact/store/actions';
 
-describe('Testing Contact component', () => {
-  it('should render', () => {
-    const component = mount(
-      <ReduxProvider>
-        <BrowserRouter>
-          <Contact />
-        </BrowserRouter>
-      </ReduxProvider>
-    );
+import ContactFormik from '@pages/Contact/ContactFormik';
 
-    expect(component).toBeTruthy();
-    component.unmount();
-  });
+const values = {
+  disabled: false,
+  status: null,
+  postNewMessage: jest.fn(),
+  errors: { name: '', subject: '', message: '', phone: '', email: '' },
+  values: { name: '', subject: '', message: '', phone: '', email: '' },
+  touched: {
+    name: false,
+    subject: false,
+    message: false,
+    phone: false,
+    email: false,
+  },
+};
 
-  it('should simulate closing alert after success', async done => {
-    const component = mount(
-      <ReduxProvider>
-        <BrowserRouter>
-          <Contact />
-        </BrowserRouter>
-      </ReduxProvider>
-    );
-
-    store.dispatch(contactMessageSuccess('message', 201));
-
-    component.update();
-
-    const button = component.find('button');
-
-    button.at(0).simulate('click');
-
-    await waitFor(() => {
-      setTimeout(() => {
-        expect(component.find('button').length).toBe(1);
-        component.unmount();
-        done();
-      }, 2000);
-    });
-  });
-
-  it('should simulate closing alert after failed', async done => {
-    const component = mount(
-      <ReduxProvider>
-        <BrowserRouter>
-          <Contact />
-        </BrowserRouter>
-      </ReduxProvider>
-    );
-
-    store.dispatch(contactMessageSuccess('message', 400));
-
-    component.update();
-
-    const button = component.find('button');
-
-    button.at(0).simulate('click');
-
-    await waitFor(() => {
-      setTimeout(() => {
-        expect(component.find('button').length).toBe(1);
-        component.unmount();
-        done();
-      }, 2000);
-    });
-  });
-
-  it('should render 4 errors', async () => {
+describe('Testing Faq component', () => {
+  it('should render 5 errors', async () => {
     const { container } = render(
       <ReduxProvider>
         <BrowserRouter>
-          <Contact />
+          <ContactFormik {...values} />
         </BrowserRouter>
       </ReduxProvider>
     );
+
+    const phone = container.querySelector(
+      'input[name="phone"]'
+    ) as HTMLInputElement;
+
     const submit = container.querySelector(
       'button[type="submit"]'
     ) as HTMLButtonElement;
 
     await waitFor(() => {
+      fireEvent.change(phone, {
+        target: {
+          value: '+1 321',
+        },
+      });
+    });
+
+    await waitFor(() => {
       fireEvent.click(submit);
     });
 
-    expect(container.querySelectorAll('.error').length).toBe(4);
+    expect(container.querySelectorAll('.error').length).toBe(5);
   });
 
-  it('should render 4 errors', async () => {
+  it('should render 0 errors', async () => {
     const { container, rerender } = render(
       <ReduxProvider>
         <BrowserRouter>
-          <Contact />
+          <ContactFormik {...values} />
         </BrowserRouter>
       </ReduxProvider>
     );
@@ -138,7 +99,7 @@ describe('Testing Contact component', () => {
 
       fireEvent.change(phone, {
         target: {
-          value: '+38761111111',
+          value: '',
         },
       });
 
@@ -159,11 +120,11 @@ describe('Testing Contact component', () => {
     rerender(
       <ReduxProvider>
         <BrowserRouter>
-          <Contact />
+          <ContactFormik {...values} status={201} />
         </BrowserRouter>
       </ReduxProvider>
     );
 
-    expect(container.querySelector('button')?.disabled).toBe(true);
+    expect(container.querySelector('button')?.disabled).toBe(false);
   });
 });

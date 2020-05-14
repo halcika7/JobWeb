@@ -1,9 +1,11 @@
+import store from '@store/index';
 import {
   authStart,
   authFailed,
   authReset,
   getTokenRole,
   resetMessage,
+  loginSuccess,
 } from '@pages/Auth/store/actions';
 import { AuthReducer, INITIAL_STATE } from '@pages/Auth/store/reducer';
 import { AuthActions } from '@pages/Auth/store/types';
@@ -76,6 +78,8 @@ describe('Auth actions testing', () => {
 
   it('get role', () => {
     const { role } = getTokenRole(process.env.REACT_APP_TEST_TOKEN as string);
+
+    store.dispatch(loginSuccess(true, role, process.env.REACT_APP_TEST_TOKEN as string));
 
     expect(role).toEqual({ id: 1, type: 'user' });
   });
