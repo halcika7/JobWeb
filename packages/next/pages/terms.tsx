@@ -1,9 +1,10 @@
 import React from 'react';
 import Layout from '@components/Layout';
+import Terms from '@containers/Terms';
 
-import lazy from '@lazy';
+// import lazy from '@lazy';
 
-const Terms = lazy('containers/Terms');
+// const Terms = lazy('containers/Terms');
 
 export default function TermsPage() {
   return (

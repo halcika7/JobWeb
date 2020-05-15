@@ -1,8 +1,10 @@
 import React from 'react';
 import Layout from '@components/Layout';
-import lazy from '@lazy';
+import Login from '@containers/Auth/Login';
 
-const Login = lazy('containers/Auth/Login');
+// import lazy from '@lazy';
+
+// const Login = lazy('containers/Auth/Login');
 
 export default function LoginPage() {
   return (
