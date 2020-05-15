@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ReactComponent as Plus } from '../../../public/assets/svgs/plus.svg';
+import { ReactComponent as Plus } from '@svgs/plus.svg';
 
 const AboutNumbers = (): JSX.Element => (
   <section className="about-numbers grid-numbers">

@@ -14,11 +14,11 @@
             "rootPathPrefix": "@components/"
           },
           {
-            "rootPathSuffix": "./public/assets/images",
+            "rootPathSuffix": "./public/static/assets/images",
             "rootPathPrefix": "@images/"
           },
           {
-            "rootPathSuffix": "./public/assets/svgs",
+            "rootPathSuffix": "./public/static/assets/svgs",
             "rootPathPrefix": "@svgs/"
           },
           {

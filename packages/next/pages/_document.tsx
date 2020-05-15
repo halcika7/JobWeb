@@ -9,7 +9,7 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html lang="en">
         <Head>
           <meta charSet="utf-8" />
           <link rel="icon" href="/favicon.ico" />
@@ -29,10 +29,10 @@ class MyDocument extends Document {
           <link rel="preconnect" href="http://localhost:5000" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link rel="preconnect" href="https://storage.googleapis.com" />
-          <title>React Starter App</title>
           <link rel="manifest" href="/manifest.json" />
         </Head>
         <body>
+          <noscript>You need to enable JavaScript to run this app.</noscript>
           <Main />
           <NextScript />
         </body>

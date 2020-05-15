@@ -4,7 +4,7 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "lerna run build",
+    "build": "lerna run build --scope={@job/backend,@job/frontend,@job/fr,@job/common}",
     "server": "yarn --cwd packages/backend watch",
     "server-prod": "yarn --cwd packages/backend start",
     "frontend": "yarn --cwd packages/frontend start",
@@ -14,7 +14,7 @@
     "dev:next": "concurrently \"yarn server\" \"yarn frontend:next\"",
     "prod": "concurrently \"yarn server-prod\" \"yarn frontend-prod\"",
     "lint": "eslint --fix frontend/src/**/*.{ts,tsx} backend/src/**/*.ts",
-    "typeorm": "ts-node ./node_modules/typeorm/cli.js",
+    "typeorm": "node ./node_modules/typeorm/cli.js",
     "typeorm:test": "NODE_ENV=test yarn typeorm",
     "typeorm:dev": "NODE_ENV=dev yarn typeorm",
     "migrate": "yarn typeorm:test migration:run && yarn typeorm:dev migration:run"

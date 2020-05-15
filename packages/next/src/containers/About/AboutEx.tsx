@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ReactComponent as Check } from '../../../public/assets/svgs/check.svg';
+import { ReactComponent as Check } from '@svgs/check.svg';
 
 const AboutEx = (): JSX.Element => (
   <section className="about-ex">

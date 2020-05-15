@@ -1,14 +1,13 @@
 {
-  "name": "@next/fr",
+  "name": "@job/fr",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next",
-    "build": "tsc -p tsconfig.prod.json && next build",
+    "build": "tsc -p tsconfig.prod.json && next build && next export",
     "start": "next start",
     "test": "NODE_ENV=test jest --env=jest-environment-jsdom-sixteen --verbose --collectCoverage",
-    "test:coverage": "yarn test --coverage --watchAll=false",
-    "export": "cross-env NEXT_EXPORT=true next build && cross-env NEXT_EXPORT=true next export"
+    "test:coverage": "yarn test --coverage --watchAll=false"
   },
   "dependencies": {
     "@job/common": "1.0.0",
@@ -65,13 +64,13 @@
     "babel-jest": "^26.0.1",
     "babel-plugin-inline-react-svg": "^1.1.1",
     "babel-plugin-root-import": "^6.5.0",
-    "cross-env": "^7.0.2",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "enzyme-to-json": "^3.4.4",
     "moxios": "^0.4.0",
     "nprogress": "^0.2.0",
-    "redux-devtools": "^3.5.0"
+    "redux-devtools": "^3.5.0",
+    "typescript": "^3.9.2"
   },
   "jest": {
     "collectCoverageFrom": [

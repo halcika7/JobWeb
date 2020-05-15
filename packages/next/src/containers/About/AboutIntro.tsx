@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Img from '@images/about.png';
+
 const AboutIntro = (): JSX.Element => (
   <section className="intro row">
     <div className="col-12 col-md-6">
@@ -12,7 +14,7 @@ const AboutIntro = (): JSX.Element => (
         and Bill Gates. We can look a bit further back in time to Albert
         Einstein or even further back to Abraham Lincoln.
       </p>
-      <img src="assets/images/about.png" alt="about" />
+      <img src={Img} alt="about" />
     </div>
   </section>
 );
