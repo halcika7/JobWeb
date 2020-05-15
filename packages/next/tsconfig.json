@@ -1,0 +1,31 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "useDefineForClassFields": true,
+    "isolatedModules": true,
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@images/*": ["public/assets/images/*"],
+      "@svgs/*": ["public/assets/svgs/*"],
+      "@containers/*": ["src/containers/*"],
+      "@routes": ["src/routes/index"],
+      "@store/*": ["src/store/*"],
+      "@country/*": ["src/util/country/*"],
+      "@hooks/*": ["src/util/hooks/*"],
+      "@shared/*": ["src/util/shared/*"],
+      "@axios": ["src/util/axios"],
+      "@lazy": ["src/util/lazy"]
+    },
+    "allowJs": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "jsx": "preserve",
+    "noEmit": true,
+    "resolveJsonModule": true
+  },
+  "exclude": ["node_modules"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "__tests__/**/*"]
+}

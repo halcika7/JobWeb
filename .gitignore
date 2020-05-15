@@ -10,3 +10,4 @@ packages/backend/logs
 **/.nyc_output
 
 **/next/.next
+**/next/out
