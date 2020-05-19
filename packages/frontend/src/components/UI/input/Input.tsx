@@ -1,6 +1,14 @@
 import React, { FC } from 'react';
 import PhoneInputWrapper from 'react-phone-number-input/input';
 
+import {
+  ErrorDiv,
+  FormGroup,
+  InputLabel,
+  InputWrapper,
+  LabelSpan,
+} from './styled';
+
 export interface Input {
   classNames: string;
   name: string;
@@ -35,12 +43,12 @@ const InputElement: FC<InputProps> = ({
   autoComplete = 'on',
   autoCorrect = 'off',
 }): JSX.Element => (
-  <div className={error && touched ? `${classNames} with-error` : classNames}>
-    <label htmlFor={name}>
+  <FormGroup error={!!error && touched} className={classNames}>
+    <InputLabel htmlFor={name}>
       {label}
-      {required && <span> *</span>}
+      {required && <LabelSpan> *</LabelSpan>}
       {type !== 'tel' ? (
-        <input
+        <InputWrapper
           type={type}
           id={name}
           name={name}
@@ -52,7 +60,8 @@ const InputElement: FC<InputProps> = ({
           autoCorrect={autoCorrect}
         />
       ) : (
-        <PhoneInputWrapper
+        <InputWrapper
+          as={PhoneInputWrapper}
           value={value}
           onChange={(val: string) => {
             const ev = {
@@ -65,9 +74,9 @@ const InputElement: FC<InputProps> = ({
           onBlur={onBlur}
         />
       )}
-    </label>
-    {error && touched && <div className="error">{error}</div>}
-  </div>
+    </InputLabel>
+    {error && touched && <ErrorDiv>{error}</ErrorDiv>}
+  </FormGroup>
 );
 
 export default React.memo(InputElement);

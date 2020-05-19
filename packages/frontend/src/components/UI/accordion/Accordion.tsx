@@ -5,9 +5,12 @@ import React, {
   useRef,
   useState,
   useCallback,
+  memo,
 } from 'react';
 import { ReactComponent as Minus } from '@svgs/minus.svg';
 import { ReactComponent as Plus } from '@svgs/plus.svg';
+
+import { AccordionElement, Button, Content, Paragraph } from './styled';
 
 export type IAccordion = {
   title: string;
@@ -18,17 +21,18 @@ export type IAccordion = {
 export interface AccordionProps {
   title: string;
   content: string;
+  margin?: string;
   defaultOpen?: boolean;
   currentActive: Ref<HTMLDivElement>;
   setCurrentActive: (value: Ref<HTMLDivElement>) => void;
 }
 
 const accHeight = 45;
-let loaded = false;
 
 const Accordion: FC<AccordionProps> = ({
   title,
   content,
+  margin,
   defaultOpen,
   currentActive,
   setCurrentActive,
@@ -36,6 +40,7 @@ const Accordion: FC<AccordionProps> = ({
   const contentRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState<number>(accHeight);
   const [active, setActive] = useState<boolean>(false);
+  const [loaded, setLoaded] = useState<boolean>(false);
 
   const openAccordion = useCallback(
     (clientHeight: number) => {
@@ -46,7 +51,7 @@ const Accordion: FC<AccordionProps> = ({
     [height, setCurrentActive]
   );
 
-  const toggleAccordion = () => {
+  const toggleAccordion = useCallback(() => {
     const clientHeight = contentRef.current?.clientHeight || 0;
     if (height > accHeight) {
       setHeight(height - clientHeight);
@@ -55,23 +60,21 @@ const Accordion: FC<AccordionProps> = ({
     } else {
       openAccordion(clientHeight);
     }
-  };
+  }, [height, openAccordion, setCurrentActive]);
 
   useEffect(() => {
-    if (!active && !loaded && defaultOpen) {
-      const clientHeight = contentRef.current?.clientHeight || 0;
-      openAccordion(clientHeight);
+    if (defaultOpen && !loaded) {
+      toggleAccordion();
     }
-  }, [defaultOpen, active, openAccordion]);
+    setLoaded(true);
+  }, [defaultOpen, loaded, toggleAccordion]);
 
   useEffect(() => {
     if (currentActive !== contentRef && loaded) {
       setHeight(accHeight);
       setActive(false);
-    } else {
-      loaded = true;
     }
-  }, [currentActive]);
+  }, [currentActive, loaded]);
 
   useEffect(() => {
     const windowResized = () => {
@@ -87,19 +90,14 @@ const Accordion: FC<AccordionProps> = ({
   });
 
   return (
-    <section
-      className={active ? 'accordion active' : 'accordion'}
-      style={{ height: `${height}px` }}
-    >
-      <button className="title" type="button" onClick={toggleAccordion}>
-        <p>{title}</p>
+    <AccordionElement style={{ height: `${height}px` }} margin={margin}>
+      <Button type="button" onClick={toggleAccordion}>
+        <Paragraph>{title}</Paragraph>
         {!active ? <Plus /> : <Minus />}
-      </button>
-      <div className="accordion-content" ref={contentRef}>
-        {content}
-      </div>
-    </section>
+      </Button>
+      <Content ref={contentRef}>{content}</Content>
+    </AccordionElement>
   );
 };
 
-export default React.memo(Accordion);
+export default memo(Accordion);

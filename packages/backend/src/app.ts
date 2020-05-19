@@ -9,9 +9,9 @@ import {
   NextFunction,
   urlencoded,
   json,
-  static as expressStatic,
+  // static as expressStatic,
 } from 'express';
-import { resolve } from 'path';
+// import { resolve } from 'path';
 
 import compression from 'compression';
 import cookieparser from 'cookie-parser';
@@ -98,21 +98,19 @@ class App extends Server {
 
   public start(): void {
     // Serve static assets in production
-    if (this.env === 'production') {
-      // Set static folder
-      this.app.use(expressStatic(resolve(__dirname, '../../frontend/build')));
+    // if (this.env === 'production') {
+    //   // Set static folder
+    //   this.app.use(expressStatic(resolve(__dirname, '../../frontend/build')));
 
-      this.app.get('*', (_, res) => {
-        res.sendFile(resolve(__dirname, '../../frontend/build', 'index.html'));
-      });
-    }
+    //   this.app.get('*', (_, res) => {
+    //     res.sendFile(resolve(__dirname, '../../frontend/build', 'index.html'));
+    //   });
+    // }
 
     // eslint-disable-next-line max-params
     this.app.use(
       (err: Error | any, __: Request, res: Response, _: NextFunction) => {
-        console.log('err', typeof err);
         if (err.code !== 'EBADCSRFTOKEN') return _(err);
-        console.log('err', err);
 
         return res.status(403).json({
           message:

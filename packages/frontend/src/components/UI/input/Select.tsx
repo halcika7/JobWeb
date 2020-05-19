@@ -4,6 +4,8 @@ import { Select } from '@country/types';
 
 import SelectWrapper from 'react-select';
 
+import { ErrorDiv, FormGroup, InputLabel, LabelSpan } from './styled';
+
 export interface InterfaceSelect {
   classNames: string;
   name: string;
@@ -38,10 +40,10 @@ const SelectInput: FC<SelectProps> = ({
   const [localVal, setLocalVal] = useState<Select>({ value: '', label: '' });
 
   return (
-    <div className={error && touched ? `${classNames} with-error` : classNames}>
-      <label htmlFor={name}>
+    <FormGroup error={!!error && touched} className={classNames}>
+      <InputLabel htmlFor={name}>
         {label}
-        {required && <span> *</span>}
+        {required && <LabelSpan> *</LabelSpan>}
         <SelectWrapper
           value={value ? localVal : defValue}
           defaultInputValue={value}
@@ -53,7 +55,7 @@ const SelectInput: FC<SelectProps> = ({
           onBlur={onBlur}
           onFocus={onTouch}
           tabSelectsValue
-          onChange={option => {
+          onChange={(option: any) => {
             const { value: thisValue, label: thisLabel } = option as Select;
             setLocalVal({ value: thisValue, label: thisLabel });
             setFieldValue(name, thisValue);
@@ -62,9 +64,9 @@ const SelectInput: FC<SelectProps> = ({
             }
           }}
         />
-      </label>
-      {error && touched && <div className="error">{error}</div>}
-    </div>
+      </InputLabel>
+      {error && touched && <ErrorDiv>{error}</ErrorDiv>}
+    </FormGroup>
   );
 };
 

@@ -6,8 +6,8 @@
   "license": "MIT",
   "private": true,
   "devDependencies": {
-    "@types/node": "^13.13.4",
-    "typescript": "^3.8.3"
+    "@types/node": "^14.0.1",
+    "typescript": "^3.9.2"
   },
   "scripts": {
     "build": "tsc",

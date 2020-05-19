@@ -8,5 +8,5 @@ packages/backend/logs
 **/coverage
 **/.nyc_output
 
-**/next/.next
-**/next/out
+**/frontend/.next
+**/frontend/out

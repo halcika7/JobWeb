@@ -1,14 +1,19 @@
 import React, { FC } from 'react';
-
-import './icons.scss';
+import {
+  SuccessIcon as Success,
+  SpanLong,
+  SpanTip,
+  Ring,
+  Corners,
+} from './styled';
 
 const SuccessIcon: FC = (): JSX.Element => (
-  <div className="alert-icon alert-icon-success">
-    <span className="long" />
-    <span className="tip" />
-    <div className="ring" />
-    <div className="corners" />
-  </div>
+  <Success>
+    <SpanLong />
+    <SpanTip />
+    <Ring />
+    <Corners />
+  </Success>
 );
 
 export default React.memo(SuccessIcon);

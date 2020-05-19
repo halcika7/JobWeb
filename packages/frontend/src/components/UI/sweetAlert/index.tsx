@@ -6,7 +6,7 @@ import InfoIcon from './icons/infoIcon';
 import SuccessIcon from './icons/successIcon';
 import WarningIcon from './icons/warningIcon';
 
-import styles from './sweetAlert.module.scss';
+import { SweetAlertWrapper, Backdrop, Alert, Buttons, Button } from './styled';
 
 export type AlertType = 'success' | 'warning' | 'info' | 'error';
 
@@ -33,9 +33,9 @@ const SweetAlert: FC<SweetAlertProps> = ({
 
   return (
     <Portal>
-      <div className={styles.sweet_alert_wrapper}>
-        <div className={styles.backdrop} onClick={close} />
-        <div className={styles.sweet_alert}>
+      <SweetAlertWrapper>
+        <Backdrop onClick={close} />
+        <Alert>
           {type === 'success' && <SuccessIcon />}
           {type === 'warning' && <WarningIcon />}
           {type === 'info' && <InfoIcon />}
@@ -43,25 +43,21 @@ const SweetAlert: FC<SweetAlertProps> = ({
           <p>{message}</p>
           {additionalMessage && <p>{additionalMessage}</p>}
           {withButtons && (
-            <div className={styles.buttons}>
+            <Buttons>
               {failedButton && type === 'error' && (
-                <button type="button" onClick={close}>
+                <Button type="button" onClick={close}>
                   {failedButton}
-                </button>
+                </Button>
               )}
               {successButton && type === 'success' && (
-                <button
-                  type="button"
-                  className={styles.success}
-                  onClick={close}
-                >
+                <Button type="button" onClick={close} success>
                   {successButton}
-                </button>
+                </Button>
               )}
-            </div>
+            </Buttons>
           )}
-        </div>
-      </div>
+        </Alert>
+      </SweetAlertWrapper>
     </Portal>
   );
 };

@@ -1,8 +1,7 @@
 export class SessionStorage {
-  static readonly tokenSecret = process.env.REACT_APP_TOKEN_SECRET as string;
+  static readonly tokenSecret = process.env.TOKEN_SECRET as string;
 
-  static readonly tokenSecretValue = process.env
-    .REACT_APP_TOKEN_SECRET_VALUE as string;
+  static readonly tokenSecretValue = process.env.TOKEN_SECRET_VALUE as string;
 
   static setValue(key: string, value: any): void {
     sessionStorage.setItem(key, JSON.stringify(value));

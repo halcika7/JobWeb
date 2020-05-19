@@ -4,7 +4,7 @@ import { AlertType } from '../sweetAlert';
 
 import { FaTimes } from 'react-icons/fa';
 
-import './alert.scss';
+import { Wrapper, AlertElement, Button } from './styled';
 
 interface AlertProps {
   message: string;
@@ -48,14 +48,14 @@ const Alert: FC<AlertProps> = ({
   }, [dismissing, onClose]);
 
   return (
-    <div className="alert-wrapper">
-      <div className={!dismissing ? `alert ${type}` : `alert ${type} hiding`}>
-        <button type="button" onClick={() => setDismissing(true)}>
+    <Wrapper>
+      <AlertElement type={type} hiding={dismissing}>
+        <Button type="button" onClick={() => setDismissing(true)}>
           <FaTimes />
-        </button>
+        </Button>
         {message}
-      </div>
-    </div>
+      </AlertElement>
+    </Wrapper>
   );
 };
 

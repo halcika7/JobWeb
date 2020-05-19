@@ -4,16 +4,14 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "lerna run build --scope={@job/backend,@job/frontend,@job/fr,@job/common}",
+    "build": "lerna run build --scope={@job/backend,@job/frontend,@job/common}",
     "server": "yarn --cwd packages/backend watch",
     "server-prod": "yarn --cwd packages/backend start",
-    "frontend": "yarn --cwd packages/frontend start",
-    "frontend:next": "yarn --cwd packages/next dev",
+    "frontend": "yarn --cwd packages/frontend dev",
     "frontend-prod": "yarn --cwd packages/frontend build",
     "dev": "concurrently \"yarn server\" \"yarn frontend\"",
-    "dev:next": "concurrently \"yarn server\" \"yarn frontend:next\"",
     "prod": "concurrently \"yarn server-prod\" \"yarn frontend-prod\"",
-    "lint": "eslint --fix frontend/src/**/*.{ts,tsx} backend/src/**/*.ts",
+    "lint": "eslint --fix packages/frontend/**/*.{ts,tsx} packages/backend/src/**/*.ts",
     "typeorm": "node ./node_modules/typeorm/cli.js",
     "typeorm:test": "NODE_ENV=test yarn typeorm",
     "typeorm:dev": "NODE_ENV=dev yarn typeorm",
@@ -24,21 +22,20 @@
     "dotenv": "^8.2.0"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^2.30.0",
-    "@typescript-eslint/parser": "^2.30.0",
-    "eslint": "^6.8.0",
+    "@typescript-eslint/eslint-plugin": "^2.34.0",
+    "@typescript-eslint/parser": "^2.34.0",
+    "eslint": "^7.0.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-flowtype": "^4.7.0",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.3",
-    "eslint-plugin-react": "^7.19.0",
-    "eslint-plugin-react-hooks": "^3.0.0",
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react-hooks": "^4.0.2",
     "eslint-plugin-security": "^1.4.0",
-    "lerna": "^3.20.2",
+    "lerna": "^3.21.0",
     "prettier": "^2.0.5",
-    "typescript": "^3.8.3"
+    "typescript": "^3.9.2"
   },
   "name": "job-listing"
 }

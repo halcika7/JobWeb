@@ -6,13 +6,15 @@ import {
   FaTwitter,
 } from 'react-icons/fa';
 
+import { BottomContainer, Links } from './styled';
+
 const BottomFooter = (): JSX.Element => (
-  <div className="bottom">
+  <BottomContainer>
     <p>
       © 2020 - {new Date().getFullYear().toString().slice(2)} Djina Ba Sopo. All
       Rights Reserved.
     </p>
-    <div className="links">
+    <Links>
       <a href="/" aria-label="facebook link">
         <FaFacebookF />
       </a>
@@ -25,8 +27,8 @@ const BottomFooter = (): JSX.Element => (
       <a href="/" aria-label="instagram link">
         <FaInstagram />
       </a>
-    </div>
-  </div>
+    </Links>
+  </BottomContainer>
 );
 
 export default BottomFooter;
