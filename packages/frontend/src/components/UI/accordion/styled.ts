@@ -15,10 +15,6 @@ export const AccordionElement = styled.section<{ margin?: string }>`
     css`
       margin: ${props.margin};
     `}
-
-  &:not(:last-child) {
-    border-bottom: 1px solid #fdfdfd;
-  }
 `;
 
 export const Button = styled(Base)`

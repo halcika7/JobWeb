@@ -3,6 +3,7 @@ import { mount } from 'enzyme';
 import Select from '@components/UI/input/Select';
 import SelectWrapper from 'react-select';
 import { act } from 'react-dom/test-utils';
+import ThemeProvider from '@styled/Providers';
 
 describe('Testing input', () => {
   let value = '';
@@ -14,18 +15,20 @@ describe('Testing input', () => {
 
   it('should render input', done => {
     const component = mount(
-      <Select
-        classNames="input"
-        error="some error"
-        label="input"
-        name="phone"
-        onBlur={onBlur}
-        onTouch={onTouch}
-        touched
-        value={value}
-        options={[{ label: 'option1', value: 'option1' }]}
-        setFieldValue={onChange}
-      />
+      <ThemeProvider>
+        <Select
+          classNames="input"
+          error="some error"
+          label="input"
+          name="phone"
+          onBlur={onBlur}
+          onTouch={onTouch}
+          touched
+          value={value}
+          options={[{ label: 'option1', value: 'option1' }]}
+          setFieldValue={onChange}
+        />
+      </ThemeProvider>
     );
 
     act(() => {
@@ -45,24 +48,26 @@ describe('Testing input', () => {
 
   it('should render input', done => {
     const component = mount(
-      <Select
-        classNames="input"
-        error="some error"
-        label="input"
-        name="country"
-        onBlur={onBlur}
-        onTouch={onTouch}
-        touched
-        value={value}
-        options={[
-          { label: 'option1', value: 'option1' },
-          {
-            label: '2',
-            value: '2',
-          },
-        ]}
-        setFieldValue={onChange}
-      />
+      <ThemeProvider>
+        <Select
+          classNames="input"
+          error="some error"
+          label="input"
+          name="country"
+          onBlur={onBlur}
+          onTouch={onTouch}
+          touched
+          value={value}
+          options={[
+            { label: 'option1', value: 'option1' },
+            {
+              label: '2',
+              value: '2',
+            },
+          ]}
+          setFieldValue={onChange}
+        />
+      </ThemeProvider>
     );
 
     act(() => {

@@ -4,7 +4,8 @@ import useDarkMode from 'use-dark-mode';
 
 import Logo from '@images/logo.png';
 
-import { Brand as Wrapper, NavLink, HeaderImg, ToggleButton } from './styled';
+import { NavLink, HeaderImg, ToggleButton } from './styled';
+import { AlignCenterDiv } from '@styled/div';
 
 interface BrandProps {
   toggled: boolean;
@@ -15,7 +16,7 @@ const Brand: FC<BrandProps> = ({ toggled, toggleNav }): JSX.Element => {
   const { toggle } = useDarkMode();
 
   return (
-    <Wrapper>
+    <AlignCenterDiv>
       <Link href="/" passHref>
         <NavLink>
           <HeaderImg src={Logo} alt="Website Logo" />
@@ -34,7 +35,7 @@ const Brand: FC<BrandProps> = ({ toggled, toggleNav }): JSX.Element => {
         <span />
         <span />
       </ToggleButton>
-    </Wrapper>
+    </AlignCenterDiv>
   );
 };
 

@@ -37,7 +37,7 @@ export const WarningMessage = styled.p`
 
 export const Fieldset = styled.fieldset<{ marginTop?: string }>`
   padding: 0.625rem 1.25rem;
-  border: 1px solid #fdfdfd64;
+  border: 1px solid ${props => props.theme.text.primary};
   border-radius: 3px;
 
   ${props =>
@@ -58,8 +58,8 @@ export const FieldsetButton = styled.button<{ color?: string }>`
   background: ${props => props.color || 'transparent'};
   padding: 15px 20px;
   border-radius: 3px;
-  color: #fdfdfd;
-  border: 2px solid ${props => props.color || '#fdfdfd'};
+  color: ${props => (props.color ? '#fff' : props.theme.text.primary)};
+  border: 2px solid ${props => props.color || props.theme.text.primary};
   font-family: Poppins, sans-serif;
   width: 100%;
   cursor: pointer;
@@ -98,7 +98,7 @@ export const FieldsetWrap = styled.div<{ social?: boolean }>`
   }
 
   svg {
-    color: #fdfdfd;
+    color: ${props => (props.social ? '#fff' : props.theme.text.primary)};
     height: ${props => (!props.social ? '35px' : '20px')};
     width: 35px;
   }
@@ -257,7 +257,7 @@ export const SocialDivider = styled.div`
 export const SocialSpanLine = styled.span`
   width: 237px;
   height: 1px;
-  background: #edf1f9;
+  background: ${props => props.theme.text.primary};
   display: inline-block;
 `;
 
@@ -266,8 +266,8 @@ export const SocialSpanCircle = styled.span`
   height: 35px;
   line-height: 35px;
   display: inline-block;
-  background: #edf1f9;
-  color: #354b6b;
+  background: ${props => props.theme.text.primary};
+  color: ${props => props.theme.bg.primary};
   position: absolute;
   top: 50%;
   left: 50%;
@@ -283,79 +283,3 @@ export const FormWrapper = styled(Form)`
   margin-left: -15px;
   margin-top: 1rem;
 `;
-
-// body.light {
-//   .registration,
-//   .login {
-//     fieldset {
-//       border: 1px solid #27293d4c;
-//     }
-
-//     .options {
-//       li {
-//         button,
-//         a {
-//           color: #27293d;
-//           border: 2px solid #27293d;
-
-//           &.social {
-//             color: #fdfdfd;
-
-//             svg {
-//               color: #fdfdfd;
-//             }
-//           }
-
-//           svg {
-//             color: #27293d;
-//             height: 35px;
-//             width: 35px;
-//           }
-//         }
-
-//         &.active {
-//           button {
-//             color: #456ba9;
-//             border-color: #456ba9;
-//           }
-
-//           .wrap {
-//             svg {
-//               color: #456ba9;
-//             }
-//           }
-//         }
-//       }
-//     }
-
-//     .submit {
-//       button {
-//         background: #456ba9;
-//         border: 1px solid #456ba9;
-//       }
-
-//       p {
-//         a {
-//           color: #456ba9;
-//         }
-//       }
-//     }
-
-//     .accept-terms {
-//       a {
-//         color: #456ba9;
-//       }
-//     }
-//   }
-
-//   .social-divider {
-//     .line {
-//       background: #466ca9;
-//     }
-
-//     .circle {
-//       background: #466ca9;
-//       color: #fdfdfd;
-//     }
-//   }
-// }

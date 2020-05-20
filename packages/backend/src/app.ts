@@ -97,16 +97,6 @@ class App extends Server {
   }
 
   public start(): void {
-    // Serve static assets in production
-    // if (this.env === 'production') {
-    //   // Set static folder
-    //   this.app.use(expressStatic(resolve(__dirname, '../../frontend/build')));
-
-    //   this.app.get('*', (_, res) => {
-    //     res.sendFile(resolve(__dirname, '../../frontend/build', 'index.html'));
-    //   });
-    // }
-
     // eslint-disable-next-line max-params
     this.app.use(
       (err: Error | any, __: Request, res: Response, _: NextFunction) => {

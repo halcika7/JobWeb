@@ -23,21 +23,15 @@ module.exports = {
   entities:
     MIGRATION === 'true'
       ? ['packages/backend/dist/models/**/*.js']
-      : NODE_ENV === 'production'
-      ? ['dist/models/**/*.js']
-      : ['src/models/**/*.ts'],
+      : ['dist/models/**/*.js'],
   migrations:
     MIGRATION === 'true'
       ? ['packages/backend/dist/migrations/**/*.js']
-      : NODE_ENV === 'production'
-      ? ['dist/migrations/**/*.js']
-      : ['src/migrations/**/*.ts'],
+      : ['dist/migrations/**/*.js'],
   subscribers:
     MIGRATION === 'true'
       ? ['packages/backend/dist/subscribers/**/*.js']
-      : NODE_ENV === 'production'
-      ? ['dist/subscribers/**/*.js']
-      : ['src/subscribers/**/*.ts'],
+      : ['dist/subscribers/**/*.js'],
   cli: {
     entitiesDir:
       MIGRATION === 'true' || NODE_ENV === 'production'

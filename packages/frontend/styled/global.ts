@@ -2,6 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
     html {
+        font-size: 16px;
         line-height: 1.15; /* 1 */
         -webkit-text-size-adjust: 100%; /* 2 */
     }
@@ -222,19 +223,18 @@ export const GlobalStyle = createGlobalStyle`
         color: #111;
     }
 
+    h1,h2,h3,h4,h5 {
+        font-family: Lato, sans-serif;
+        font-weight: 400;
+    }
+
     body.dark-mode {
         color: #fff;
-        background: linear-gradient(#1e1e2f, #1e1e24);
+        background: linear-gradient(#1e1e2f,#1e1e24);
     }
 
     body.no-scroll {
         overflow: hidden;
-    }
-
-    /* Remove list styles on ul, ol elements with a class attribute */
-    ul,
-    ol {
-        list-style: none;
     }
 
     /* A elements that don't have a class get default styles */

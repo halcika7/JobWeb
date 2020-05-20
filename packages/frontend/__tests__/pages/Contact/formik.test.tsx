@@ -4,6 +4,8 @@ import { waitFor, render, fireEvent } from '@testing-library/react';
 import ContactFormik from '@containers/Contact/ContactFormik';
 import { ErrorDiv } from '@components/UI/input/styled';
 
+import ThemeProvider from '@styled/Providers';
+
 const values = {
   disabled: false,
   status: null,
@@ -21,7 +23,11 @@ const values = {
 
 describe('Testing Faq component', () => {
   it('should render 5 errors', async () => {
-    const { container } = render(<ContactFormik {...values} />);
+    const { container } = render(
+      <ThemeProvider>
+        <ContactFormik {...values} />
+      </ThemeProvider>
+    );
 
     const phone = container.querySelector(
       'input[name="phone"]'
@@ -47,7 +53,11 @@ describe('Testing Faq component', () => {
   });
 
   it('should render 0 errors', async () => {
-    const { container, rerender } = render(<ContactFormik {...values} />);
+    const { container, rerender } = render(
+      <ThemeProvider>
+        <ContactFormik {...values} />
+      </ThemeProvider>
+    );
     const name = container.querySelector(
       'input[name="name"]'
     ) as HTMLInputElement;
@@ -104,7 +114,11 @@ describe('Testing Faq component', () => {
 
     expect(container.querySelectorAll(ErrorDiv).length).toBe(0);
 
-    rerender(<ContactFormik {...values} status={201} />);
+    rerender(
+      <ThemeProvider>
+        <ContactFormik {...values} status={201} />
+      </ThemeProvider>
+    );
 
     expect(container.querySelector('button')?.disabled).toBe(false);
   });

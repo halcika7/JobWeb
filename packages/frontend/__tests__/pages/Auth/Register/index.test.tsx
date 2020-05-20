@@ -19,6 +19,8 @@ import axios from '@axios';
 
 import ReduxProvider from '../../../__mocks__/provider';
 
+import ThemeProvider from '@styled/Providers';
+
 describe('Testing Register Page', () => {
   let component: ReactWrapper;
 
@@ -26,7 +28,9 @@ describe('Testing Register Page', () => {
     moxios.install(axios);
     component = mount(
       <ReduxProvider>
-        <Register />
+        <ThemeProvider>
+          <Register />
+        </ThemeProvider>
       </ReduxProvider>
     );
   });

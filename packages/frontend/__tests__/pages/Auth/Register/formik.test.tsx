@@ -13,6 +13,8 @@ import { ErrorDiv } from '@components/UI/input/styled';
 
 import ReduxProvider from '../../../__mocks__/provider';
 
+import ThemeProvider from '@styled/Providers';
+
 const values = {
   accountType: 'company' as AccountRegistrationType,
   buttonDisabled: false,
@@ -61,7 +63,9 @@ describe('Testing Faq component', () => {
   it('should render 8 errors', async () => {
     const { container } = render(
       <ReduxProvider>
-        <RegisterFormik {...values} />
+        <ThemeProvider>
+          <RegisterFormik {...values} />
+        </ThemeProvider>
       </ReduxProvider>
     );
 
@@ -79,7 +83,9 @@ describe('Testing Faq component', () => {
   it('should render 0 errors', async () => {
     const { container, rerender, getByText } = render(
       <ReduxProvider>
-        <RegisterFormik {...values} />
+        <ThemeProvider>
+          <RegisterFormik {...values} />
+        </ThemeProvider>
       </ReduxProvider>
     );
     const username = container.querySelector(
@@ -173,7 +179,9 @@ describe('Testing Faq component', () => {
 
     rerender(
       <ReduxProvider>
-        <RegisterFormik {...values} status={200} />
+        <ThemeProvider>
+          <RegisterFormik {...values} status={200} />
+        </ThemeProvider>
       </ReduxProvider>
     );
 
@@ -184,7 +192,9 @@ describe('Testing Faq component', () => {
     moxios.install(axios);
     const { container, getByText } = render(
       <ReduxProvider>
-        <Register />
+        <ThemeProvider>
+          <Register />
+        </ThemeProvider>
       </ReduxProvider>
     );
 

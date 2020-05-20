@@ -45,7 +45,7 @@ const nextConfig = {
     TEST_TOKEN: process.env.TEST_TOKEN,
   },
   publicRuntimeConfig: {
-    TEST_TOKEN: process.env.TEST_TOKEN,
+    TEST_TOKEN: process.env.NODE_ENV === 'test' ? process.env.TEST_TOKEN : '',
   },
 };
 

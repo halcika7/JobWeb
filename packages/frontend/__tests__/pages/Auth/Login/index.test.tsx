@@ -15,13 +15,17 @@ import { HTTPCodes } from '@job/common';
 
 import ReduxProvider from '../../../__mocks__/provider';
 
+import ThemeProvider from '@styled/Providers';
+
 describe('Testing Login Page', () => {
   let component: ReactWrapper;
 
   beforeEach(() => {
     component = mount(
       <ReduxProvider>
-        <Login />
+        <ThemeProvider>
+          <Login />
+        </ThemeProvider>
       </ReduxProvider>
     );
   });

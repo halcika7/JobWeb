@@ -27,8 +27,7 @@ export const FormWrapper = styled.div`
 `;
 
 export const FormButton = styled.button`
-  font-family: Poppins, sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 21px;
   margin-top: 2rem;
@@ -56,7 +55,3 @@ export const Faqs = styled.div`
 export const Heading = styled.h1`
   margin: 0 0 5rem;
 `;
-
-// .accordion {
-//     margin: 0.5rem 0;
-//   }

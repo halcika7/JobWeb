@@ -6,8 +6,6 @@ export const AboutSection = styled.section`
   padding: 4rem 0;
 `;
 
-// section
-// intro
 export const Intro = styled(Row)`
   padding: 4rem 0 6rem;
   background: url(${MapImg});
@@ -18,9 +16,7 @@ export const Intro = styled(Row)`
 `;
 
 export const IntroHeading = styled.h1`
-  font-size: 28px;
-  line-height: 38px;
-  font-family: 'Poppins', sans-serif;
+  font-size: 36px;
   font-weight: 600;
   margin-bottom: 2rem;
 
@@ -34,7 +30,6 @@ export const IntroHeading = styled.h1`
 `;
 
 export const IntroParagraph = styled.p`
-  font-family: 'Poppins', sans-serif;
   margin-bottom: 3rem;
   font-size: 1.25rem;
   font-weight: 300;
@@ -77,8 +72,8 @@ export const GridItem = styled(CenterDiv)`
   padding: 2rem 3rem;
   text-align: center;
   border-bottom: 1px solid #41b8ed;
-  box-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.1);
-  background: #27293d;
+  box-shadow: 2px 3px 12px rgb(0, 0, 0, 0.1);
+  background: ${props => props.theme.bg.card};
 
   @media (max-width: 991px) {
     padding: 2rem 1.5rem;
@@ -93,7 +88,7 @@ export const GridItem = styled(CenterDiv)`
 export const Icon = styled(CenterDiv)`
   height: 60px;
   width: 60px;
-  border: 1px solid #fdfdfd;
+  border: 1px solid ${props => props.theme.text.primary};
   border-radius: 50%;
   margin-bottom: 1rem;
 
@@ -101,25 +96,22 @@ export const Icon = styled(CenterDiv)`
     height: 35px;
     width: 35px;
     * {
-      fill: #fdfdfd;
-      stroke: #fdfdfd !important;
+      fill: ${props => props.theme.text.primary};
+      stroke: ${props => props.theme.text.primary} !important;
     }
   }
 `;
 
 export const IconsHeading = styled.h3`
-  font-family: Poppins, sans-serif;
   font-size: 18px;
-  font-weight: 600;
   line-height: 21.6px;
   text-align: center;
   margin-bottom: 1rem;
 `;
 
 export const IconsParagraph = styled.p`
-  font-family: Poppins, sans-serif;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 300;
   line-height: 23.8px;
   text-align: center;
 `;
@@ -130,7 +122,6 @@ export const AboutExSection = styled.section`
 `;
 
 export const AboutExHeading = styled.h3`
-  font-family: Montserrat, sans-serif;
   font-size: 20px;
   font-weight: 700;
   line-height: 22px;
@@ -180,9 +171,8 @@ export const AboutExIcon = styled.div`
 
 export const CheckboxParagraph = styled.p`
   margin: 0;
-  font-family: Lato, sans-serif;
-  font-size: 16px;
-  font-weight: 400;
+  font-size: 14px;
+  font-weight: 500;
   line-height: 23px;
 `;
 
@@ -258,7 +248,6 @@ export const AboutUsContent = styled.div`
 `;
 
 export const AboutUsHeading = styled.h3`
-  font-family: Montserrat, sans-serif;
   font-size: 20px;
   font-weight: 700;
   line-height: 22px;
@@ -268,10 +257,9 @@ export const AboutUsHeading = styled.h3`
 
 export const AboutUsParagraph = styled.p`
   margin: 0;
-  font-family: Lato, sans-serif;
   font-size: 16px;
   font-weight: 400;
-  line-height: 23px;
+  line-height: 26px;
   margin-bottom: 2rem;
 `;
 
@@ -304,38 +292,3 @@ export const AboutUsAccordion = styled.div`
     padding: 0;
   }
 `;
-
-// body.light {
-//     .about {
-//       .about-icons {
-//         .about-grid-item {
-//           .icon {
-//             border: 1px solid #111;
-
-//             svg {
-//               * {
-//                 fill: #111;
-//                 stroke: #111 !important;
-//               }
-//             }
-//           }
-
-//           &:hover {
-//             background: #41b8ed;
-//             color: #fdfdfd;
-
-//             .icon {
-//               border: 1px solid #fdfdfd;
-
-//               svg {
-//                 * {
-//                   fill: #fdfdfd;
-//                   stroke: #fdfdfd !important;
-//                 }
-//               }
-//             }
-//           }
-//         }
-//       }
-//     }
-//   }

@@ -1,5 +1,4 @@
 import 'reflect-metadata';
-import './utils/moduleAlias';
 
 import App from './app';
 

@@ -14,8 +14,7 @@ export const TopContainer = styled(CenterDiv)`
 
 export const TopLink = styled(BaseLink)`
   color: ${props => props.theme.text.primary};
-  font-family: Lato, sans-serif;
-  font-weight: 400;
+  font-weight: 500;
   letter-spacing: 0.6px;
   font-size: 20px;
 `;
@@ -38,8 +37,8 @@ export const MiddleContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   padding: 4rem 0;
-  border-top: 1px solid #ffffff1a;
-  border-bottom: 1px solid #ffffff1a;
+  border-top: 1px solid ${props => props.theme.text.primary};
+  border-bottom: 1px solid ${props => props.theme.text.primary};
 
   @media (max-width: 992px) {
     grid-template-columns: repeat(2, 1fr);
@@ -70,19 +69,18 @@ export const GridItem = styled.div`
 
 export const Content = styled.div`
   p {
-    font-family: Lato, sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 23px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
     text-decoration: none solid rgba(255, 255, 255, 0.85);
     word-spacing: 0px;
     margin-top: 1rem;
   }
 
   a {
-    font-family: Lato, sans-serif;
+    letter-spacing: 1px;
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 600;
     line-height: 23px;
     text-decoration: none;
     text-transform: uppercase;
@@ -119,9 +117,8 @@ export const Ul = styled.ul`
 `;
 
 export const MiddleLink = styled.a`
-  font-family: Lato, sans-serif;
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 500;
   text-transform: capitalize;
   word-spacing: 0px;
   color: ${props => props.theme.text.primary};
@@ -132,23 +129,13 @@ export const MiddleLink = styled.a`
   }
 `;
 
-export const BottomContainer = styled(CenterDiv)`
-  padding: 4rem 0;
-  justify-content: space-between;
-  flex-wrap: wrap-reverse;
-
-  @media (max-width: 647px) {
-    justify-content: center;
-  }
-`;
-
 export const Links = styled.div`
   display: flex;
 
   a {
     height: 50px;
     width: 50px;
-    color: #fdfdfd;
+    color: ${props => props.theme.text.primary};
     display: flex;
     align-items: center;
     justify-content: center;
@@ -160,6 +147,8 @@ export const Links = styled.div`
     }
 
     &:hover {
+      color: #fff;
+
       &:first-child {
         background: #4267b2;
       }
@@ -180,9 +169,8 @@ export const Links = styled.div`
 `;
 
 export const Heading3 = styled.h3`
-  font-family: Montserrat, sans-serif;
-  font-size: 20px;
-  font-weight: 900;
+  font-weight: 400;
+  font-size: 18px;
   line-height: 22px;
   text-decoration: none solid rgb(255, 255, 255);
   text-align: start;
@@ -191,55 +179,16 @@ export const Heading3 = styled.h3`
   word-spacing: 0px;
 `;
 
-// body.light {
-//     footer {
-//       background: #fff;
-//       border-bottom: 2px solid #366bf5;
+export const BottomContainer = styled(CenterDiv)`
+  padding: 4rem 0;
+  justify-content: space-between;
+  flex-wrap: wrap-reverse;
 
-//       .top {
-//         a {
-//           color: #27293d;
+  @media (max-width: 767px) {
+    justify-content: center;
 
-//           span.blue {
-//             color: #366bf5;
-//             margin: 0 0.4rem;
-//           }
-//         }
-//       }
-
-//       .middle {
-//         border-top: 1px solid #27293d4c;
-//         border-bottom: 1px solid #27293d4c;
-//         .grid-item {
-//           .content {
-//             a {
-//               color: #366bf5;
-//             }
-//           }
-//           ul {
-//             li {
-//               a {
-//                 color: #27293d;
-
-//                 &:hover {
-//                   color: #f16a68;
-//                 }
-//               }
-//             }
-//           }
-//         }
-//       }
-
-//       .bottom {
-//         .links {
-//           a {
-//             color: #27293d;
-
-//             &:hover {
-//               color: #fdfdfd;
-//             }
-//           }
-//         }
-//       }
-//     }
-//   }
+    ${Links} {
+      margin-bottom: 2rem;
+    }
+  }
+`;

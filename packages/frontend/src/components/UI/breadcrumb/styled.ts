@@ -4,7 +4,7 @@ import { BaseLink } from '@styled/link';
 
 export const BreadcrumbDiv = styled.div`
   width: 100%;
-  padding: 3rem 0;
+  padding: 2.5rem 0;
   background: #4fbfe6;
 `;
 
@@ -15,12 +15,11 @@ export const BredcrumbContainer = styled(Container)`
 export const Anchor = styled(BaseLink)`
   color: #27293d;
   transition: color 0.2s ease-in-out;
-  font-weight: 400;
-  font-size: 18px;
-  font-family: Poppins, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
 
   &:hover {
-    color: #88454f;
+    color: #fff;
   }
 
   svg {
@@ -32,20 +31,3 @@ export const Anchor = styled(BaseLink)`
     pointer-events: none;
   }
 `;
-
-// body.light {
-//     .breadcrumb {
-//       background: #1e2538;
-//       a {
-//         color: #fdfdfd;
-
-//         &:hover {
-//           color: #f16a68;
-//         }
-
-//         svg {
-//           color: #fdfdfd;
-//         }
-//       }
-//     }
-//   }

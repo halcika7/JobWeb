@@ -6,6 +6,7 @@ const light = {
     accordion_content: 'transparent',
     secondary: '#f0f0f6',
     primary: WhiteSecondary['500'],
+    card: '#fff',
   },
   text: {
     accordion_content: '#111',
@@ -17,8 +18,9 @@ const light = {
 const dark = {
   bg: {
     accordion_content: '#fdfdfd',
-    primary: '#030B18',
+    primary: '#27293d',
     secondary: Azure['900'],
+    card: '#27293d',
   },
   text: {
     accordion_content: '#111',

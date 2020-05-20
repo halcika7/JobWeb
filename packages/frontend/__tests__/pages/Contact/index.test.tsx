@@ -8,11 +8,15 @@ import { ErrorDiv } from '@components/UI/input/styled';
 
 import ReduxProvider from '../../__mocks__/provider';
 
+import ThemeProvider from '@styled/Providers';
+
 describe('Testing Contact component', () => {
   it('should render', () => {
     const component = mount(
       <ReduxProvider>
-        <Contact />
+        <ThemeProvider>
+          <Contact />
+        </ThemeProvider>
       </ReduxProvider>
     );
 
@@ -23,7 +27,9 @@ describe('Testing Contact component', () => {
   it('should simulate closing alert after success', async done => {
     const component = mount(
       <ReduxProvider>
-        <Contact />
+        <ThemeProvider>
+          <Contact />
+        </ThemeProvider>
       </ReduxProvider>
     );
 
@@ -47,7 +53,9 @@ describe('Testing Contact component', () => {
   it('should simulate closing alert after failed', async done => {
     const component = mount(
       <ReduxProvider>
-        <Contact />
+        <ThemeProvider>
+          <Contact />
+        </ThemeProvider>
       </ReduxProvider>
     );
 
@@ -71,7 +79,9 @@ describe('Testing Contact component', () => {
   it('should render 4 errors', async () => {
     const { container } = render(
       <ReduxProvider>
-        <Contact />
+        <ThemeProvider>
+          <Contact />
+        </ThemeProvider>
       </ReduxProvider>
     );
     const submit = container.querySelector(
@@ -88,7 +98,9 @@ describe('Testing Contact component', () => {
   it('should render 4 errors', async () => {
     const { container, rerender } = render(
       <ReduxProvider>
-        <Contact />
+        <ThemeProvider>
+          <Contact />
+        </ThemeProvider>
       </ReduxProvider>
     );
     const name = container.querySelector(
@@ -149,7 +161,9 @@ describe('Testing Contact component', () => {
 
     rerender(
       <ReduxProvider>
-        <Contact />
+        <ThemeProvider>
+          <Contact />
+        </ThemeProvider>
       </ReduxProvider>
     );
 

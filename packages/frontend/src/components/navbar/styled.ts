@@ -2,7 +2,6 @@ import styled, { css } from 'styled-components';
 import { AlignCenterDiv, Flex } from '@styled/div';
 import { BaseButton } from '@styled/button';
 
-// as header #27293d
 export const Header = styled(AlignCenterDiv)<{ shadow: boolean }>`
   position: fixed;
   overflow: hidden;
@@ -26,13 +25,6 @@ export const Header = styled(AlignCenterDiv)<{ shadow: boolean }>`
     `}
 `;
 
-export const Brand = styled(AlignCenterDiv)`
-  /* @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: flex-start;
-  } */
-`;
-
 export const ToggleButton = styled.button<{ open: boolean }>`
   display: none;
   width: 25px;
@@ -50,7 +42,7 @@ export const ToggleButton = styled.button<{ open: boolean }>`
   span {
     position: absolute;
     height: 3px;
-    background: #fdfdfd;
+    background: ${props => props.theme.text.primary};
     width: 100%;
     display: block;
     border-radius: 1rem;
@@ -159,32 +151,3 @@ export const Navigation = styled(Flex)`
     align-items: flex-start;
   }
 `;
-//   body.light {
-//     header {
-//       background: #fdfdfd;
-//     }
-
-//     .toggle-nav {
-//       span {
-//         background: #061935;
-//       }
-
-//       &.open {
-//         span {
-//           background: #366bf5;
-//         }
-//       }
-//     }
-
-//     .top-navigation {
-//       a {
-//         color: #061935;
-//       }
-//     }
-
-//     .buttons {
-//       a, button {
-//         color: #061935;
-//       }
-//     }
-//   }

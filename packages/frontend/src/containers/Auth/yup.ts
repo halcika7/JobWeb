@@ -61,6 +61,17 @@ const CompanySchema = yup.object().shape({
 
 const UserLogin = yup.object().shape({
   username: yup.string().required('Username is required'),
+  password: yup
+    .string()
+    .min(6, 'Password must contain at least 6 characters')
+    .max(15, 'Password cannot exceed 15 characters')
+    .matches(
+      new RegExp(
+        '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{6,15})'
+      ),
+      'Password needs to contain both lower and upper case characters, number and a special character'
+    )
+    .required('Password is required'),
 });
 
 export const UserLoginSchema = UserLogin.concat(PasswordSchema);

@@ -8,6 +8,8 @@ import { ErrorDiv } from '@components/UI/input/styled';
 
 import ReduxProvider from '../../../__mocks__/provider';
 
+import ThemeProvider from '@styled/Providers';
+
 const values = {
   buttonDisabled: false,
   status: null,
@@ -51,7 +53,9 @@ describe('Testing Faq component', () => {
   it('should render 2 errors', async () => {
     const { container } = render(
       <ReduxProvider>
-        <LoginFormik {...values} />
+        <ThemeProvider>
+          <LoginFormik {...values} />
+        </ThemeProvider>
       </ReduxProvider>
     );
 
@@ -69,7 +73,9 @@ describe('Testing Faq component', () => {
   it('should render 0 errors', async () => {
     const { container, rerender } = render(
       <ReduxProvider>
-        <LoginFormik {...values} />
+        <ThemeProvider>
+          <LoginFormik {...values} />
+        </ThemeProvider>
       </ReduxProvider>
     );
     const username = container.querySelector(
@@ -105,7 +111,9 @@ describe('Testing Faq component', () => {
     const newValues = { ...values, status: 201 };
     rerender(
       <ReduxProvider>
-        <LoginFormik {...newValues} />
+        <ThemeProvider>
+          <LoginFormik {...newValues} />
+        </ThemeProvider>
       </ReduxProvider>
     );
 
@@ -115,7 +123,9 @@ describe('Testing Faq component', () => {
   it('should fire login action', async () => {
     const { container } = render(
       <ReduxProvider>
-        <Login />
+        <ThemeProvider>
+          <Login />
+        </ThemeProvider>
       </ReduxProvider>
     );
     const username = container.querySelector(

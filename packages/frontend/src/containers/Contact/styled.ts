@@ -6,16 +6,13 @@ export const ContactSection = styled.section`
 `;
 
 export const Heading = styled.h1`
-  font-family: Poppins, sans-serif;
-  font-size: 22px;
-  font-weight: 600;
+  font-size: 28px;
   line-height: 26.4px;
   text-align: center;
   margin-bottom: 2rem;
 `;
 
 export const ContactParagraph = styled.p`
-  font-family: Poppins, sans-serif;
   font-size: 14px;
   font-weight: 400;
   line-height: 23.8px;
@@ -28,13 +25,11 @@ export const ContactForm = styled(Form)`
   padding: 4rem 2rem 5rem;
   border-bottom: 1px solid #41b8ed;
   box-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.1);
-  background: #27293d;
+  background: ${props => props.theme.bg.card};
 `;
 
 export const SubmitButton = styled.button`
-  font-family: Poppins, sans-serif;
-  font-size: 14px;
-  font-weight: 400;
+  font-size: 16px;
   line-height: 21px;
   margin-top: 2rem;
   padding: 0.625rem 4rem;
@@ -68,7 +63,7 @@ export const GridIcon = styled.div`
   height: 60px;
   width: 60px;
   border-radius: 50%;
-  border: 1px solid #111;
+  border: 1px solid ${props => props.theme.text.primary};
 
   svg {
     height: 30px;
@@ -76,7 +71,7 @@ export const GridIcon = styled.div`
 
     g,
     path {
-      fill: #111;
+      fill: ${props => props.theme.text.primary};
     }
   }
 `;
@@ -90,7 +85,8 @@ export const GridItem = styled.div`
   border: 1px solid transparent;
   height: 250px;
   border-bottom: 1px solid #41b8ed;
-  background: #fdfdfd;
+  background: ${props => props.theme.bg.card};
+  box-shadow: 2px 3px 12px rgb(0, 0, 0, 0.1);
 
   @media (max-width: 1200px) {
     padding: 2rem 1.5rem;
@@ -130,55 +126,13 @@ export const GridItem = styled.div`
 export const GridHeading = styled.h3`
   margin-top: 1rem;
   margin-bottom: 1rem;
-  font-family: Poppins, sans-serif;
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 16px;
   line-height: 21.6px;
 `;
 
 export const GridParagraph = styled.p`
-  font-family: Poppins, sans-serif;
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;
   text-align: center;
 `;
-
-// body.light {
-//     .contact {
-//       .contact-icons-grid {
-//         .grid-item {
-//           .icon {
-//             border: 1px solid #1e2538;
-//           }
-
-//           &:first-child {
-//             svg {
-//               g,
-//               path {
-//                 fill: transparent;
-//               }
-//             }
-//           }
-
-//           svg {
-//             g,
-//             path {
-//               fill: #1e2538;
-//             }
-//           }
-
-//           &:hover {
-//             background: #41b8ed;
-//             color: #fdfdfd;
-//             border: 1px solid #41b8ed;
-
-//             .icon {
-//               border: 1px solid #f0f0f6;
-//               background: #f0f0f6;
-//             }
-//           }
-//         }
-//       }
-//     }
-//   }

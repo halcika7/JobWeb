@@ -23,7 +23,7 @@ describe('Testing Faq component', () => {
       </ReduxProvider>
     );
 
-    expect(component.find('h1').length).toBe(2);
+    expect(component.find('h1').length).toBe(1);
 
     component.unmount();
   });

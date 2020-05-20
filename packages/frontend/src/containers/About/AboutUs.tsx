@@ -62,21 +62,22 @@ const AboutUs = (): JSX.Element => (
       <AccordionWrapper
         accordions={[
           {
-            title: 'Some dum title',
+            title: 'Some title',
             content:
               'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit quibusdam iure fugiat possimus cumque tempore molestiae, dignissimos in. Repellat soluta repudiandae facilis cum maxime ducimus impedit laborum cupiditate eum aliquid nobis ea provident ad explicabo, nemo modi. Rerum, alias omnis. Atque voluptates esse nesciunt laboriosam tempora fugit fuga aliquid consequuntur.',
           },
           {
-            title: 'Some dum title two',
+            title: 'Some title two',
             content:
               'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit quibusdam iure fugiat possimus cumque tempore molestiae, dignissimos in. Repellat soluta repudiandae facilis cum maxime ducimus impedit laborum cupiditate eum aliquid nobis ea provident ad explicabo, nemo modi. Rerum, alias omnis. Atque voluptates esse nesciunt laboriosam tempora fugit fuga aliquid consequuntur.',
           },
           {
-            title: 'Some dum title three',
+            title: 'Some title three',
             content:
               'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit quibusdam iure fugiat possimus cumque tempore molestiae, dignissimos in. Repellat soluta repudiandae facilis cum maxime ducimus impedit laborum cupiditate eum aliquid nobis ea provident ad explicabo, nemo modi. Rerum, alias omnis. Atque voluptates esse nesciunt laboriosam tempora fugit fuga aliquid consequuntur.',
           },
         ]}
+        margin="0 0 0.2rem"
       />
     </AboutUsAccordion>
   </AboutUsSection>
