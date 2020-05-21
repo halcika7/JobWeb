@@ -55,7 +55,6 @@ class MyDocument extends Document {
           />
           <link rel="apple-touch-icon" href="/logo192.png" />
           <link rel="manifest" href="/manifest.json" />
-          <link rel="preconnect" href="http://localhost:5000" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link rel="preconnect" href="https://storage.googleapis.com" />
           <link rel="manifest" href="/manifest.json" />

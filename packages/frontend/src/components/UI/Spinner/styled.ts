@@ -1,5 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 import { CenterDiv } from '@styled/div';
+import { HeightWidth } from '@styled/props/height';
 
 const Spin = keyframes`
   0%,
@@ -42,11 +43,10 @@ export const SpinnerWrapper = styled(CenterDiv)`
 `;
 
 export const Spinner = styled.div`
+  ${HeightWidth('1em', '1em')}
   color: ${props => props.theme.text.spinner};
-  font-size: 20px;
+  font-size: ${props => props.theme.fontSizes.h4};
   margin: 100px auto;
-  width: 1em;
-  height: 1em;
   border-radius: 50%;
   position: relative;
   text-indent: -9999em;

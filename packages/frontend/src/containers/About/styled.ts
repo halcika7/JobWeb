@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 import { Row, CenterDiv, AlignCenterDiv, Flex } from '@styled/div';
+import { CenterAllFlex } from '@styled/props/flex';
+import { GridColumnsGap, GridColumns } from '@styled/props/grid';
+import { HeightWidth } from '@styled/props/height';
 import MapImg from '@images/google-map.png';
 
 export const AboutSection = styled.section`
@@ -21,26 +24,26 @@ export const IntroHeading = styled.h1`
   margin-bottom: 2rem;
 
   @media (max-width: 991px) {
-    font-size: 24px;
+    font-size: ${props => props.theme.fontSizes.h2};
   }
 
   @media (max-width: 576px) {
-    font-size: 20px;
+    font-size: ${props => props.theme.fontSizes.h4};
   }
 `;
 
 export const IntroParagraph = styled.p`
   margin-bottom: 3rem;
-  font-size: 1.25rem;
+  font-size: ${props => props.theme.fontSizes.h4};
   font-weight: 300;
   line-height: 1.7;
 
   @media (max-width: 991px) {
-    font-size: 1.15rem;
+    font-size: ${props => props.theme.fontSizes.h5};
   }
 
   @media (max-width: 576px) {
-    font-size: 1rem;
+    font-size: ${props => props.theme.fontSizes.paragraph};
   }
 `;
 
@@ -52,18 +55,15 @@ export const IntroImg = styled.img`
 
 // about icons
 export const Icons = styled.section`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 3rem;
+  ${GridColumnsGap(3, 3)}
   padding: 4rem 0;
 
   @media (max-width: 991px) {
-    gap: 2.5rem;
+    ${GridColumnsGap(3, 2.5)}
   }
 
   @media (max-width: 767px) {
-    gap: 3rem;
-    grid-template-columns: repeat(1, 1fr);
+    ${GridColumnsGap(1, 3)}
   }
 `;
 
@@ -86,8 +86,7 @@ export const GridItem = styled(CenterDiv)`
 `;
 
 export const Icon = styled(CenterDiv)`
-  height: 60px;
-  width: 60px;
+  ${HeightWidth('60px', '60px')}
   border: 1px solid ${props => props.theme.text.primary};
   border-radius: 50%;
   margin-bottom: 1rem;
@@ -103,14 +102,14 @@ export const Icon = styled(CenterDiv)`
 `;
 
 export const IconsHeading = styled.h3`
-  font-size: 18px;
+  font-size: ${props => props.theme.fontSizes.h5};
   line-height: 21.6px;
   text-align: center;
   margin-bottom: 1rem;
 `;
 
 export const IconsParagraph = styled.p`
-  font-size: 14px;
+  font-size: ${props => props.theme.fontSizes.helper};
   font-weight: 300;
   line-height: 23.8px;
   text-align: center;
@@ -122,7 +121,7 @@ export const AboutExSection = styled.section`
 `;
 
 export const AboutExHeading = styled.h3`
-  font-size: 20px;
+  font-size: ${props => props.theme.fontSizes.h4};
   font-weight: 700;
   line-height: 22px;
   text-transform: uppercase;
@@ -138,8 +137,7 @@ export const AboutExContent = styled.div`
 `;
 
 export const AboutExParagraph = styled.p`
-  font-size: 16px;
-  font-weight: 400;
+  font-size: ${props => props.theme.fontSizes.paragraph};
   line-height: 26px;
 
   &:nth-child(2) {
@@ -156,13 +154,11 @@ export const Checkbox = styled(AlignCenterDiv)`
 `;
 
 export const AboutExIcon = styled.div`
-  height: 20px;
-  width: 20px;
+  ${HeightWidth('20px', '20px')}
   margin-right: 1rem;
 
   svg {
-    height: 20px;
-    width: 20px;
+    ${HeightWidth('20px', '20px')}
     path {
       fill: #41b8ed;
     }
@@ -171,24 +167,22 @@ export const AboutExIcon = styled.div`
 
 export const CheckboxParagraph = styled.p`
   margin: 0;
-  font-size: 14px;
+  font-size: ${props => props.theme.fontSizes.helper};
   font-weight: 500;
   line-height: 23px;
 `;
 
 // grid numbers
 export const GridNumbers = styled.section`
+  ${GridColumns(4)}
   padding: 4rem 0;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
 
   @media (max-width: 991px) {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    ${GridColumnsGap(2, 2)}
   }
 
   @media (max-width: 575px) {
-    grid-template-columns: repeat(1, 1fr);
+    ${GridColumns(1)}
   }
 `;
 
@@ -205,15 +199,13 @@ export const GridNumber = styled(CenterDiv)`
 
 export const GridNumberParagraph = styled.p`
   font-family: Lato, sans-serif;
-  font-size: 16px;
+  font-size: ${props => props.theme.fontSizes.paragraph};
   font-weight: 500;
   line-height: 17.6px;
   margin-top: 1rem;
 
   &:first-child {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    ${CenterAllFlex}
     line-height: 23px;
     font-weight: 900;
     font-size: 50px;
@@ -229,12 +221,11 @@ export const GridNumberParagraph = styled.p`
 
 // about us
 export const AboutUsSection = styled.section`
+  ${GridColumns(2)}
   padding: 4rem 0;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
 
   @media (max-width: 991px) {
-    grid-template-columns: repeat(1, 1fr);
+    ${GridColumns(1)}
   }
 `;
 
@@ -248,7 +239,7 @@ export const AboutUsContent = styled.div`
 `;
 
 export const AboutUsHeading = styled.h3`
-  font-size: 20px;
+  font-size: ${props => props.theme.fontSizes.h4};
   font-weight: 700;
   line-height: 22px;
   text-transform: uppercase;
@@ -257,8 +248,7 @@ export const AboutUsHeading = styled.h3`
 
 export const AboutUsParagraph = styled.p`
   margin: 0;
-  font-size: 16px;
-  font-weight: 400;
+  font-size: ${props => props.theme.fontSizes.paragraph};
   line-height: 26px;
   margin-bottom: 2rem;
 `;

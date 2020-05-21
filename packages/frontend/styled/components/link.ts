@@ -1,8 +1,7 @@
 import styled from 'styled-components';
+import { CenterAllFlex } from './props/flex';
 
 export const BaseLink = styled.a`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${CenterAllFlex}
   text-decoration: none;
 `;

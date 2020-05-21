@@ -2,9 +2,9 @@ import React, {
   FC,
   Ref,
   useEffect,
+  useCallback,
   useRef,
   useState,
-  useCallback,
   memo,
 } from 'react';
 import { ReactComponent as Minus } from '@svgs/minus.svg';
@@ -37,19 +37,11 @@ const Accordion: FC<AccordionProps> = ({
   currentActive,
   setCurrentActive,
 }) => {
-  const contentRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState<number>(accHeight);
   const [active, setActive] = useState<boolean>(false);
   const [loaded, setLoaded] = useState<boolean>(false);
 
-  const openAccordion = useCallback(
-    (clientHeight: number) => {
-      setHeight(height + clientHeight);
-      setCurrentActive(contentRef);
-      setActive(true);
-    },
-    [height, setCurrentActive]
-  );
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const toggleAccordion = useCallback(() => {
     const clientHeight = contentRef.current?.clientHeight || 0;
@@ -58,9 +50,18 @@ const Accordion: FC<AccordionProps> = ({
       setCurrentActive(null);
       setActive(false);
     } else {
-      openAccordion(clientHeight);
+      setHeight(height + clientHeight);
+      setCurrentActive(contentRef);
+      setActive(true);
     }
-  }, [height, openAccordion, setCurrentActive]);
+  }, [height, setCurrentActive]);
+
+  const windowResized = useCallback(() => {
+    if (active) {
+      const clientHeight = contentRef.current?.clientHeight || 0;
+      setHeight(accHeight + clientHeight);
+    }
+  }, [active]);
 
   useEffect(() => {
     if (defaultOpen && !loaded) {
@@ -77,17 +78,11 @@ const Accordion: FC<AccordionProps> = ({
   }, [currentActive, loaded]);
 
   useEffect(() => {
-    const windowResized = () => {
-      if (active) {
-        const clientHeight = contentRef.current?.clientHeight || 0;
-        setHeight(accHeight + clientHeight);
-      }
-    };
     window.addEventListener('resize', windowResized);
     return () => {
       window.removeEventListener('resize', windowResized);
     };
-  });
+  }, [windowResized]);
 
   return (
     <AccordionElement style={{ height: `${height}px` }} margin={margin}>

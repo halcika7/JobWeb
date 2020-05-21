@@ -1,20 +1,23 @@
 import styled from 'styled-components';
+import { CenterDiv } from '@styled/div';
+import { BaseButton } from '@styled/button';
+import { GridColumns, GridColumnsGap } from '@styled/props/grid';
 import { Form } from 'formik';
+import { HeightWidth } from '@styled/props/height';
 
 export const ContactSection = styled.section`
   padding: 4rem 0;
 `;
 
 export const Heading = styled.h1`
-  font-size: 28px;
+  font-size: ${props => props.theme.fontSizes.h1};
   line-height: 26.4px;
   text-align: center;
   margin-bottom: 2rem;
 `;
 
 export const ContactParagraph = styled.p`
-  font-size: 14px;
-  font-weight: 400;
+  font-size: ${props => props.theme.fontSizes.helper};
   line-height: 23.8px;
   text-align: center;
 `;
@@ -28,46 +31,36 @@ export const ContactForm = styled(Form)`
   background: ${props => props.theme.bg.card};
 `;
 
-export const SubmitButton = styled.button`
-  font-size: 16px;
+export const SubmitButton = styled(BaseButton)`
+  font-size: ${props => props.theme.fontSizes.paragraph};
   line-height: 21px;
   margin-top: 2rem;
   padding: 0.625rem 4rem;
-  cursor: pointer;
   background: #456ba9;
   border: 1px solid #456ba9;
   color: #fdfdfd;
-  outline: none;
 `;
 
 export const IconsGrid = styled.section`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
+  ${GridColumnsGap(4, 2)}
   margin-bottom: 6rem;
 
   @media (max-width: 991px) {
-    grid-template-columns: repeat(2, 1fr);
+    ${GridColumns(2)}
   }
 
   @media (max-width: 540px) {
-    grid-template-columns: repeat(1, 1fr);
-    gap: 3rem;
+    ${GridColumnsGap(1, 3)}
   }
 `;
 
-export const GridIcon = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 60px;
-  width: 60px;
+export const GridIcon = styled(CenterDiv)`
+  ${HeightWidth('60px', '60px')}
   border-radius: 50%;
   border: 1px solid ${props => props.theme.text.primary};
 
   svg {
-    height: 30px;
-    width: 30px;
+    ${HeightWidth('30px', '30px')}
 
     g,
     path {
@@ -76,10 +69,7 @@ export const GridIcon = styled.div`
   }
 `;
 
-export const GridItem = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+export const GridItem = styled(CenterDiv)`
   flex-direction: column;
   padding: 2rem 3rem;
   border: 1px solid transparent;
@@ -126,13 +116,12 @@ export const GridItem = styled.div`
 export const GridHeading = styled.h3`
   margin-top: 1rem;
   margin-bottom: 1rem;
-  font-size: 16px;
+  font-size: ${props => props.theme.fontSizes.paragraph};
   line-height: 21.6px;
 `;
 
 export const GridParagraph = styled.p`
-  font-size: 14px;
-  font-weight: 400;
+  font-size: ${props => props.theme.fontSizes.helper};
   line-height: 21px;
   text-align: center;
 `;

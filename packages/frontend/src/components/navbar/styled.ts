@@ -1,14 +1,14 @@
 import styled, { css } from 'styled-components';
 import { AlignCenterDiv, Flex } from '@styled/div';
 import { BaseButton } from '@styled/button';
+import { HeightWidth } from '@styled/props/height';
 
 export const Header = styled(AlignCenterDiv)<{ shadow: boolean }>`
+  ${HeightWidth('80px', '100%')}
   position: fixed;
   overflow: hidden;
   top: 0;
   background: ${props => props.theme.bg.primary};
-  width: 100%;
-  height: 80px;
   padding: 0 2rem;
   transition: height 0.3s ease-in-out;
   z-index: 10;
@@ -25,26 +25,20 @@ export const Header = styled(AlignCenterDiv)<{ shadow: boolean }>`
     `}
 `;
 
-export const ToggleButton = styled.button<{ open: boolean }>`
+export const ToggleButton = styled(BaseButton)<{ open: boolean }>`
+  ${HeightWidth('25px', '25px')}
   display: none;
-  width: 25px;
   padding: 0;
-  background: none;
-  outline: none;
   margin-left: auto;
-  height: 25px;
-  border: none;
-  cursor: pointer;
   position: absolute;
   top: 25px;
   right: 25px;
 
   span {
-    position: absolute;
-    height: 3px;
-    background: ${props => props.theme.text.primary};
-    width: 100%;
+    ${HeightWidth('3px', '100%')}
     display: block;
+    position: absolute;
+    background: ${props => props.theme.text.primary};
     border-radius: 1rem;
     transform-origin: left center;
     transition: 0.25s ease-in-out;
@@ -112,7 +106,6 @@ export const HeaderImg = styled.img`
 
 export const NavLink = styled.a`
   color: ${props => props.theme.text.primary};
-  text-decoration: none;
   padding: 1rem;
 
   @media (max-width: 768px) {

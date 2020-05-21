@@ -5,15 +5,6 @@ import { NavLink, Navigation } from './styled';
 
 const Nav: FC = (): JSX.Element => (
   <Navigation as="nav">
-    {/* <Link to="/listings" activeClassName="active-link">
-      Listings
-    </Link>
-    <Link to="/company" activeClassName="active-link">
-      Company
-    </Link>
-    <Link to="/candidats" activeClassName="active-link">
-      Candidates
-    </Link> */}
     <Link href="/contact" passHref>
       <NavLink>Contact</NavLink>
     </Link>

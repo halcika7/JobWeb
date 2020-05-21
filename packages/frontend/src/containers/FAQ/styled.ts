@@ -1,14 +1,15 @@
 import styled from 'styled-components';
+import { GridColumnsPerc } from '@styled/props/grid';
+import { BaseButton } from '@styled/button';
 import { Container } from '@styled/div';
 
 // section
 export const FaqSection = styled(Container)`
+  ${GridColumnsPerc('30% 70%')}
   margin: 5rem auto 10rem;
-  display: grid;
-  grid-template-columns: 30% 70%;
 
   @media (max-width: 767px) {
-    grid-template-columns: 100%;
+    ${GridColumnsPerc('100%')}
   }
 `;
 
@@ -26,17 +27,14 @@ export const FormWrapper = styled.div`
   }
 `;
 
-export const FormButton = styled.button`
-  font-size: 16px;
-  font-weight: 400;
+export const FormButton = styled(BaseButton)`
+  font-size: ${props => props.theme.fontSizes.paragraph};
   line-height: 21px;
   margin-top: 2rem;
   padding: 0.625rem 4rem;
-  cursor: pointer;
   background: #456ba9;
   border: 1px solid #456ba9;
   color: #fdfdfd;
-  outline: none;
 `;
 
 export const Faqs = styled.div`

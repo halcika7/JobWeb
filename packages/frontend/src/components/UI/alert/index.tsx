@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState, useCallback } from 'react';
 
 import { AlertType } from '../sweetAlert';
 
@@ -23,29 +23,28 @@ const Alert: FC<AlertProps> = ({
 }): JSX.Element => {
   const [dismissing, setDismissing] = useState<boolean>(false);
 
+  const closeFunction = useCallback(
+    (time: number, bool: boolean) => {
+      let handler: any = null;
+
+      if (bool) {
+        handler = setTimeout(() => onClose(), time);
+      }
+
+      return () => {
+        clearTimeout(handler);
+      };
+    },
+    [onClose]
+  );
+
   useEffect(() => {
-    let handler: any = null;
-
-    if (autoDismiss) {
-      handler = setTimeout(() => onClose(), autoDismissTime);
-    }
-
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [autoDismiss, autoDismissTime, onClose]);
+    closeFunction(autoDismissTime, autoDismiss);
+  }, [autoDismiss, autoDismissTime, closeFunction]);
 
   useEffect(() => {
-    let handler: any = null;
-
-    if (dismissing) {
-      handler = setTimeout(() => onClose(), 500);
-    }
-
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [dismissing, onClose]);
+    closeFunction(500, dismissing);
+  }, [dismissing, closeFunction]);
 
   return (
     <Wrapper>

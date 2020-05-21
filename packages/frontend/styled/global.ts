@@ -29,6 +29,7 @@ export const GlobalStyle = createGlobalStyle`
 
     a {
         background-color: transparent;
+        text-decoration: none;
     }
 
     abbr[title] {

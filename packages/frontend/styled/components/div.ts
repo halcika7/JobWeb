@@ -1,24 +1,30 @@
 import styled from 'styled-components';
+import {
+  Flex as FlexProp,
+  FlexRow,
+  CenterAllFlex,
+  AlignCenterFlex,
+  JustifyCenterFlex,
+} from './props/flex';
 
 export const Flex = styled.div`
-  display: flex;
+  ${FlexProp}
 `;
 
-export const CenterDiv = styled(Flex)`
-  justify-content: center;
-  align-items: center;
+export const CenterDiv = styled.div`
+  ${CenterAllFlex}
 `;
 
 export const ColumnDiv = styled(Flex)`
   flex-direction: column;
 `;
 
-export const JustifyCenterDiv = styled(Flex)`
-  justify-content: center;
+export const JustifyCenterDiv = styled.div`
+  ${JustifyCenterFlex}
 `;
 
-export const AlignCenterDiv = styled(Flex)`
-  align-items: center;
+export const AlignCenterDiv = styled.div`
+  ${AlignCenterFlex}
 `;
 
 export const Container = styled.div`
@@ -46,8 +52,5 @@ export const Container = styled.div`
 `;
 
 export const Row = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
+  ${FlexRow}
 `;

@@ -5,7 +5,7 @@ export const InputWrapper = styled.input`
   width: 100%;
   background: transparent;
   border: 1px solid ${props => props.theme.text.primary};
-  font-size: 14px;
+  font-size: ${props => props.theme.fontSizes.helper};
   font-weight: 600;
   line-height: 21px;
   padding: 10px 20px;
@@ -28,8 +28,7 @@ export const LabelSpan = styled.span`
 `;
 
 export const InputLabel = styled.label`
-  font-size: 14px;
-  font-weight: 400;
+  font-size: ${props => props.theme.fontSizes.helper};
   line-height: 21px;
   color: ${props => props.theme.text.primary};
 
@@ -55,7 +54,7 @@ export const InputLabel = styled.label`
   .css-2b097c-container,
   .css-26l3qy-menu {
     background: transparent;
-    font-size: 14px;
+    font-size: ${props => props.theme.fontSizes.helper};
     font-weight: 400;
     line-height: 21px;
     box-shadow: none;
@@ -115,8 +114,7 @@ export const InputLabel = styled.label`
 
 export const ErrorDiv = styled.div`
   margin-top: 0.4rem;
-  font-size: 13px;
-  font-weight: 400;
+  font-size: ${props => props.theme.fontSizes.helper};
 `;
 
 export const FormGroup = styled.div<{ error: boolean }>`
@@ -137,8 +135,3 @@ export const FormGroup = styled.div<{ error: boolean }>`
       }
     `}
 `;
-
-//     .card {
-//       background: #fff;
-//       box-shadow: 0 1px 15px 0 hsla(0, 0%, 48.2%, 0.05);
-//     }

@@ -1,10 +1,19 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-param-reassign */
 /* eslint-disable global-require */
 /* eslint-disable @typescript-eslint/no-var-requires */
 const withOffline = require('next-offline');
+const sitemap = require('nextjs-sitemap-generator');
 const withImages = require('next-images');
+const { join } = require('path');
 
 require('dotenv').config();
+
+sitemap({
+  baseUrl: 'https://nostalgic-lichterman-ff37fc.netlify.app',
+  pagesDirectory: join(__dirname, '/pages'),
+  targetDirectory: 'public/',
+});
 
 const nextConfig = {
   target: 'serverless',

@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import { Base } from '@styled/button';
+import { HeightWidth } from '@styled/props/height';
 
 export const Wrapper = styled.section`
   height: 100%;
@@ -18,16 +19,14 @@ export const AccordionElement = styled.section<{ margin?: string }>`
 `;
 
 export const Button = styled(Base)`
+  ${HeightWidth('45px', '100%')}
   padding: 0 1rem;
   background: #41b8ed;
   color: #fdfdfd;
-  width: 100%;
-  height: 45px;
 
   svg {
+    ${HeightWidth('24px', '24px')}
     margin-left: auto;
-    height: 24px;
-    width: 24px;
 
     path {
       fill: #fdfdfd;

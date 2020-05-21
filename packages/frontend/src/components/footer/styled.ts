@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 import { CenterDiv } from '@styled/div';
+import { CenterAllFlex, AlignCenterFlex } from '@styled/props/flex';
+import { GridColumns, GridColumnsGap } from '@styled/props/grid';
+import { HeightWidth } from '@styled/props/height';
 import { BaseLink } from '@styled/link';
 
 export const FooterWrapper = styled.footer`
@@ -13,10 +16,10 @@ export const TopContainer = styled(CenterDiv)`
 `;
 
 export const TopLink = styled(BaseLink)`
+  font-size: ${props => props.theme.fontSizes.h4};
   color: ${props => props.theme.text.primary};
   font-weight: 500;
   letter-spacing: 0.6px;
-  font-size: 20px;
 `;
 
 export const TopSpan = styled.span`
@@ -34,24 +37,21 @@ export const TopImg = styled.img`
 `;
 
 export const MiddleContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  ${GridColumns(4)}
   padding: 4rem 0;
   border-top: 1px solid ${props => props.theme.text.primary};
   border-bottom: 1px solid ${props => props.theme.text.primary};
 
   @media (max-width: 992px) {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 5rem;
+    ${GridColumnsGap(2, 5)}
   }
 
   @media (max-width: 600px) {
-    gap: 3rem;
+    ${GridColumnsGap(2, 3)}
   }
 
   @media (max-width: 500px) {
-    grid-template-columns: repeat(1, 1fr);
-    gap: 3rem;
+    ${GridColumnsGap(1, 3)}
   }
 `;
 
@@ -69,7 +69,7 @@ export const GridItem = styled.div`
 
 export const Content = styled.div`
   p {
-    font-size: 14px;
+    font-size: ${props => props.theme.fontSizes.helper};
     font-weight: 500;
     line-height: 20px;
     text-decoration: none solid rgba(255, 255, 255, 0.85);
@@ -78,8 +78,9 @@ export const Content = styled.div`
   }
 
   a {
+    ${AlignCenterFlex}
     letter-spacing: 1px;
-    font-size: 14px;
+    font-size: ${props => props.theme.fontSizes.helper};
     font-weight: 600;
     line-height: 23px;
     text-decoration: none;
@@ -87,25 +88,21 @@ export const Content = styled.div`
     word-spacing: 0px;
     color: #23c0e9;
     margin-top: 1rem;
-    display: flex;
-    align-items: center;
 
     svg {
-      font-size: 16px;
+      font-size: ${props => props.theme.fontSizes.paragraph};
       margin-right: 0.3rem;
     }
   }
 `;
 
 export const Ul = styled.ul`
-  padding: 0;
-  padding-top: 1rem;
+  padding: 1rem 0 0;
   margin: 0;
   list-style: none;
 
   li {
-    display: flex;
-    align-items: center;
+    ${AlignCenterFlex}
     padding: 0.6rem 0;
 
     svg {
@@ -117,7 +114,7 @@ export const Ul = styled.ul`
 `;
 
 export const MiddleLink = styled.a`
-  font-size: 16px;
+  font-size: ${props => props.theme.fontSizes.paragraph};
   font-weight: 500;
   text-transform: capitalize;
   word-spacing: 0px;
@@ -133,12 +130,9 @@ export const Links = styled.div`
   display: flex;
 
   a {
-    height: 50px;
-    width: 50px;
+    ${CenterAllFlex}
+    ${HeightWidth('50px', '50px')}
     color: ${props => props.theme.text.primary};
-    display: flex;
-    align-items: center;
-    justify-content: center;
     border-radius: 15px;
     transition: background 0.3s ease-in-out;
 
@@ -169,8 +163,7 @@ export const Links = styled.div`
 `;
 
 export const Heading3 = styled.h3`
-  font-weight: 400;
-  font-size: 18px;
+  font-size: ${props => props.theme.fontSizes.h5};
   line-height: 22px;
   text-decoration: none solid rgb(255, 255, 255);
   text-align: start;

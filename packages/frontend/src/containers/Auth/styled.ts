@@ -1,6 +1,10 @@
 import styled, { css } from 'styled-components';
 import { AlignCenterDiv } from '@styled/div';
+import { BaseButton } from '@styled/button';
+import { FlexRow } from '@styled/props/flex';
+import { GridColumns } from '@styled/props/grid';
 import { Form } from 'formik';
+import { HeightWidth } from '@styled/props/height';
 
 export const AuthWrapper = styled.section`
   padding: 4rem 0 8rem;
@@ -14,8 +18,7 @@ export const AuthWrapper = styled.section`
 
 export const Heading = styled.h1`
   font-family: Poppins, sans-serif;
-  font-size: 22px;
-  font-weight: 600;
+  font-size: ${props => props.theme.fontSizes.h3};
   line-height: 26.4px;
   text-align: center;
   margin-bottom: 2rem;
@@ -23,8 +26,7 @@ export const Heading = styled.h1`
 
 export const WarningMessage = styled.p`
   font-family: Lato, sans-serif;
-  font-size: 14px;
-  font-weight: 400;
+  font-size: ${props => props.theme.fontSizes.helper};
   line-height: 23px;
   width: 70%;
   margin: 2rem auto 0;
@@ -49,28 +51,22 @@ export const Fieldset = styled.fieldset<{ marginTop?: string }>`
 
 export const Legend = styled.legend`
   padding: 0 0.5rem;
-  font-size: 13px;
+  font-size: ${props => props.theme.fontSizes.copyright};
   margin-bottom: 0.5rem;
 `;
 
-export const FieldsetButton = styled.button<{ color?: string }>`
+export const FieldsetButton = styled(BaseButton)<{ color?: string }>`
+  font-family: Poppins, sans-serif;
   display: block;
   background: ${props => props.color || 'transparent'};
   padding: 15px 20px;
   border-radius: 3px;
   color: ${props => (props.color ? '#fff' : props.theme.text.primary)};
   border: 2px solid ${props => props.color || props.theme.text.primary};
-  font-family: Poppins, sans-serif;
   width: 100%;
-  cursor: pointer;
-  outline: none;
-  text-decoration: none;
 `;
 
-export const FieldsetWrap = styled.div<{ social?: boolean }>`
-  display: flex;
-  align-items: center;
-
+export const FieldsetWrap = styled(AlignCenterDiv)<{ social?: boolean }>`
   ${props =>
     props.social &&
     css`
@@ -81,18 +77,18 @@ export const FieldsetWrap = styled.div<{ social?: boolean }>`
     margin-left: 1rem;
 
     h3 {
-      font-size: 16px;
+      font-size: ${props => props.theme.fontSizes.paragraph};
       text-align: left;
     }
 
     p {
-      font-size: 13px;
+      font-size: ${props => props.theme.fontSizes.copyright};
       text-align: left;
       ${props =>
         props.social &&
         css`
           line-height: 21px;
-          font-size: 14px;
+          font-size: ${props.theme.fontSizes.helper};
         `}
     }
   }
@@ -139,8 +135,7 @@ export const FieldsetOptions = styled.ul<{ login?: boolean }>`
   ${props =>
     props.login &&
     css`
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      ${GridColumns(2)}
 
       ${FieldsetOptionsLi} {
         margin-bottom: 1.5rem;
@@ -156,7 +151,7 @@ export const FieldsetOptions = styled.ul<{ login?: boolean }>`
       }
 
       @media (max-width: 768px) {
-        grid-template-columns: repeat(1, 1fr);
+        ${GridColumns(1)}
 
         ${FieldsetOptionsLi} {
           &:nth-child(odd) {
@@ -195,20 +190,16 @@ export const Submit = styled(AlignCenterDiv)`
   width: 100%;
 `;
 
-export const SubmitButton = styled.button`
-  font-family: Poppins, sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 21px;
+export const SubmitButton = styled(BaseButton)`
+  font-size: ${props => props.theme.fontSizes.paragraph};
+  line-height: 1.2;
   color: #fdfdfd;
   padding: 12px 30px;
   background: #456ba9;
   border: 1px solid #456ba9;
   width: 100%;
   margin-right: 1.5rem;
-  cursor: pointer;
   transition: all 0.2s ease-in-out;
-  outline: none;
 
   @media (max-width: 768px) {
     margin-bottom: 1.5rem;
@@ -219,8 +210,10 @@ export const SubmitButton = styled.button`
 export const SubmitParagraph = styled.p<{ accept?: boolean | number }>`
   font-family: ${props =>
     !props.accept ? 'Poppins, sans-serif' : 'Lato, sans-serif'};
-  font-size: ${props => (!props.accept ? '14px' : '13px')};
-  font-weight: 400;
+  font-size: ${props =>
+    !props.accept
+      ? props.theme.fontSizes.helper
+      : props.theme.fontSizes.copyright};
   line-height: ${props => (!props.accept ? '23.8px' : '24px')};
   text-align: ${props => (!props.accept ? 'right' : 'left')};
 
@@ -240,12 +233,9 @@ export const SubmitAcceptParagraph = styled(SubmitParagraph)`
 `;
 
 export const SubmitLink = styled.a`
-  font-family: Poppins, sans-serif;
-  font-size: 14px;
-  font-weight: 400;
+  font-size: ${props => props.theme.fontSizes.paragraph};
   line-height: 23.8px;
   color: #41b8ed;
-  text-decoration: none;
 `;
 
 export const SocialDivider = styled.div`
@@ -255,15 +245,13 @@ export const SocialDivider = styled.div`
 `;
 
 export const SocialSpanLine = styled.span`
-  width: 237px;
-  height: 1px;
+  ${HeightWidth('1px', '237px')}
   background: ${props => props.theme.text.primary};
   display: inline-block;
 `;
 
 export const SocialSpanCircle = styled.span`
-  width: 35px;
-  height: 35px;
+  ${HeightWidth('35px', '35px')}
   line-height: 35px;
   display: inline-block;
   background: ${props => props.theme.text.primary};
@@ -277,9 +265,6 @@ export const SocialSpanCircle = styled.span`
 `;
 
 export const FormWrapper = styled(Form)`
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
+  ${FlexRow}
   margin-top: 1rem;
 `;

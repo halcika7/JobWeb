@@ -2,31 +2,29 @@ import styled, { css } from 'styled-components';
 import { CenterDiv, ColumnDiv, JustifyCenterDiv } from '@styled/div';
 import { Base } from '@styled/button';
 import { ShowSweetAlert } from '@styled/keyframes';
+import { HeightWidth } from '@styled/props/height';
 
 export const SweetAlertWrapper = styled(CenterDiv)`
+  ${HeightWidth('100vh', '100%')}
   z-index: 10;
   position: fixed;
   top: 0;
   left: 0;
-  height: 100vh;
-  width: 100%;
   padding: 0.5rem;
 `;
 
 export const Backdrop = styled.div`
+  ${HeightWidth('100vh', '100%')}
   background-color: rgba(0, 0, 0, 0.4);
   position: absolute;
   top: 0;
   left: 0;
-  height: 100vh;
-  width: 100%;
   z-index: 10;
 `;
 
 export const Alert = styled(ColumnDiv)`
-  height: 400px;
+  ${HeightWidth('400px', '100%')}
   max-width: 400px;
-  width: 100%;
   background-color: #fff;
   color: rgba(0, 0, 0, 0.64);
   border-radius: 5px;

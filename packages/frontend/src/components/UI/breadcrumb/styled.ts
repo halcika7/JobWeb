@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Container } from '@styled/div';
+import { Flex } from '@styled/props/flex';
 import { BaseLink } from '@styled/link';
 
 export const BreadcrumbDiv = styled.div`
@@ -9,14 +10,14 @@ export const BreadcrumbDiv = styled.div`
 `;
 
 export const BredcrumbContainer = styled(Container)`
-  display: flex;
+  ${Flex}
 `;
 
 export const Anchor = styled(BaseLink)`
   color: #27293d;
   transition: color 0.2s ease-in-out;
   font-weight: 500;
-  font-size: 16px;
+  font-size: ${props => props.theme.fontSizes.paragraph};
 
   &:hover {
     color: #fff;

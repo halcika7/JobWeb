@@ -1,6 +1,5 @@
 import { WhiteSecondary, Azure } from './colors';
 
-// Theme.ts
 const light = {
   bg: {
     accordion_content: 'transparent',
@@ -30,16 +29,18 @@ const dark = {
 };
 
 const defaultTheme = {
-  fontSizes: [
-    '14px', // 0
-    '16px', // 1
-    '18px', // 2
-    '22px', // 3
-    '26px', // 4
-    '32px', // 5
-    '40px', // 6
-  ],
+  fontSizes: {
+    copyright: '0.7em', // 12px
+    helper: '0.8em', // 14px
+    paragraph: '1em', // 16px
+    h5: '1.1em', // 18px
+    h4: '1.2em', // 20px
+    h3: '1.4em', // 22px
+    h2: '1.6em', // 25px
+    h1: '1.8em', // 28px
+  },
   fontWeights: {
+    light: 300,
     body: 400,
     subheading: 500,
     link: 600,

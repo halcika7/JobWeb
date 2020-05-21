@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 import { Container } from '@styled/div';
+import { CenterAllFlex } from '@styled/props/flex';
 import BGImage from '@images/space.jpg';
 
 export const NotFoundSection = styled(Container)`
+  ${CenterAllFlex}
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
   padding: 4rem 0 10rem;
 `;
@@ -20,7 +19,6 @@ export const Heading = styled.h1`
   background-size: cover;
   background-position: center;
   background-clip: text;
-  -webkit-background-clip: text;
   color: transparent;
 
   @media (max-width: 686px) {
@@ -45,49 +43,46 @@ export const Heading = styled.h1`
 `;
 
 export const Heading2 = styled.h2`
-  font-size: 30px;
+  font-size: ${props => props.theme.fontSizes.h1};
   font-weight: 700;
   text-transform: uppercase;
   margin-top: 1rem;
 
   @media (max-width: 430px) {
-    font-size: 25px;
+    font-size: ${props => props.theme.fontSizes.h2};
   }
 
   @media (max-width: 340px) {
-    font-size: 20px;
+    font-size: ${props => props.theme.fontSizes.h4};
   }
 
   @media (max-width: 285px) {
-    font-size: 17px;
+    font-size: ${props => props.theme.fontSizes.h5};
   }
 `;
 
 export const Paragraph = styled.p`
-  font-size: 16px;
-  font-weight: 400;
+  font-size: ${props => props.theme.fontSizes.paragraph};
   margin-bottom: 20px;
   margin-top: 1rem;
   text-align: center;
 
   @media (max-width: 430px) {
-    font-size: 14px;
+    font-size: ${props => props.theme.fontSizes.helper};
   }
 
   @media (max-width: 285px) {
-    font-size: 13px;
+    font-size: ${props => props.theme.fontSizes.copyright};
   }
 `;
 
 export const StyledLink = styled.a`
   background: #456ba9;
   line-height: 2;
-  font-size: 16px;
+  font-size: ${props => props.theme.fontSizes.paragraph};
   letter-spacing: 0.5px;
-  font-weight: 400;
   margin-top: 1rem;
   padding: 0.7rem 3rem;
-  text-decoration: none;
   text-transform: uppercase;
   color: #fff;
 `;

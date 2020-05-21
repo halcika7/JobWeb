@@ -23,10 +23,12 @@ const Navbar: FC = (): JSX.Element => {
   const [toggled, setToggled] = useState<boolean>(false);
   const [showShadow, setShowShadow] = useState<boolean>(false);
   const [currentHeight, setCurrentHeight] = useState<number>(80);
-  const currentWidth = useRef<number>(1200);
-  const scrolled = useRef<boolean>(false);
+
   const [isAuthenticated] = useAuthenticated();
   const dispatch = useThunkDispatch();
+
+  const currentWidth = useRef<number>(1200);
+  const scrolled = useRef<boolean>(false);
 
   const windowResized = (e: Event) => {
     const w = e.target as Window;
