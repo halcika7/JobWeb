@@ -1,4 +1,5 @@
 import React from 'react';
+import HeadLayout from '@components/HeadLayout';
 
 import * as colors from '@colors';
 import { Container, Row } from '@styled/div';
@@ -31,6 +32,11 @@ export default function Home() {
 
   return (
     <>
+      <HeadLayout
+        title="Home"
+        description="DBS Home page, register as company or user and post jobs or apply to jobs."
+        path="index"
+      />
       Home Page
       <Container>
         <Row>

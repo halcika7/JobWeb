@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Link from 'next/link';
 
 import {
@@ -9,12 +9,22 @@ import {
   StyledLink,
 } from './styled';
 
-const NotFound = (): JSX.Element => (
+interface ErrorProps {
+  code?: number;
+  type?: string;
+}
+
+const NotFound: FC<ErrorProps> = ({
+  code = 404,
+  type = 'Page not found',
+}): JSX.Element => (
   <NotFoundSection as="section">
     <div className="wp">
       <Heading>Oops!</Heading>
     </div>
-    <Heading2>404 - Page not found</Heading2>
+    <Heading2>
+      {code} - {type}
+    </Heading2>
     <Paragraph>
       The page you are looking for might have been removed, had its name changed
       or is temporarily unavailable.
