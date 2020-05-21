@@ -89,7 +89,6 @@ class MyDocument extends Document {
           <link rel="apple-touch-startup-image" href="/logo192.png" />
           <link rel="apple-touch-icon" href="/logo192.png" />
 
-          <link rel="canonical" href="https://djinasopo.netlify.app" />
           <link rel="manifest" href="/manifest.json" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link rel="preconnect" href="https://storage.googleapis.com" />
