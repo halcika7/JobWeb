@@ -32,7 +32,7 @@
   integrity sha512-ocDCSaSUlbgPbuXRVyLU7k+dLGYluKrnfSPKXIwwpGkwNw58JOddvgnQGyB0R/2Ma36nxFA8AAyxjnghLSScpg==
   dependencies:
     "@ampproject/toolbox-core" "^2.3.0"
-
+ 
 "@ampproject/toolbox-script-csp@^2.3.0":
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/@ampproject/toolbox-script-csp/-/toolbox-script-csp-2.3.0.tgz#374cd0bf69bfdd0f1784064d0de69162722c89af"
