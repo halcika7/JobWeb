@@ -9,7 +9,7 @@ import { AppState } from '@store/RootReducer';
 export const connect = (
   Component: FC<any> | ComponentClass,
   mapStateToProps: MapStateToProps<any, any, AppState>,
-  mapDispatchToProps: MapDispatchToProps<any, any> | {},
+  mapDispatchToProps: MapDispatchToProps<any, any> | {}
 ) =>
   redux_connect<any, any, {}, AppState>(
     mapStateToProps,

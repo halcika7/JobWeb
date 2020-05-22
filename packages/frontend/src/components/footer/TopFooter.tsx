@@ -1,19 +1,23 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import NavLink from 'next/link';
 
 import Logo from '@images/logo.png';
 
+import { TopContainer, TopLink, TopImg, TopSpan } from './styled';
+
 const TopFooter = (): JSX.Element => (
-  <div className="top">
-    <NavLink to="/" exact>
-      <img src={Logo} alt="Alt text" />
-      <span>
-        Djina
-        <span className="blue">Ba</span>
-        Sopo
-      </span>
+  <TopContainer>
+    <NavLink href="/" passHref>
+      <TopLink>
+        <TopImg src={Logo} alt="Alt txt" />
+        <TopSpan>
+          Djina
+          <span className="blue">Ba</span>
+          Sopo
+        </TopSpan>
+      </TopLink>
     </NavLink>
-  </div>
+  </TopContainer>
 );
 
 export default TopFooter;

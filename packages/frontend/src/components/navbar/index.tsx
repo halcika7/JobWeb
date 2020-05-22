@@ -1,18 +1,14 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 
 // actions
-import { logoutUser } from '@pages/Auth/store/actions';
+import { logoutUser } from '@containers/Auth/store/actions';
 
 // navigation
-import { NavLink } from 'react-router-dom';
+import NavLink from 'next/link';
 
 // hooks
-import { useCookies } from 'react-cookie';
 import { useAuthenticated } from '@hooks/useAuthenticated';
 import { useThunkDispatch } from '@store/AppThunkDispatch';
-
-// utils
-import { SessionStorage } from '@shared/sessionStorage';
 
 // icons
 import { FiLogIn, FiUser } from 'react-icons/fi';
@@ -21,19 +17,18 @@ import { FiLogIn, FiUser } from 'react-icons/fi';
 import Brand from './Brand';
 import Nav from './Nav';
 
-// styles
-import './Navbar.scss';
+import { Header, Collapsible, Button, Navigation } from './styled';
 
 const Navbar: FC = (): JSX.Element => {
-  const [cookies, setCookie] = useCookies(['theme', 'accessToken']);
-  const [switchTheme, setTheme] = useState<string>('dark');
   const [toggled, setToggled] = useState<boolean>(false);
   const [showShadow, setShowShadow] = useState<boolean>(false);
   const [currentHeight, setCurrentHeight] = useState<number>(80);
-  const currentWidth = useRef<number>(1200);
-  const scrolled = useRef<boolean>(false);
+
   const [isAuthenticated] = useAuthenticated();
   const dispatch = useThunkDispatch();
+
+  const currentWidth = useRef<number>(1200);
+  const scrolled = useRef<boolean>(false);
 
   const windowResized = (e: Event) => {
     const w = e.target as Window;
@@ -59,11 +54,6 @@ const Navbar: FC = (): JSX.Element => {
     }
   };
 
-  const changeTheme = (theme: string) => {
-    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
-    setCookie('theme', theme, { path: '/' });
-  };
-
   const toggleNav = () => {
     if (currentHeight > 80) {
       setCurrentHeight(currentHeight - 300);
@@ -87,51 +77,39 @@ const Navbar: FC = (): JSX.Element => {
     };
   }, []);
 
-  useEffect(() => {
-    const { theme } = cookies;
-    const currentTheme = theme || 'light';
-    const prevTheme = theme === 'dark' || !theme ? 'light' : 'dark';
-
-    setTheme(() => (currentTheme === 'dark' ? 'light' : 'dark'));
-    setCookie('theme', currentTheme, { path: '/' });
-
-    document.body.classList.remove(prevTheme);
-    document.body.classList.add(currentTheme);
-  }, [cookies, setCookie]);
-
   return (
-    <header
-      className={toggled || showShadow ? 'box-shadow' : ''}
+    <Header
+      as="header"
+      shadow={toggled || showShadow}
       style={{ height: `${currentHeight}px` }}
     >
-      <Brand
-        changeTheme={changeTheme}
-        switchTheme={switchTheme}
-        toggled={toggled}
-        toggleNav={toggleNav}
-      />
-      <div className="collapsible">
+      <Brand toggled={toggled} toggleNav={toggleNav} />
+      <Collapsible>
         <Nav />
-        {!isAuthenticated && !SessionStorage.getAuthenticated() ? (
-          <div className="buttons">
-            <NavLink to="/login">
-              <FiLogIn />
-              Login
+        {!isAuthenticated ? (
+          <Navigation>
+            <NavLink href="/login" passHref>
+              <Button as="a">
+                <FiLogIn />
+                Login
+              </Button>
             </NavLink>
-            <NavLink to="/register">
-              <FiUser />
-              Signup
+            <NavLink href="/register" passHref>
+              <Button as="a">
+                <FiUser />
+                Signup
+              </Button>
             </NavLink>
-          </div>
+          </Navigation>
         ) : (
-          <div className="buttons">
-            <button type="button" onClick={() => dispatch(logoutUser)}>
+          <Navigation>
+            <Button type="button" onClick={() => dispatch(logoutUser)}>
               Logout
-            </button>
-          </div>
+            </Button>
+          </Navigation>
         )}
-      </div>
-    </header>
+      </Collapsible>
+    </Header>
   );
 };
 

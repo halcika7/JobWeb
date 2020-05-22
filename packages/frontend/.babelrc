@@ -1,29 +1,38 @@
 {
   "presets": [
-    "@babel/preset-env",
-    ["@babel/preset-typescript", { "onlyRemoveTypeImports": true }]
+    "next/babel"
   ],
   "plugins": [
+    "inline-react-svg",
+    ["styled-components", { "ssr": true }],
     "@babel/plugin-transform-runtime",
     [
       "babel-plugin-root-import",
       {
         "paths": [
           {
+            "rootPathSuffix": "./styled/components",
+            "rootPathPrefix": "@styled/"
+          },
+          {
+            "rootPathSuffix": "./styled/colors/index",
+            "rootPathPrefix": "@colors"
+          },
+          {
             "rootPathSuffix": "./src/components",
             "rootPathPrefix": "@components/"
           },
           {
-            "rootPathSuffix": "./src/assets/images",
+            "rootPathSuffix": "./public/static/assets/images",
             "rootPathPrefix": "@images/"
           },
           {
-            "rootPathSuffix": "./src/assets/svgs",
+            "rootPathSuffix": "./public/static/assets/svgs",
             "rootPathPrefix": "@svgs/"
           },
           {
-            "rootPathSuffix": "./src/pages",
-            "rootPathPrefix": "@pages/"
+            "rootPathSuffix": "./src/containers",
+            "rootPathPrefix": "@containers/"
           },
           {
             "rootPathSuffix": "./src/routes/index",

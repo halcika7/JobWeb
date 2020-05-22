@@ -1,30 +1,23 @@
 import React, { FC } from 'react';
-import { NavLink } from 'react-router-dom';
+import Link from 'next/link';
+
+import { NavLink, Navigation } from './styled';
 
 const Nav: FC = (): JSX.Element => (
-  <nav className="top-navigation">
-    {/* <NavLink to="/listings" activeClassName="active-link">
-      Listings
-    </NavLink>
-    <NavLink to="/company" activeClassName="active-link">
-      Company
-    </NavLink>
-    <NavLink to="/candidats" activeClassName="active-link">
-      Candidates
-    </NavLink> */}
-    <NavLink to="/contact" activeClassName="active-link">
-      Contact
-    </NavLink>
-    <NavLink to="/about" activeClassName="active-link">
-      About
-    </NavLink>
-    <NavLink to="/terms" activeClassName="active-link">
-      Terms
-    </NavLink>
-    <NavLink to="/faq" activeClassName="active-link">
-      FAQ
-    </NavLink>
-  </nav>
+  <Navigation as="nav">
+    <Link href="/contact" passHref>
+      <NavLink>Contact</NavLink>
+    </Link>
+    <Link href="/about" passHref>
+      <NavLink>About</NavLink>
+    </Link>
+    <Link href="/terms" passHref>
+      <NavLink>Terms</NavLink>
+    </Link>
+    <Link href="/faq" passHref>
+      <NavLink>FAQ</NavLink>
+    </Link>
+  </Navigation>
 );
 
 export default Nav;

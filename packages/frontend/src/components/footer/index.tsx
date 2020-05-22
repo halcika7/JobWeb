@@ -1,19 +1,20 @@
 import React from 'react';
 
+import { FooterWrapper } from './styled';
+import { Container } from '@styled/div';
+
 import BottomFooter from './BottomFooter';
 import MiddleFooter from './MiddleFooter';
 import TopFooter from './TopFooter';
 
-import './Footer.scss';
-
 const Footer = (): JSX.Element => (
-  <footer className="footer">
-    <section className="container">
+  <FooterWrapper>
+    <Container as="section">
       <TopFooter />
       <MiddleFooter />
       <BottomFooter />
-    </section>
-  </footer>
+    </Container>
+  </FooterWrapper>
 );
 
 export default Footer;

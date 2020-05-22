@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 
-import './Spinner.scss';
+import { SpinnerWrapper, Spinner } from './styled';
 
 const LargeSpinner: FC = (): JSX.Element => (
-  <div className="wrapper-large">
-    <div className="large-spinner" />
-  </div>
+  <SpinnerWrapper>
+    <Spinner />
+  </SpinnerWrapper>
 );
 
 export default LargeSpinner;

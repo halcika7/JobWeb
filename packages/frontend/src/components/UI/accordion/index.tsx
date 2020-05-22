@@ -1,19 +1,21 @@
 import React, { FC, Ref, useState } from 'react';
 import Accordion, { IAccordion } from './Accordion';
 
-import './Accordion.scss';
+import { Wrapper } from './styled';
 
 interface AccordionWrapperProps {
   accordions: IAccordion[];
+  margin?: string;
 }
 
 const AccordionWrapper: FC<AccordionWrapperProps> = ({
   accordions,
+  margin,
 }): JSX.Element => {
   const [currentActive, setCurrentActive] = useState<Ref<HTMLDivElement>>(null);
 
   return (
-    <section className="accordion-wrapper">
+    <Wrapper>
       {accordions.map(({ title, content, defaultOpen }) => (
         <Accordion
           title={title}
@@ -22,9 +24,10 @@ const AccordionWrapper: FC<AccordionWrapperProps> = ({
           key={`${title}-${content}`}
           currentActive={currentActive}
           setCurrentActive={setCurrentActive}
+          margin={margin}
         />
       ))}
-    </section>
+    </Wrapper>
   );
 };
 

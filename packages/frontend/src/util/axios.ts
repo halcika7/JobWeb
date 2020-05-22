@@ -5,14 +5,14 @@ import {
   loginSuccess,
   getTokenRole,
   authReset,
-} from '@pages/Auth/store/actions';
+} from '@containers/Auth/store/actions';
 
 import { SessionStorage } from '@shared/sessionStorage';
 
 const rejectPromise = (error: object | string) => Promise.reject(error);
 
 const axios = Axios.create({
-  baseURL: process.env.REACT_APP_BACKEND_URL,
+  baseURL: process.env.BACKEND_URL,
   withCredentials: true,
   validateStatus: () => true,
   xsrfCookieName: '_csrf',
@@ -42,7 +42,7 @@ axios.interceptors.response.use(
   error => {
     const originalRequest = error.config;
     const { status } = error.response;
-    const refreshUrl = `${process.env.REACT_APP_BACKEND_URL}/auth/refresh`;
+    const refreshUrl = `${process.env.BACKEND_URL}/auth/refresh`;
 
     if (status === 401 && originalRequest.url === refreshUrl) {
       return rejectPromise(error);

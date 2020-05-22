@@ -2,11 +2,13 @@ import React from 'react';
 import FooterLinks from './FooterLinks';
 import { IoMdAddCircle } from 'react-icons/io';
 
+import { MiddleContainer, GridItem, Content, Heading3 } from '../styled';
+
 const MiddleFooter = (): JSX.Element => (
-  <div className="middle">
-    <div className="grid-item">
-      <h3>Who We Are</h3>
-      <div className="content">
+  <MiddleContainer>
+    <GridItem>
+      <Heading3>Who We Are</Heading3>
+      <Content>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates
           voluptatum adipisci, iure temporibus totam dolorum?
@@ -18,12 +20,12 @@ const MiddleFooter = (): JSX.Element => (
           <IoMdAddCircle />
           read more
         </a>
-      </div>
-    </div>
+      </Content>
+    </GridItem>
     <FooterLinks title="For candidate" linksType="candidates" />
     <FooterLinks title="For employers" linksType="employers" />
     <FooterLinks title="Information" linksType="information" />
-  </div>
+  </MiddleContainer>
 );
 
 export default MiddleFooter;

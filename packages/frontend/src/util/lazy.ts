@@ -1,5 +1,6 @@
-import { lazy } from 'react';
+import dynamic from 'next/dynamic';
 
-const lazyImport = (filename: string) => lazy(() => import(`../${filename}`));
+const lazyImport = (filename: string) =>
+  dynamic(() => import(`../${filename}`));
 
 export default lazyImport;

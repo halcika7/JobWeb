@@ -1,14 +1,13 @@
 import React, { FC } from 'react';
-
-import './icons.scss';
+import { ErrorIcon as Error, SpanMark, SpanLine } from './styled';
 
 const ErrorIcon: FC = (): JSX.Element => (
-  <div className="alert-icon alert-icon-error">
-    <span className="sa-x-mark">
-      <span className="sa-line sa-left" />
-      <span className="sa-line sa-right" />
-    </span>
-  </div>
+  <Error>
+    <SpanMark>
+      <SpanLine left />
+      <SpanLine />
+    </SpanMark>
+  </Error>
 );
 
 export default React.memo(ErrorIcon);

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { FC, ReactNode, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 

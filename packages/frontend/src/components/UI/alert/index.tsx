@@ -1,10 +1,10 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState, useCallback } from 'react';
 
 import { AlertType } from '../sweetAlert';
 
 import { FaTimes } from 'react-icons/fa';
 
-import './alert.scss';
+import { Wrapper, AlertElement, Button } from './styled';
 
 interface AlertProps {
   message: string;
@@ -23,39 +23,38 @@ const Alert: FC<AlertProps> = ({
 }): JSX.Element => {
   const [dismissing, setDismissing] = useState<boolean>(false);
 
+  const closeFunction = useCallback(
+    (time: number, bool: boolean) => {
+      let handler: any = null;
+
+      if (bool) {
+        handler = setTimeout(() => onClose(), time);
+      }
+
+      return () => {
+        clearTimeout(handler);
+      };
+    },
+    [onClose]
+  );
+
   useEffect(() => {
-    let handler: any = null;
-
-    if (autoDismiss) {
-      handler = setTimeout(() => onClose(), autoDismissTime);
-    }
-
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [autoDismiss, autoDismissTime, onClose]);
+    closeFunction(autoDismissTime, autoDismiss);
+  }, [autoDismiss, autoDismissTime, closeFunction]);
 
   useEffect(() => {
-    let handler: any = null;
-
-    if (dismissing) {
-      handler = setTimeout(() => onClose(), 500);
-    }
-
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [dismissing, onClose]);
+    closeFunction(500, dismissing);
+  }, [dismissing, closeFunction]);
 
   return (
-    <div className="alert-wrapper">
-      <div className={!dismissing ? `alert ${type}` : `alert ${type} hiding`}>
-        <button type="button" onClick={() => setDismissing(true)}>
+    <Wrapper>
+      <AlertElement type={type} hiding={dismissing}>
+        <Button type="button" onClick={() => setDismissing(true)}>
           <FaTimes />
-        </button>
+        </Button>
         {message}
-      </div>
-    </div>
+      </AlertElement>
+    </Wrapper>
   );
 };
 

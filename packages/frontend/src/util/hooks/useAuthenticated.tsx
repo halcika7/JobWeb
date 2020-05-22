@@ -1,4 +1,4 @@
-import { Role } from '@pages/Auth/store/types';
+import { Role } from '@containers/Auth/store/types';
 import { AppState } from '@store/RootReducer';
 
 import { useSelector } from 'react-redux';
