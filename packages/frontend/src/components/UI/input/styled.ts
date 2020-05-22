@@ -1,12 +1,12 @@
 import styled, { css } from 'styled-components';
+import { setFontOptions } from '@styled/props/font';
 
 export const InputWrapper = styled.input`
+  ${setFontOptions('helper', 'link')}
   display: block;
   width: 100%;
   background: transparent;
   border: 1px solid ${props => props.theme.text.primary};
-  font-size: ${props => props.theme.fontSizes.helper};
-  font-weight: 600;
   line-height: 21px;
   padding: 10px 20px;
   border-radius: 3px;
@@ -28,7 +28,7 @@ export const LabelSpan = styled.span`
 `;
 
 export const InputLabel = styled.label`
-  font-size: ${props => props.theme.fontSizes.helper};
+  ${setFontOptions('helper')}
   line-height: 21px;
   color: ${props => props.theme.text.primary};
 
@@ -53,9 +53,8 @@ export const InputLabel = styled.label`
   .css-1pahdxg-control,
   .css-2b097c-container,
   .css-26l3qy-menu {
+    ${setFontOptions('helper')}
     background: transparent;
-    font-size: ${props => props.theme.fontSizes.helper};
-    font-weight: 400;
     line-height: 21px;
     box-shadow: none;
 
@@ -113,8 +112,8 @@ export const InputLabel = styled.label`
 `;
 
 export const ErrorDiv = styled.div`
+  ${setFontOptions('helper')}
   margin-top: 0.4rem;
-  font-size: ${props => props.theme.fontSizes.helper};
 `;
 
 export const FormGroup = styled.div<{ error: boolean }>`

@@ -25,3 +25,10 @@ export const FlexRow = {
   'margin-right': '-15px',
   'margin-left': '-15px',
 };
+
+export const SetAllFlex = (d: string, a: string, j: string) => ({
+  display: 'flex',
+  'flex-direction': d,
+  'align-items': a,
+  'justify-content': j,
+});

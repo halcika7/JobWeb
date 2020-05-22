@@ -4,20 +4,21 @@ import { BaseButton } from '@styled/button';
 import { GridColumns, GridColumnsGap } from '@styled/props/grid';
 import { Form } from 'formik';
 import { HeightWidth } from '@styled/props/height';
+import { setFontOptions } from '@styled/props/font';
 
 export const ContactSection = styled.section`
   padding: 4rem 0;
 `;
 
 export const Heading = styled.h1`
-  font-size: ${props => props.theme.fontSizes.h1};
+  ${setFontOptions('h1')}
   line-height: 26.4px;
   text-align: center;
   margin-bottom: 2rem;
 `;
 
 export const ContactParagraph = styled.p`
-  font-size: ${props => props.theme.fontSizes.helper};
+  ${setFontOptions('helper')}
   line-height: 23.8px;
   text-align: center;
 `;
@@ -32,7 +33,7 @@ export const ContactForm = styled(Form)`
 `;
 
 export const SubmitButton = styled(BaseButton)`
-  font-size: ${props => props.theme.fontSizes.paragraph};
+  ${setFontOptions('paragraph')}
   line-height: 21px;
   margin-top: 2rem;
   padding: 0.625rem 4rem;
@@ -114,14 +115,14 @@ export const GridItem = styled(CenterDiv)`
 `;
 
 export const GridHeading = styled.h3`
+  ${setFontOptions('paragraph')}
   margin-top: 1rem;
   margin-bottom: 1rem;
-  font-size: ${props => props.theme.fontSizes.paragraph};
   line-height: 21.6px;
 `;
 
 export const GridParagraph = styled.p`
-  font-size: ${props => props.theme.fontSizes.helper};
+  ${setFontOptions('helper')}
   line-height: 21px;
   text-align: center;
 `;

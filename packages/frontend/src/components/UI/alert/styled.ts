@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { BaseButton } from '@styled/button';
 import { ShowAlert, HideAlert } from '@styled/keyframes';
+import { setFontOptions } from '@styled/props/font';
 
 export const Wrapper = styled.div`
   position: relative;
@@ -8,10 +9,10 @@ export const Wrapper = styled.div`
 `;
 
 export const AlertElement = styled.div<{ type: any; hiding: boolean }>`
+  ${setFontOptions('helper')}
   width: 100%;
   border-radius: 0.2857rem;
   font-family: Lato, sans-serif;
-  font-size: ${props => props.theme.fontSizes.helper};
   line-height: 23px;
   box-shadow: 3px 3px 8px rgba(0, 0, 0, 1);
   color: #fff;
@@ -50,10 +51,10 @@ export const AlertElement = styled.div<{ type: any; hiding: boolean }>`
 `;
 
 export const Button = styled(BaseButton)`
+  ${setFontOptions('h4')}
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   right: 5px;
-  font-size: ${props => props.theme.fontSizes.h4};
   color: #fff;
 `;

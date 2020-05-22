@@ -1,8 +1,9 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Row, CenterDiv, AlignCenterDiv, Flex } from '@styled/div';
 import { CenterAllFlex } from '@styled/props/flex';
 import { GridColumnsGap, GridColumns } from '@styled/props/grid';
 import { HeightWidth } from '@styled/props/height';
+import { setFontOptions } from '@styled/props/font';
 import MapImg from '@images/google-map.png';
 
 export const AboutSection = styled.section`
@@ -24,33 +25,48 @@ export const IntroHeading = styled.h1`
   margin-bottom: 2rem;
 
   @media (max-width: 991px) {
-    font-size: ${props => props.theme.fontSizes.h2};
+    ${setFontOptions('h2', 'link')}
   }
 
   @media (max-width: 576px) {
-    font-size: ${props => props.theme.fontSizes.h4};
+    ${setFontOptions('h4', 'link')}
   }
 `;
 
 export const IntroParagraph = styled.p`
+  ${setFontOptions('h4', 'light')}
   margin-bottom: 3rem;
-  font-size: ${props => props.theme.fontSizes.h4};
-  font-weight: 300;
   line-height: 1.7;
 
   @media (max-width: 991px) {
-    font-size: ${props => props.theme.fontSizes.h5};
+    ${setFontOptions('h5', 'light')}
   }
 
   @media (max-width: 576px) {
-    font-size: ${props => props.theme.fontSizes.paragraph};
+    ${setFontOptions('paragraph', 'light')}
   }
 `;
 
-export const IntroImg = styled.img`
+export const IntroImg = styled.img<{ blured?: boolean; loaded?: boolean }>`
   max-width: 100%;
   height: auto;
-  display: unset;
+
+  ${props =>
+    !props.loaded &&
+    css`
+      display: none;
+    `}
+
+  ${props =>
+    props.blured &&
+    css`
+      width: 100%;
+      filter: blur(25px);
+    `}
+`;
+
+export const ImageWrap = styled.div`
+  overflow: hidden;
 `;
 
 // about icons
@@ -92,8 +108,7 @@ export const Icon = styled(CenterDiv)`
   margin-bottom: 1rem;
 
   svg {
-    height: 35px;
-    width: 35px;
+    ${HeightWidth('35px', '35px')}
     * {
       fill: ${props => props.theme.text.primary};
       stroke: ${props => props.theme.text.primary} !important;
@@ -102,15 +117,14 @@ export const Icon = styled(CenterDiv)`
 `;
 
 export const IconsHeading = styled.h3`
-  font-size: ${props => props.theme.fontSizes.h5};
+  ${setFontOptions('h5')}
   line-height: 21.6px;
   text-align: center;
   margin-bottom: 1rem;
 `;
 
 export const IconsParagraph = styled.p`
-  font-size: ${props => props.theme.fontSizes.helper};
-  font-weight: 300;
+  ${setFontOptions('helper', 'light')}
   line-height: 23.8px;
   text-align: center;
 `;
@@ -121,8 +135,7 @@ export const AboutExSection = styled.section`
 `;
 
 export const AboutExHeading = styled.h3`
-  font-size: ${props => props.theme.fontSizes.h4};
-  font-weight: 700;
+  ${setFontOptions('h4', 'bold')}
   line-height: 22px;
   text-transform: uppercase;
   margin-bottom: 2rem;
@@ -137,7 +150,7 @@ export const AboutExContent = styled.div`
 `;
 
 export const AboutExParagraph = styled.p`
-  font-size: ${props => props.theme.fontSizes.paragraph};
+  ${setFontOptions('paragraph')}
   line-height: 26px;
 
   &:nth-child(2) {
@@ -166,9 +179,8 @@ export const AboutExIcon = styled.div`
 `;
 
 export const CheckboxParagraph = styled.p`
+  ${setFontOptions('helper', 'subheading')}
   margin: 0;
-  font-size: ${props => props.theme.fontSizes.helper};
-  font-weight: 500;
   line-height: 23px;
 `;
 
@@ -198,9 +210,8 @@ export const GridNumber = styled(CenterDiv)`
 `;
 
 export const GridNumberParagraph = styled.p`
+  ${setFontOptions('paragraph', 'subheading')}
   font-family: Lato, sans-serif;
-  font-size: ${props => props.theme.fontSizes.paragraph};
-  font-weight: 500;
   line-height: 17.6px;
   margin-top: 1rem;
 
@@ -239,16 +250,15 @@ export const AboutUsContent = styled.div`
 `;
 
 export const AboutUsHeading = styled.h3`
-  font-size: ${props => props.theme.fontSizes.h4};
-  font-weight: 700;
+  ${setFontOptions('h4', 'bold')}
   line-height: 22px;
   text-transform: uppercase;
   margin-bottom: 2rem;
 `;
 
 export const AboutUsParagraph = styled.p`
+  ${setFontOptions('paragraph')}
   margin: 0;
-  font-size: ${props => props.theme.fontSizes.paragraph};
   line-height: 26px;
   margin-bottom: 2rem;
 `;

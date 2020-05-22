@@ -5,6 +5,7 @@ import { FlexRow } from '@styled/props/flex';
 import { GridColumns } from '@styled/props/grid';
 import { Form } from 'formik';
 import { HeightWidth } from '@styled/props/height';
+import { setFontOptions } from '@styled/props/font';
 
 export const AuthWrapper = styled.section`
   padding: 4rem 0 8rem;
@@ -17,16 +18,16 @@ export const AuthWrapper = styled.section`
 `;
 
 export const Heading = styled.h1`
+  ${setFontOptions('h3')}
   font-family: Poppins, sans-serif;
-  font-size: ${props => props.theme.fontSizes.h3};
   line-height: 26.4px;
   text-align: center;
   margin-bottom: 2rem;
 `;
 
 export const WarningMessage = styled.p`
+  ${setFontOptions('helper')}
   font-family: Lato, sans-serif;
-  font-size: ${props => props.theme.fontSizes.helper};
   line-height: 23px;
   width: 70%;
   margin: 2rem auto 0;
@@ -50,8 +51,8 @@ export const Fieldset = styled.fieldset<{ marginTop?: string }>`
 `;
 
 export const Legend = styled.legend`
+  ${setFontOptions('copyright')}
   padding: 0 0.5rem;
-  font-size: ${props => props.theme.fontSizes.copyright};
   margin-bottom: 0.5rem;
 `;
 
@@ -77,18 +78,18 @@ export const FieldsetWrap = styled(AlignCenterDiv)<{ social?: boolean }>`
     margin-left: 1rem;
 
     h3 {
-      font-size: ${props => props.theme.fontSizes.paragraph};
+      ${setFontOptions('paragraph')}
       text-align: left;
     }
 
     p {
-      font-size: ${props => props.theme.fontSizes.copyright};
+      ${setFontOptions('copyright')}
       text-align: left;
       ${props =>
         props.social &&
         css`
           line-height: 21px;
-          font-size: ${props.theme.fontSizes.helper};
+          ${setFontOptions('helper')}
         `}
     }
   }
@@ -191,7 +192,7 @@ export const Submit = styled(AlignCenterDiv)`
 `;
 
 export const SubmitButton = styled(BaseButton)`
-  font-size: ${props => props.theme.fontSizes.paragraph};
+  ${setFontOptions('paragraph')}
   line-height: 1.2;
   color: #fdfdfd;
   padding: 12px 30px;
@@ -233,7 +234,7 @@ export const SubmitAcceptParagraph = styled(SubmitParagraph)`
 `;
 
 export const SubmitLink = styled.a`
-  font-size: ${props => props.theme.fontSizes.paragraph};
+  ${setFontOptions('paragraph')}
   line-height: 23.8px;
   color: #41b8ed;
 `;

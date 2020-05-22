@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Container } from '@styled/div';
 import { Flex } from '@styled/props/flex';
 import { BaseLink } from '@styled/link';
+import { setFontOptions } from '@styled/props/font';
 
 export const BreadcrumbDiv = styled.div`
   width: 100%;
@@ -14,10 +15,9 @@ export const BredcrumbContainer = styled(Container)`
 `;
 
 export const Anchor = styled(BaseLink)`
+  ${setFontOptions('paragraph', 'subheading')}
   color: #27293d;
   transition: color 0.2s ease-in-out;
-  font-weight: 500;
-  font-size: ${props => props.theme.fontSizes.paragraph};
 
   &:hover {
     color: #fff;

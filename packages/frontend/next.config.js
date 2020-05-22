@@ -2,9 +2,9 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable global-require */
 /* eslint-disable @typescript-eslint/no-var-requires */
+const optimizedImages = require('next-optimized-images');
 const withOffline = require('next-offline');
 const sitemap = require('nextjs-sitemap-generator');
-const withImages = require('next-images');
 const { join } = require('path');
 
 require('dotenv').config();
@@ -58,4 +58,4 @@ const nextConfig = {
   },
 };
 
-module.exports = withOffline(withImages(nextConfig));
+module.exports = optimizedImages(withOffline(nextConfig));

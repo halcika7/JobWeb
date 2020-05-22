@@ -3,6 +3,7 @@ import { CenterDiv } from '@styled/div';
 import { CenterAllFlex, AlignCenterFlex } from '@styled/props/flex';
 import { GridColumns, GridColumnsGap } from '@styled/props/grid';
 import { HeightWidth } from '@styled/props/height';
+import { setFontOptions, textProps } from '@styled/props/font';
 import { BaseLink } from '@styled/link';
 
 export const FooterWrapper = styled.footer`
@@ -16,9 +17,8 @@ export const TopContainer = styled(CenterDiv)`
 `;
 
 export const TopLink = styled(BaseLink)`
-  font-size: ${props => props.theme.fontSizes.h4};
+  ${setFontOptions('h4', 'subheading')}
   color: ${props => props.theme.text.primary};
-  font-weight: 500;
   letter-spacing: 0.6px;
 `;
 
@@ -69,19 +69,17 @@ export const GridItem = styled.div`
 
 export const Content = styled.div`
   p {
-    font-size: ${props => props.theme.fontSizes.helper};
-    font-weight: 500;
+    ${setFontOptions('helper', 'subheading')}
     line-height: 20px;
-    text-decoration: none solid rgba(255, 255, 255, 0.85);
+    color: rgba(255, 255, 255, 0.85);
     word-spacing: 0px;
     margin-top: 1rem;
   }
 
   a {
     ${AlignCenterFlex}
+    ${setFontOptions('helper', 'link')}
     letter-spacing: 1px;
-    font-size: ${props => props.theme.fontSizes.helper};
-    font-weight: 600;
     line-height: 23px;
     text-decoration: none;
     text-transform: uppercase;
@@ -90,7 +88,7 @@ export const Content = styled.div`
     margin-top: 1rem;
 
     svg {
-      font-size: ${props => props.theme.fontSizes.paragraph};
+      ${setFontOptions('paragraph')}
       margin-right: 0.3rem;
     }
   }
@@ -114,12 +112,10 @@ export const Ul = styled.ul`
 `;
 
 export const MiddleLink = styled.a`
-  font-size: ${props => props.theme.fontSizes.paragraph};
-  font-weight: 500;
+  ${setFontOptions('paragraph', 'subheading')}
   text-transform: capitalize;
   word-spacing: 0px;
   color: ${props => props.theme.text.primary};
-  text-decoration: none;
 
   &:hover {
     color: #f16a68;
@@ -163,11 +159,10 @@ export const Links = styled.div`
 `;
 
 export const Heading3 = styled.h3`
-  font-size: ${props => props.theme.fontSizes.h5};
+  ${setFontOptions('h5')}
+  ${textProps('start', 'uppercase')}
   line-height: 22px;
-  text-decoration: none solid rgb(255, 255, 255);
-  text-align: start;
-  text-transform: uppercase;
+  color: #fff;
   white-space: normal;
   word-spacing: 0px;
 `;

@@ -1,4 +1,5 @@
 import { WhiteSecondary, Azure } from './colors';
+import { fontSizes, fontWeights } from './components/props/font';
 
 const light = {
   bg: {
@@ -29,24 +30,8 @@ const dark = {
 };
 
 const defaultTheme = {
-  fontSizes: {
-    copyright: '0.7em', // 12px
-    helper: '0.8em', // 14px
-    paragraph: '1em', // 16px
-    h5: '1.1em', // 18px
-    h4: '1.2em', // 20px
-    h3: '1.4em', // 22px
-    h2: '1.6em', // 25px
-    h1: '1.8em', // 28px
-  },
-  fontWeights: {
-    light: 300,
-    body: 400,
-    subheading: 500,
-    link: 600,
-    bold: 700,
-    heading: 800,
-  },
+  fontSizes,
+  fontWeights,
   lineHeights: {
     body: 1.5,
     heading: 1.3,

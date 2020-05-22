@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Container } from '@styled/div';
 import { CenterAllFlex } from '@styled/props/flex';
+import { setFontOptions } from '@styled/props/font';
 import BGImage from '@images/space.jpg';
 
 export const NotFoundSection = styled(Container)`
@@ -14,7 +15,6 @@ export const Heading = styled.h1`
   font-size: 230px;
   margin: 0px;
   font-weight: 900;
-  background: #fdfdfd;
   background: url(${BGImage}) no-repeat;
   background-size: cover;
   background-position: center;
@@ -43,43 +43,42 @@ export const Heading = styled.h1`
 `;
 
 export const Heading2 = styled.h2`
-  font-size: ${props => props.theme.fontSizes.h1};
-  font-weight: 700;
+  ${setFontOptions('h1', 'bold')}
   text-transform: uppercase;
   margin-top: 1rem;
 
   @media (max-width: 430px) {
-    font-size: ${props => props.theme.fontSizes.h2};
+    ${setFontOptions('h2', 'bold')}
   }
 
   @media (max-width: 340px) {
-    font-size: ${props => props.theme.fontSizes.h4};
+    ${setFontOptions('h4', 'bold')}
   }
 
   @media (max-width: 285px) {
-    font-size: ${props => props.theme.fontSizes.h5};
+    ${setFontOptions('h5', 'bold')}
   }
 `;
 
 export const Paragraph = styled.p`
-  font-size: ${props => props.theme.fontSizes.paragraph};
+  ${setFontOptions('paragraph')}
   margin-bottom: 20px;
   margin-top: 1rem;
   text-align: center;
 
   @media (max-width: 430px) {
-    font-size: ${props => props.theme.fontSizes.helper};
+    ${setFontOptions('helper')}
   }
 
   @media (max-width: 285px) {
-    font-size: ${props => props.theme.fontSizes.copyright};
+    ${setFontOptions('copyright')}
   }
 `;
 
 export const StyledLink = styled.a`
+  ${setFontOptions('paragraph')}
   background: #456ba9;
   line-height: 2;
-  font-size: ${props => props.theme.fontSizes.paragraph};
   letter-spacing: 0.5px;
   margin-top: 1rem;
   padding: 0.7rem 3rem;
