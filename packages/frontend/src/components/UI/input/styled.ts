@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { setFontOptions } from '@styled/props/font';
 
 export const InputWrapper = styled.input`
-  ${setFontOptions('helper', 'link')}
+  ${setFontOptions('paragraph', 'link')}
   display: block;
   width: 100%;
   background: transparent;
@@ -28,7 +28,7 @@ export const LabelSpan = styled.span`
 `;
 
 export const InputLabel = styled.label`
-  ${setFontOptions('helper')}
+  ${setFontOptions('paragraph')}
   line-height: 21px;
   color: ${props => props.theme.text.primary};
 
@@ -53,7 +53,7 @@ export const InputLabel = styled.label`
   .css-1pahdxg-control,
   .css-2b097c-container,
   .css-26l3qy-menu {
-    ${setFontOptions('helper')}
+    ${setFontOptions('paragraph')}
     background: transparent;
     line-height: 21px;
     box-shadow: none;

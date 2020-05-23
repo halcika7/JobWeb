@@ -33,4 +33,11 @@ export class SessionStorage {
   static removeAuthenticated() {
     sessionStorage.removeItem(SessionStorage.tokenSecret);
   }
+
+  static getStorage() {
+    if (typeof window !== 'undefined') {
+      return sessionStorage;
+    }
+    return null;
+  }
 }

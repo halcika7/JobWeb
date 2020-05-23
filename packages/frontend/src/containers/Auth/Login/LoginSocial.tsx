@@ -53,11 +53,11 @@ const icons: Icon[] = [
 const LoginSocial = () => (
   <Fieldset marginTop="3rem">
     <Legend>Login with</Legend>
-    <FieldsetOptions login>
+    <FieldsetOptions login={1}>
       {icons.map(({ id, color, href, icon, text }) => (
         <FieldsetOptionsLi key={id}>
           <FieldsetButton as="a" href={href} color={color}>
-            <FieldsetWrap social>
+            <FieldsetWrap social={1}>
               {icon}
               <div className="content">
                 <p>Login with {text}</p>

@@ -77,9 +77,9 @@ export function Get(path?: string | RegExp): MethodDecorator {
 //   return helperForRoutes(HttpVerbs.OPTIONS, path);
 // }
 
-// export function Patch(path?: string | RegExp): MethodDecorator {
-//   return helperForRoutes(HttpVerbs.PATCH, path);
-// }
+export function Patch(path?: string | RegExp): MethodDecorator {
+  return helperForRoutes(HttpVerbs.PATCH, path);
+}
 
 export function Post(path?: string | RegExp): MethodDecorator {
   return helperForRoutes(HttpVerbs.POST, path);

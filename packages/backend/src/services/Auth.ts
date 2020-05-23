@@ -1,3 +1,4 @@
+import { EmailService } from './Email';
 import { BaseService } from './Base';
 
 // services
@@ -26,6 +27,9 @@ import {
   NotAcceptableException,
   HTTPCodes,
   checkIfObjectEmpty,
+  NotFoundException,
+  InternalServerErrorException,
+  ForbiddenException,
 } from '@job/common';
 
 export class AuthService extends BaseService {
@@ -35,9 +39,30 @@ export class AuthService extends BaseService {
 
   private readonly validation: ValidationService;
 
+  private readonly email: EmailService;
+
   constructor() {
     super(AuthService);
     this.validation = new ValidationService();
+    this.email = new EmailService();
+  }
+
+  private async sendEmail(to: string, token: string) {
+    try {
+      await this.email.sendEmail(
+        {
+          to,
+          token,
+          subject: 'Account Activation DBS',
+        },
+        'activation'
+      );
+    } catch (error) {
+      this.logger.error(error, 'Sending email');
+      throw new InternalServerErrorException({
+        message: 'We could not send activation email. Please try again later.',
+      });
+    }
   }
 
   async register({
@@ -61,6 +86,12 @@ export class AuthService extends BaseService {
       throw new BadRequestException({ ...rest });
     }
 
+    const actToken = this.jwt.signActivationToken({ email: user.email });
+
+    user.activation_token = actToken;
+
+    await this.sendEmail(user.email, actToken);
+
     await user.save();
 
     return this.returnResponse(HTTPCodes.OK, {
@@ -72,7 +103,7 @@ export class AuthService extends BaseService {
   async login({ password, username }: LoginData): Promise<ResponseTokens> {
     const user = (await User.findOne({
       where: [{ email: username }, { username }],
-      select: ['id', 'password', 'role'],
+      select: ['id', 'password', 'role', 'activation_token'],
       join: {
         alias: 'user',
         leftJoinAndSelect: {
@@ -80,6 +111,12 @@ export class AuthService extends BaseService {
         },
       },
     })) as User;
+
+    if (user.activation_token) {
+      throw new ForbiddenException({
+        message: 'Please activate your account in order to login',
+      });
+    }
 
     const matched = user
       ? await this.bcrypt.compareValues(password, user.password)
@@ -107,6 +144,63 @@ export class AuthService extends BaseService {
       message: '',
       accessToken: this.jwt.signToken({ id, role }),
       refreshToken: this.jwt.signToken({ id, role }, true),
+    });
+  }
+
+  async activateAccount(token: string) {
+    try {
+      const { email } = (await this.jwt.verifyToken(token, false)) as {
+        email: string;
+      };
+
+      const user = await User.findOne({
+        where: { email, activation_token: token },
+      });
+
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      user.activation_token = null;
+
+      await user.save();
+
+      return this.returnResponseTokens({
+        status: HTTPCodes.OK,
+        message: `${user.username} your account is successfully activated`,
+      });
+    } catch (error) {
+      this.logger.error(error, 'Activate Account');
+      throw new NotAcceptableException({
+        message: 'Token expired / invalid token provided.',
+      });
+    }
+  }
+
+  async resend(email: string) {
+    const user = await User.findOne({
+      where: { email },
+    });
+
+    if (!user) {
+      throw new NotFoundException({ message: 'User not found' });
+    }
+
+    if (!user.activation_token) {
+      throw new ForbiddenException({ message: 'Account already activated' });
+    }
+
+    const actToken = this.jwt.signActivationToken({ email });
+
+    user.activation_token = actToken;
+
+    await this.sendEmail(email, actToken);
+
+    await user.save();
+
+    return this.returnResponseTokens({
+      status: HTTPCodes.OK,
+      message: `Activation email was sent`,
     });
   }
 }

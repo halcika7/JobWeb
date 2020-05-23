@@ -56,6 +56,8 @@ export enum AuthActions {
   AUTH_RESET = 'AUTH_RESET',
   AUTH_RESET_MESSAGE = 'AUTH_RESET_MESSAGE',
   LOGIN_SUCCESS = 'LOGIN_SUCCESS',
+  ACTIVATE_ACCOUNT = 'ACTIVATE_ACCOUNT',
+  RESEND_ACTIVATION_LINK = 'RESEND_ACTIVATION_LINK',
 }
 
 interface AuthStart {
@@ -88,10 +90,22 @@ interface LoginSuccess {
   payload: { isAuthenticated: boolean; token: string; role: Role };
 }
 
+interface ActivateAccount {
+  type: typeof AuthActions.ACTIVATE_ACCOUNT;
+  payload: {};
+}
+
+interface ResendLink {
+  type: typeof AuthActions.RESEND_ACTIVATION_LINK;
+  payload: { email: string };
+}
+
 export type AuthActionTypes =
   | AuthSuccess
   | AuthFailed
   | AuthStart
   | AuthReset
   | AuthResetMessage
-  | LoginSuccess;
+  | LoginSuccess
+  | ActivateAccount
+  | ResendLink;

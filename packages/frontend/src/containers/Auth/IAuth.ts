@@ -5,10 +5,14 @@ import { AppState } from '@store/RootReducer';
 import { AuthTouched, AuthValues } from './store/types';
 
 // actions
-import { resetMessage as resetMessageAction } from './store/actions';
+import {
+  resetMessage as resetMessageAction,
+  authReset as authResetAction,
+} from './store/actions';
 
 export interface AuthDispatchToProps {
   resetMessages: () => void;
+  resetState: () => void;
 }
 
 export interface AuthStateToProps {
@@ -17,7 +21,6 @@ export interface AuthStateToProps {
   touched: AuthTouched;
   message: string;
   status: number | null;
-  limit: string;
 }
 
 export const authMapStateToProps: MapStateToProps<
@@ -30,7 +33,6 @@ export const authMapStateToProps: MapStateToProps<
   touched: state.auth.touched,
   message: state.auth.message,
   status: state.auth.status,
-  limit: state.auth.limit,
   ...ownProps,
 });
 
@@ -38,4 +40,5 @@ export const authMapDispatchToProps: MapDispatchToProps<any, {}> = (
   dispatch: AppThunkDispatch
 ) => ({
   resetMessages: () => dispatch(resetMessageAction()),
+  resetState: () => dispatch(authResetAction()),
 });

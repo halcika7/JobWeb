@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { CenterDiv, ColumnDiv, JustifyCenterDiv } from '@styled/div';
-import { Base } from '@styled/button';
+import { BaseButton } from '@styled/button';
 import { ShowSweetAlert } from '@styled/keyframes';
 import { HeightWidth } from '@styled/props/height';
 
@@ -44,7 +44,7 @@ export const Buttons = styled(JustifyCenterDiv)`
   }
 `;
 
-export const Button = styled(Base)<{ success?: boolean }>`
+export const Button = styled(BaseButton)<{ success?: boolean }>`
   width: 150px;
   border: 1px solid red;
   padding: 0.5rem 0;

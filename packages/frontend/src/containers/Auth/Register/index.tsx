@@ -32,6 +32,7 @@ const Register: FC<Props> = ({
   status,
   registerUser,
   resetMessages,
+  resetState,
 }): JSX.Element => {
   const [active, setActive] = useState<AccountRegistrationType>('user');
   const [showSweetAlert, setShowSweetAlert] = useState<boolean>(false);
@@ -60,9 +61,9 @@ const Register: FC<Props> = ({
 
   useEffect(() => {
     return () => {
-      resetMessages();
+      resetState();
     };
-  }, [resetMessages]);
+  }, [resetState]);
 
   useEffect(() => {
     dispatch(getCountries);
