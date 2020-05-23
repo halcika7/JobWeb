@@ -67,7 +67,9 @@ export const FieldsetButton = styled(BaseButton)<{ color?: string }>`
   width: 100%;
 `;
 
-export const FieldsetWrap = styled(AlignCenterDiv)<{ social?: boolean }>`
+export const FieldsetWrap = styled(AlignCenterDiv)<{
+  social?: boolean | number;
+}>`
   ${props =>
     props.social &&
     css`
@@ -125,7 +127,7 @@ export const FieldsetOptionsLi = styled.li<{ active?: boolean }>`
     `}
 `;
 
-export const FieldsetOptions = styled.ul<{ login?: boolean }>`
+export const FieldsetOptions = styled.ul<{ login?: boolean | number }>`
   display: flex;
   justify-content: space-between;
   list-style: none;
@@ -184,11 +186,17 @@ export const FieldsetOptions = styled.ul<{ login?: boolean }>`
   }
 `;
 
-export const Submit = styled(AlignCenterDiv)`
+export const Submit = styled(AlignCenterDiv)<{ center?: boolean | number }>`
   justify-content: space-between;
   flex-wrap: wrap;
   margin-top: 1.5rem;
   width: 100%;
+
+  ${props =>
+    props.center &&
+    css`
+      justify-content: center;
+    `}
 `;
 
 export const SubmitButton = styled(BaseButton)`
@@ -265,7 +273,26 @@ export const SocialSpanCircle = styled.span`
   border-radius: 50%;
 `;
 
-export const FormWrapper = styled(Form)`
+export const FormWrapper = styled(Form)<{ center?: boolean | number }>`
   ${FlexRow}
   margin-top: 1rem;
+
+  ${props =>
+    props.center &&
+    css`
+      justify-content: center;
+    `}
+`;
+
+export const ActivateParagraph = styled.p<{ margin?: string }>`
+  ${setFontOptions('helper')}
+  display: block;
+  color: ${props => props.theme.text.primary};
+  margin: 1rem 0 2rem;
+
+  ${props =>
+    props.margin &&
+    css`
+      margin: ${props.margin};
+    `}
 `;

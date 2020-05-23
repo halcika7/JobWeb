@@ -53,6 +53,7 @@ interface AppConfig {
   twilio: Twilio;
   neverBounce: NeverBounce;
   webToken: WebToken;
+  sendgrid: string;
 }
 
 export abstract class Configuration {
@@ -93,5 +94,6 @@ export abstract class Configuration {
       REFRESH_TOKEN_NAME: process.env.REFRESH_TOKEN_NAME,
       REFRESH_TOKEN_PATH: process.env.REFRESH_TOKEN_PATH,
     } as WebToken,
+    sendgrid: process.env.SEND_GRID as string,
   };
 }

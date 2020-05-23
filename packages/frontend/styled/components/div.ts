@@ -54,3 +54,7 @@ export const Container = styled.div`
 export const Row = styled.div`
   ${FlexRow}
 `;
+
+export const CenterColumn = styled(ColumnDiv)`
+  ${JustifyCenterFlex}
+`;

@@ -15,7 +15,6 @@ export interface AuthState {
   token: string;
   role: Role | null;
   isAuthenticated: boolean;
-  limit: string;
 }
 
 const values: AuthValues = {
@@ -51,7 +50,6 @@ export const INITIAL_STATE: AuthState = {
   token: '',
   role: null,
   isAuthenticated: false,
-  limit: '',
 };
 
 export function AuthReducer(
@@ -95,7 +93,6 @@ export function AuthReducer(
               company: true,
             }
           : { ...INITIAL_STATE.touched },
-        limit: action.payload.limit || '',
       };
     case AuthActions.LOGIN_SUCCESS:
       return {

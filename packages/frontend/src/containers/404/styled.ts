@@ -19,6 +19,7 @@ export const Heading = styled.h1`
   background-size: cover;
   background-position: center;
   background-clip: text;
+  -webkit-background-clip: text;
   color: transparent;
 
   @media (max-width: 686px) {

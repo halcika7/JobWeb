@@ -99,7 +99,7 @@ const RegisterFormik: FC<RegisterFormikProps> = ({
           <Submit>
             <SubmitParagraph className="col-12" accept={1}>
               By hitting the &quot;Sign up&quot; button, you agree to the{' '}
-              <Link href="/" passHref>
+              <Link href="/terms" passHref>
                 <SubmitLink>Terms conditions</SubmitLink>
               </Link>{' '}
               and{' '}

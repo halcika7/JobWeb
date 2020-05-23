@@ -25,17 +25,4 @@ export class BaseController {
   ): Response {
     return res.status(status).json({ ...resObj });
   }
-
-  protected getLimit(rateLimit: RateLimitInfo): string {
-    const { limit, remaining } = rateLimit;
-    const attempt = remaining === 1 ? 'attempt' : 'attempts';
-    const date = rateLimit.resetTime as Date;
-    const formatedTime = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} at ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-
-    return `Limit for this action is ${limit}. ${remaining} ${attempt} remaining. Remaining attempts will reset on ${formatedTime}.`;
-  }
-
-  protected get logger(): Logger {
-    return this._logger as Logger;
-  }
 }

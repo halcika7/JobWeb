@@ -21,7 +21,7 @@ export abstract class JWTService {
   static async verifyToken(token: string, refresh = false) {
     try {
       return jwt.verify(token, JWTService.getSecret(refresh));
-    } catch {
+    } catch (error) {
       throw new UnauthorizedException({ message: 'Invalid token...' });
     }
   }

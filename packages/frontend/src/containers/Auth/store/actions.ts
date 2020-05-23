@@ -133,3 +133,35 @@ export const refreshToken = async (dispatch: AppThunkDispatch) => {
 
   return dispatch(authFailed({ ...data, status, refresh: true }));
 };
+
+export const activateAccount = async (dispatch: AppThunkDispatch) => {
+  const token = SessionStorage.getItem('activate');
+
+  const { data, status } = await axios.patch<{ message: string }>('/auth/', {
+    token,
+  });
+
+  SessionStorage.removeItem('activate');
+
+  if (status === HTTPCodes.OK) {
+    return dispatch(authSuccess(data.message, status));
+  }
+
+  return dispatch(authFailed({ ...data, status }));
+};
+
+export const resendActivationLink = (email: string) => async (
+  dispatch: AppThunkDispatch
+) => {
+  dispatch(authStart({ email } as AuthValues));
+
+  const { data, status } = await axios.patch<{
+    message: string;
+  }>('/auth/resend', { email });
+
+  if (status === HTTPCodes.OK) {
+    return dispatch(authSuccess(data.message, status));
+  }
+
+  return dispatch(authFailed({ ...data, status }));
+};

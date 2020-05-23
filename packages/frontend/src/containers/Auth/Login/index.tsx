@@ -29,14 +29,17 @@ const Login: FC<Props> = ({
   touched,
   message,
   status,
-  limit,
   loginUser,
   resetMessages,
+  resetState,
 }): JSX.Element => {
   const [showSweetAlert, setShowSweetAlert] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<boolean>(false);
 
-  const sweetAlertCallback = () => setShowSweetAlert(false);
+  const sweetAlertCallback = () => {
+    setShowSweetAlert(false);
+    resetMessages();
+  };
 
   const alertCallback = () => {
     setShowAlert(false);
@@ -45,27 +48,25 @@ const Login: FC<Props> = ({
 
   useEffect(() => {
     if (message) {
-      if (status === HTTPCodes.BAD_REQUEST || status === HTTPCodes.FORBIDDEN) {
-        setShowSweetAlert(true);
-      }
       if (status === HTTPCodes.TOO_MANY_REQUESTS) {
         setShowAlert(true);
+      } else {
+        setShowSweetAlert(true);
       }
     }
   }, [status, message]);
 
   useEffect(() => {
     return () => {
-      resetMessages();
+      resetState();
     };
-  }, [resetMessages]);
+  }, [resetState]);
 
   return (
     <>
       {showSweetAlert && (
         <SweetAlert
           message={message}
-          additionalMessage={limit}
           withButtons
           failedButton="Cancel"
           type="error"

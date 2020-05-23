@@ -3,15 +3,7 @@ import { RedisService } from '@service/Redis';
 
 import { Server } from '@config/server-config';
 
-import {
-  Response,
-  Request,
-  NextFunction,
-  urlencoded,
-  json,
-  // static as expressStatic,
-} from 'express';
-// import { resolve } from 'path';
+import { Response, Request, NextFunction, urlencoded, json } from 'express';
 
 import compression from 'compression';
 import cookieparser from 'cookie-parser';

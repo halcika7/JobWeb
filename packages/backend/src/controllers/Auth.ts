@@ -8,8 +8,8 @@ import { CookieService } from '@service/Cookie';
 // decorators
 import { Controller } from '@decorator/class';
 import { Middleware, ErrorMiddleware } from '@decorator/middleware';
-import { Get, Post } from '@decorator/method';
-import { Res, Body, Rate, Cookie } from '@decorator/param';
+import { Get, Post, Patch } from '@decorator/method';
+import { Res, Body, Cookie } from '@decorator/param';
 
 // middlewares
 import { Limiter } from '@middleware/rateLimiter';
@@ -18,7 +18,6 @@ import { errorHandle } from '@middleware/errorHandling';
 // types
 import { Response } from 'express';
 import { RegisterPostData, LoginData } from '@ctypes';
-import { RateLimitInfo } from 'express-rate-limit';
 
 import { HTTPCodes } from '@job/common';
 
@@ -44,18 +43,13 @@ export class AuthController extends BaseController {
   @Post('login')
   @Middleware(Limiter.loginLimit())
   @ErrorMiddleware(errorHandle)
-  async login(
-    @Body() body: LoginData,
-    @Rate() rate: RateLimitInfo,
-    @Res() res: Response
-  ) {
+  async login(@Body() body: LoginData, @Res() res: Response) {
     const { status, refreshToken, ...rest } = await this.auth.login(body);
 
     if (refreshToken) this.cookie.setRefreshToken(res, refreshToken);
 
     return this.sendResponse(res, status, {
       ...rest,
-      limit: this.getLimit(rate),
     });
   }
 
@@ -78,5 +72,27 @@ export class AuthController extends BaseController {
     this.cookie.setRefreshToken(res, refreshToken || '');
 
     return this.sendResponse(res, status, { ...rest });
+  }
+
+  @Patch('')
+  @ErrorMiddleware(errorHandle)
+  async activateAccount(@Body('token') token: string, @Res() res: Response) {
+    const { status, message } = await this.auth.activateAccount(
+      JSON.parse(token)
+    );
+
+    return this.sendResponse(res, status, { message });
+  }
+
+  @Patch('resend')
+  @Middleware(Limiter.reactivateLimit())
+  @ErrorMiddleware(errorHandle)
+  async resendActivationToken(
+    @Body('email') email: string,
+    @Res() res: Response
+  ) {
+    const { status, message } = await this.auth.resend(email);
+
+    return this.sendResponse(res, status, { message });
   }
 }

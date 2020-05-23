@@ -71,7 +71,7 @@ export const Content = styled.div`
   p {
     ${setFontOptions('helper', 'subheading')}
     line-height: 20px;
-    color: rgba(255, 255, 255, 0.85);
+    color: ${props => props.theme.text.primary};
     word-spacing: 0px;
     margin-top: 1rem;
   }
@@ -162,7 +162,7 @@ export const Heading3 = styled.h3`
   ${setFontOptions('h5')}
   ${textProps('start', 'uppercase')}
   line-height: 22px;
-  color: #fff;
+  color: ${props => props.theme.text.primary};
   white-space: normal;
   word-spacing: 0px;
 `;
