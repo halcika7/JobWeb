@@ -95,4 +95,30 @@ export class AuthController extends BaseController {
 
     return this.sendResponse(res, status, { message });
   }
+
+  @Patch('resetlink')
+  @Middleware(Limiter.reactivateLimit())
+  @ErrorMiddleware(errorHandle)
+  async resetPasswordLink(@Body('email') email: string, @Res() res: Response) {
+    const { status, message } = await this.auth.resetPasswordLink(email);
+
+    return this.sendResponse(res, status, { message });
+  }
+
+  @Patch('resetpassword')
+  @ErrorMiddleware(errorHandle)
+  async resetPassword(
+    @Body('password') password: string,
+    @Body('password2') password2: string,
+    @Body('token') token: string,
+    @Res() res: Response
+  ) {
+    const { status, message } = await this.auth.changePassword(
+      password,
+      password2,
+      token
+    );
+
+    return this.sendResponse(res, status, { message });
+  }
 }

@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { Base } from '@styled/button';
+import { BaseButton } from '@styled/button';
 import { HeightWidth } from '@styled/props/height';
 
 export const Wrapper = styled.section`
@@ -18,7 +18,7 @@ export const AccordionElement = styled.section<{ margin?: string }>`
     `}
 `;
 
-export const Button = styled(Base)`
+export const Button = styled(BaseButton)`
   ${HeightWidth('45px', '100%')}
   padding: 0 1rem;
   background: #41b8ed;

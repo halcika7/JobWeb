@@ -13,6 +13,7 @@ export const NotFoundSection = styled(Container)`
 
 export const Heading = styled.h1`
   font-size: 230px;
+  font-size: clamp(80px, 10vw, 230px);
   margin: 0px;
   font-weight: 900;
   background: url(${BGImage}) no-repeat;

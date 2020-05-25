@@ -14,7 +14,6 @@ import {
   Role,
 } from './types';
 
-// utils
 import { SessionStorage } from '@shared/sessionStorage';
 
 export const authStart = (values: AuthValues | LoginData): AuthActionTypes => ({

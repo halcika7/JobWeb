@@ -29,8 +29,6 @@ export function exchangeKeyForValue(
       return (req as any).files;
     case RouteParamtypes.IP:
       return req.ip;
-    case RouteParamtypes.RATE_LIMIT:
-      return req.rateLimit;
     case RouteParamtypes.COOKIE:
       return data ? req.cookies[`${data}`] : req.cookies;
     default:

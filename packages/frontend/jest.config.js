@@ -14,9 +14,6 @@ module.exports = {
   ],
   setupFilesAfterEnv: ['<rootDir>config/setupTests.ts'],
   testPathIgnorePatterns: ['/node_modules/', '/.next/'],
-  // transform: {
-  //   '^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/node_modules/babel-jest',
-  // },
   transformIgnorePatterns: ['/node_modules/'],
   testMatch: ['**/*.test.{ts,tsx}'],
   moduleNameMapper: {

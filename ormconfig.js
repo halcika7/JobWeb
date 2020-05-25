@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary */
 const {
   DB_USER,
   DB_PASSWORD,

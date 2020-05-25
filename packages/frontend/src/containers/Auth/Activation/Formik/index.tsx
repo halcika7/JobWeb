@@ -7,7 +7,21 @@ import {
   ActivateParagraph,
 } from '../../styled';
 import Input from '@components/UI/input/Input';
-import { ActivationFormikProps } from './FormikProps';
+
+import { FormikProps } from '@containers/Auth/IFormik';
+import * as yup from 'yup';
+
+const EmailSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email('Please provide valid email')
+    .max(100, 'Email cannot exceed 100 characters')
+    .required('Email is required'),
+});
+
+interface ActivationFormikProps extends FormikProps {
+  onSubmit: (email: string) => void;
+}
 
 const ActivationFormik: FC<ActivationFormikProps> = ({
   buttonDisabled,
@@ -31,7 +45,7 @@ const ActivationFormik: FC<ActivationFormikProps> = ({
       initialTouched={itouched}
       validateOnChange
       validateOnBlur
-      //   validationSchema={UserLoginSchema}
+      validationSchema={EmailSchema}
       onSubmit={data => {
         const { email } = data;
         setSubmitting(true);

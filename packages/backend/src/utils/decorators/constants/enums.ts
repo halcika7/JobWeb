@@ -20,6 +20,5 @@ export enum RouteParamtypes {
   SESSION = 'SESSION',
   HEADERS = 'HEADERS',
   HOST = 'HOST',
-  RATE_LIMIT = 'RATE_LIMIT',
   COOKIE = 'COOKIE',
 }
