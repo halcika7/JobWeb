@@ -13,7 +13,6 @@ function helperForRoutes(
 
     routeProperties = {
       httpVerb,
-      // path: path === undefined ? '' : `/${path}`,
       path: `/${path}`,
       ...routeProperties,
     };

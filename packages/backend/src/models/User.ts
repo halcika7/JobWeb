@@ -6,6 +6,7 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  BeforeUpdate,
 } from 'typeorm';
 
 // validators
@@ -22,9 +23,9 @@ import {
 } from 'class-validator';
 
 import {
-  EqualPasswords,
-  UniqueEmail,
-  UniqueUsername,
+  IsEqualPasswords,
+  IsUniqueEmail,
+  IsUniqueUsername,
   ValidateCity,
   ValidateCountry,
 } from '@model-validator';
@@ -41,16 +42,28 @@ export class User extends BaseEntity {
   id!: number;
 
   @Column('varchar', { unique: true, nullable: false, length: 15 })
-  @IsString({ message: 'Username must be a string' })
-  @Validate(UniqueUsername)
-  @MinLength(6, { message: 'Username must contain at least 6 characters' })
-  @MaxLength(15, { message: 'Username cannot exceed 15 characters' })
+  @IsString({ message: 'Username must be a string', groups: ['registration'] })
+  @IsUniqueUsername({ groups: ['registration'], always: false })
+  @MinLength(6, {
+    message: 'Username must contain at least 6 characters',
+    groups: ['registration'],
+  })
+  @MaxLength(15, {
+    message: 'Username cannot exceed 15 characters',
+    groups: ['registration'],
+  })
   username!: string;
 
   @Column('varchar', { unique: true, nullable: false, length: 100 })
-  @Validate(UniqueEmail)
-  @MaxLength(100, { message: 'Email cannot exceed 100 characters' })
-  @IsEmail({}, { message: 'Please provide valid email' })
+  @IsUniqueEmail({ groups: ['registration'], always: false })
+  @MaxLength(100, {
+    message: 'Email cannot exceed 100 characters',
+    groups: ['registration'],
+  })
+  @IsEmail(
+    {},
+    { message: 'Please provide valid email', groups: ['registration'] }
+  )
   email!: string;
 
   @Column('varchar', { nullable: false })
@@ -63,29 +76,35 @@ export class User extends BaseEntity {
         'Password needs to contain both lower and upper case characters, number and a special character',
     }
   )
-  @Validate(EqualPasswords)
+  @IsEqualPasswords()
   password!: string;
 
   @Column('varchar', { nullable: false })
-  @Validate(ValidateCountry)
+  @Validate(ValidateCountry, { groups: ['registration'] })
   country!: string;
 
   @Column('varchar', { nullable: false })
-  @Validate(ValidateCity)
+  @Validate(ValidateCity, { groups: ['registration'] })
   city!: string;
 
   @Column('varchar', { nullable: false })
-  @IsPhoneNumber(null, { message: 'Please provide valid phone number' })
+  @IsPhoneNumber(null, {
+    message: 'Please provide valid phone number',
+    groups: ['registration'],
+  })
   phone!: string;
 
   @Column('varchar', { nullable: true })
   @ValidateIf(o => o.role === 2)
-  @IsString({ message: 'Company  is required' })
+  @IsString({ message: 'Company  is required', groups: ['registration'] })
   company!: string | null;
 
   @Column('varchar', { nullable: true })
   @ValidateIf(o => o.website)
-  @IsUrl({}, { message: 'Please provide valid website url.' })
+  @IsUrl(
+    {},
+    { message: 'Please provide valid website url.', groups: ['registration'] }
+  )
   website!: string | null;
 
   @Column('varchar', { nullable: true, default: null })
@@ -99,8 +118,11 @@ export class User extends BaseEntity {
   role!: number;
 
   @BeforeInsert()
+  @BeforeUpdate()
   async hashPassword() {
-    const salt = await BcryptService.generateSalt(12);
-    this.password = await BcryptService.hash(this.password, salt);
+    if (this.password.length <= 15) {
+      const salt = await BcryptService.generateSalt(12);
+      this.password = await BcryptService.hash(this.password, salt);
+    }
   }
 }

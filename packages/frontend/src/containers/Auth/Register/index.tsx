@@ -101,7 +101,7 @@ const Register: FC<Props> = ({
       <Breadcrumb
         breadcrumbs={[
           { href: '/', text: 'Home' },
-          { href: '/register', text: 'Registration' },
+          { href: '/auth/register', text: 'Registration' },
         ]}
       />
 

@@ -13,7 +13,7 @@ export class ContactService extends BaseService {
   private readonly validation: ValidationService;
 
   constructor() {
-    super(Contact);
+    super(ContactService);
     this.validation = new ValidationService();
   }
 

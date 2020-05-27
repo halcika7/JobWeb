@@ -88,13 +88,13 @@ const Navbar: FC = (): JSX.Element => {
         <Nav />
         {!isAuthenticated ? (
           <Navigation>
-            <NavLink href="/login" passHref>
+            <NavLink href="/auth/login" passHref>
               <Button as="a">
                 <FiLogIn />
                 Login
               </Button>
             </NavLink>
-            <NavLink href="/register" passHref>
+            <NavLink href="/auth/register" passHref>
               <Button as="a">
                 <FiUser />
                 Signup

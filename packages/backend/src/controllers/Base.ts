@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { Response } from 'express';
 import { Logger, LoggerFactory } from '@logger';
-import { RateLimitInfo } from 'express-rate-limit';
 
 export class BaseController {
   private readonly _logger: Logger | undefined = undefined;

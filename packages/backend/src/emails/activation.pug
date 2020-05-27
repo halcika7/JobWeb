@@ -259,9 +259,10 @@ table.nl-container(bgcolor='#f8f8f9' cellpadding='0' cellspacing='0' role='prese
                           td(style='padding-right: 10px; padding-left: 10px; padding-top: 15px; padding-bottom: 30px; font-family: Tahoma, sans-serif')
                     div(style='color:#000000;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.2;padding-top:15px;padding-right:10px;padding-bottom:30px;padding-left:10px;')
                       div(style='line-height: 1.2; font-size: 12px; color: #000000; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 14px;')
-                        p(style='font-size: 14px; line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 17px; margin: 0;')
-                          strong
-                            span(style='font-size: 24px;') Welcome too DBS.
+                        if !resetPassword
+                          p(style='font-size: 14px; line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 17px; margin: 0;')
+                            strong
+                              span(style='font-size: 24px;') Welcome too DBS.
                     //if mso
                     //if mso
                       table(width='100%' cellpadding='0' cellspacing='0' border='0')
@@ -271,7 +272,10 @@ table.nl-container(bgcolor='#f8f8f9' cellpadding='0' cellspacing='0' role='prese
                       div(style='line-height: 1.2; font-size: 12px; color: #555555; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 14px;')
                         p(style='font-size: 24px; line-height: 1.2; text-align: center; word-break: break-word; mso-line-height-alt: 29px; margin: 0;')
                           span(style='font-size: 24px; color: #2b303a;')
-                            strong Activate your account by clicking the link below
+                            if !resetPassword
+                              strong Activate your account by clicking the link below
+                            else
+                              strong Proceed to reset password by clicking the link below
                     //if mso
                     //if mso
                       table(width='100%' cellpadding='0' cellspacing='0' border='0')
@@ -324,14 +328,17 @@ table.nl-container(bgcolor='#f8f8f9' cellpadding='0' cellspacing='0' role='prese
                         table(width='100%' cellpadding='0' cellspacing='0' border='0' style='border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;')
                           tr
                             td(style='padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px' align='center')
-                              v:roundrect(xmlns:v='urn:schemas-microsoft-com:vml' xmlns:w='urn:schemas-microsoft-com:office:word' href=URL+'/activate?token='+token style='height:39pt; width:156.75pt; v-text-anchor:middle;' arcsize='97%' stroke='false' fillcolor='#18c8eb')
+                              v:roundrect(xmlns:v='urn:schemas-microsoft-com:vml' xmlns:w='urn:schemas-microsoft-com:office:word' href=(!resetPassword ? URL+"/auth/activate?token="+token : URL+"/auth/reset?token="+token) style='height:39pt; width:156.75pt; v-text-anchor:middle;' arcsize='97%' stroke='false' fillcolor='#18c8eb')
                                 w:anchorlock
                                   v:textbox(inset='0,0,0,0')
                                     center(style='color:#ffffff; font-family:Tahoma, sans-serif; font-size:16px')
-                      a(href=URL+"/activate?token="+token style='-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #18c8eb; border-radius: 50px; -webkit-border-radius: 50px; -moz-border-radius: 50px; width: auto; width: auto; border-top: 1px solid #18c8eb; border-right: 1px solid #18c8eb; border-bottom: 1px solid #18c8eb; border-left: 1px solid #18c8eb; padding-top: 10px; padding-bottom: 10px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;' target='_blank')
+                      a(href=(!resetPassword ? URL+"/auth/activate?token="+token : URL+"/auth/reset?token="+token) style='-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #18c8eb; border-radius: 50px; -webkit-border-radius: 50px; -moz-border-radius: 50px; width: auto; width: auto; border-top: 1px solid #18c8eb; border-right: 1px solid #18c8eb; border-bottom: 1px solid #18c8eb; border-left: 1px solid #18c8eb; padding-top: 10px; padding-bottom: 10px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;' target='_blank')
                         span(style='padding-left:35px;padding-right:35px;font-size:16px;display:inline-block;')
                           span(style='font-size: 16px; margin: 0; line-height: 2; word-break: break-word; mso-line-height-alt: 32px;')
-                            strong Activate
+                            if !resetPassword
+                              strong Activate
+                            else
+                              strong Reset Password
                       //if mso
                     // [if (!mso)&(!IE)] <!
                   // <![endif]

@@ -14,7 +14,6 @@ import {
   Role,
 } from './types';
 
-// utils
 import { SessionStorage } from '@shared/sessionStorage';
 
 export const authStart = (values: AuthValues | LoginData): AuthActionTypes => ({
@@ -158,6 +157,44 @@ export const resendActivationLink = (email: string) => async (
   const { data, status } = await axios.patch<{
     message: string;
   }>('/auth/resend', { email });
+
+  if (status === HTTPCodes.OK) {
+    return dispatch(authSuccess(data.message, status));
+  }
+
+  return dispatch(authFailed({ ...data, status }));
+};
+
+export const sendResetPasswordLink = (email: string) => async (
+  dispatch: AppThunkDispatch
+) => {
+  dispatch(authStart({ email } as AuthValues));
+
+  const { data, status } = await axios.patch<{
+    message: string;
+  }>('/auth/resetlink', { email });
+
+  if (status === HTTPCodes.OK) {
+    return dispatch(authSuccess(data.message, status));
+  }
+
+  return dispatch(authFailed({ ...data, status }));
+};
+
+export const resetPassword = (password: string, password2: string) => async (
+  dispatch: AppThunkDispatch
+) => {
+  const token = SessionStorage.getItem('resetpassword');
+
+  dispatch(authStart({ password, password2 } as AuthValues));
+
+  const { data, status } = await axios.patch<{
+    message: string;
+  }>('/auth/resetpassword', { password, password2, token });
+
+  if (status === HTTPCodes.OK || status === HTTPCodes.UNAUTHORIZED) {
+    SessionStorage.removeItem('resetpassword');
+  }
 
   if (status === HTTPCodes.OK) {
     return dispatch(authSuccess(data.message, status));

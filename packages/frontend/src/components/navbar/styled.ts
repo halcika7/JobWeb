@@ -15,8 +15,7 @@ export const Header = styled(AlignCenterDiv)<{ shadow: boolean }>`
   z-index: 10;
 
   @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: flex-start;
+    display: block;
   }
 
   ${props =>

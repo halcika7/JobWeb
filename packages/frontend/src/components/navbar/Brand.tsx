@@ -6,6 +6,7 @@ import Logo from '@images/logo.png';
 
 import { NavLink, HeaderImg, ToggleButton } from './styled';
 import { AlignCenterDiv } from '@styled/div';
+import ToggleTheme from './ChangeTheme';
 
 interface BrandProps {
   toggled: boolean;
@@ -13,18 +14,16 @@ interface BrandProps {
 }
 
 const Brand: FC<BrandProps> = ({ toggled, toggleNav }): JSX.Element => {
-  const { toggle } = useDarkMode();
+  const { toggle, value } = useDarkMode();
 
   return (
-    <AlignCenterDiv>
+    <AlignCenterDiv style={{ minWidth: '175px' }}>
       <Link href="/" passHref>
         <NavLink>
           <HeaderImg src={Logo} alt="Website Logo" />
         </NavLink>
       </Link>
-      <button type="button" onClick={() => toggle()}>
-        Change Theme
-      </button>
+      <ToggleTheme onClick={() => toggle()} value={value} />
       <ToggleButton
         type="button"
         onClick={toggleNav}

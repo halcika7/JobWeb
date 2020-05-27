@@ -37,11 +37,11 @@ export function checkIfStringEmpty(value: string): boolean {
   return value.trim().length === 0;
 }
 
-export function checkIfObjectEmpty<T extends object>(value: T): boolean {
+export function checkIfObjectEmpty<T>(value: T): boolean {
   return Object.keys(value).length === 0;
 }
 
-export function isEmpty(value: undefined | null | string | object): boolean {
+export function isEmpty<T>(value: T): boolean {
   return (
     value === undefined ||
     value === null ||

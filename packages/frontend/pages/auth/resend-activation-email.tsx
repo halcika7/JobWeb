@@ -5,6 +5,7 @@ import { SessionStorage } from '@shared/sessionStorage';
 
 const ActivatePage = () => {
   if (!SessionStorage.getStorage()) return null;
+
   return (
     <>
       <HeadLayout

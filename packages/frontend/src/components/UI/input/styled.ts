@@ -77,7 +77,8 @@ export const InputLabel = styled.label`
       }
     }
 
-    .css-4ljt47-MenuList {
+    .css-4ljt47-MenuList,
+    .css-26l3qy-menu {
       .css-1n7v3ny-option {
         background: #4fbfe6;
         color: #fff;
