@@ -54,14 +54,16 @@ const ForgotPassword: FC<AuthStateToProps & DispatchToProps & OwnProps> = ({
 
     if (status === HTTPCodes.OK) {
       if (!resetLink) {
-        router.push('/login');
+        router.push('/auth/login');
       } else {
         router.push('/');
       }
     }
-    if (resetLink && status !== HTTPCodes.UNAUTHORIZED) {
+
+    if (!resetLink && status !== HTTPCodes.UNAUTHORIZED) {
       router.push('/auth/forgot-password');
     }
+
     resetMessages();
   };
 

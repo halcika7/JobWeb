@@ -30,12 +30,7 @@ export class ValidationService extends BaseService {
     Model: T,
     additionalObj: U
   ): Promise<object> {
-    let validationValues;
-    if (checkIfObjectEmpty(additionalObj)) {
-      validationValues = await validate(Model);
-    } else {
-      validationValues = await validate(Model, additionalObj);
-    }
+    const validationValues = await validate(Model, additionalObj);
 
     let errors: { [key: string]: string } = {};
 

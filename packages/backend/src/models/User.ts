@@ -7,7 +7,6 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   BeforeUpdate,
-  AfterLoad,
 } from 'typeorm';
 
 // validators
@@ -24,9 +23,9 @@ import {
 } from 'class-validator';
 
 import {
-  EqualPasswords,
-  UniqueEmail,
-  UniqueUsername,
+  IsEqualPasswords,
+  IsUniqueEmail,
+  IsUniqueUsername,
   ValidateCity,
   ValidateCountry,
 } from '@model-validator';
@@ -44,7 +43,7 @@ export class User extends BaseEntity {
 
   @Column('varchar', { unique: true, nullable: false, length: 15 })
   @IsString({ message: 'Username must be a string', groups: ['registration'] })
-  @Validate(UniqueUsername, { groups: ['registration'] })
+  @IsUniqueUsername({ groups: ['registration'], always: false })
   @MinLength(6, {
     message: 'Username must contain at least 6 characters',
     groups: ['registration'],
@@ -56,7 +55,7 @@ export class User extends BaseEntity {
   username!: string;
 
   @Column('varchar', { unique: true, nullable: false, length: 100 })
-  @Validate(UniqueEmail, { groups: ['registration'] })
+  @IsUniqueEmail({ groups: ['registration'], always: false })
   @MaxLength(100, {
     message: 'Email cannot exceed 100 characters',
     groups: ['registration'],
@@ -77,7 +76,7 @@ export class User extends BaseEntity {
         'Password needs to contain both lower and upper case characters, number and a special character',
     }
   )
-  @Validate(EqualPasswords, { groups: ['registration'] })
+  @IsEqualPasswords()
   password!: string;
 
   @Column('varchar', { nullable: false })

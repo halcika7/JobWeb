@@ -12,7 +12,7 @@ const ResetPasswordLinkPage: NextPage<{
   useEffect(() => {
     if (SessionStorage.getStorage() && token) {
       SessionStorage.setValue('resetpassword', token);
-      Router.push('/reset', undefined, { shallow: true });
+      Router.push('/auth/reset', undefined, { shallow: true });
     }
   }, [token]);
 
