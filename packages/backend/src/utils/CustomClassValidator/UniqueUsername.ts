@@ -13,6 +13,6 @@ export class UniqueUsername implements ValidatorConstraintInterface {
   }
 
   defaultMessage(_: ValidationArguments) {
-    return 'Username is aready taken';
+    return 'Username is already taken';
   }
 }

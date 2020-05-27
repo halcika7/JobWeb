@@ -37,8 +37,8 @@ const links: LinksObj = {
     { href: '/', text: 'link' },
   ],
   information: [
-    { href: '/', text: 'link' },
-    { href: '/', text: 'link' },
+    { href: '/faq', text: 'FAQ' },
+    { href: '/terms', text: 'Terms' },
     { href: '/', text: 'link' },
     { href: '/', text: 'link' },
   ],

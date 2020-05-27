@@ -48,13 +48,13 @@ const Activate: FC<AuthStateToProps & DispatchToProps & OwnProps> = ({
 
     if (status === HTTPCodes.OK) {
       if (activation) {
-        router.push('/login');
+        router.push('/auth/login');
       } else {
         router.push('/');
       }
     }
     if (activation && status !== HTTPCodes.OK) {
-      router.push('/resend-activation-email');
+      router.push('/auth/resend-activation-email');
     }
     resetMessages();
   };
@@ -111,7 +111,7 @@ const Activate: FC<AuthStateToProps & DispatchToProps & OwnProps> = ({
       <Breadcrumb
         breadcrumbs={[
           { href: '/', text: 'Home' },
-          { href: '/activate', text: 'Activation' },
+          { href: '/auth/activate', text: 'Activation' },
         ]}
       />
 

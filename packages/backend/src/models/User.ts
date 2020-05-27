@@ -80,8 +80,6 @@ export class User extends BaseEntity {
   @Validate(EqualPasswords, { groups: ['registration'] })
   password!: string;
 
-  private tempPassword: string | undefined;
-
   @Column('varchar', { nullable: false })
   @Validate(ValidateCountry, { groups: ['registration'] })
   country!: string;
@@ -120,25 +118,12 @@ export class User extends BaseEntity {
   @JoinColumn({ name: 'role' })
   role!: number;
 
-  @AfterLoad()
-  loadTempPassword() {
-    this.tempPassword = this.password;
-  }
-
-  async encryptPassword() {
-    const salt = await BcryptService.generateSalt(12);
-    this.password = await BcryptService.hash(this.password, salt);
-  }
-
   @BeforeInsert()
   @BeforeUpdate()
   async hashPassword() {
-    if (this.tempPassword) {
-      if (this.tempPassword !== this.password) {
-        await this.encryptPassword();
-      }
-    } else {
-      await this.encryptPassword();
+    if (this.password.length <= 15) {
+      const salt = await BcryptService.generateSalt(12);
+      this.password = await BcryptService.hash(this.password, salt);
     }
   }
 }

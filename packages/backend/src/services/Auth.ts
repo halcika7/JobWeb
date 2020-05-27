@@ -1,4 +1,3 @@
-import { timingSafeEqual } from 'crypto';
 import { EmailService } from './Email';
 import { BaseService } from './Base';
 
@@ -52,12 +51,13 @@ export class AuthService extends BaseService {
     this.profile = new ProfileService();
   }
 
-  private async sendEmail(to: string, token: string) {
+  private async sendEmail(to: string, token: string, resetPassword = false) {
     try {
       await this.email.sendEmail(
         {
           to,
           token,
+          resetPassword,
           subject: 'Account Activation DBS',
         },
         'activation'
@@ -111,7 +111,13 @@ export class AuthService extends BaseService {
   async login({ password, username }: LoginData): Promise<ResponseTokens> {
     const user = (await User.findOne({
       where: [{ email: username }, { username }],
-      select: ['id', 'password', 'role', 'activation_token'],
+      select: [
+        'id',
+        'password',
+        'role',
+        'activation_token',
+        'reset_password_token',
+      ],
       join: {
         alias: 'user',
         leftJoinAndSelect: {
@@ -229,7 +235,7 @@ export class AuthService extends BaseService {
 
     user.reset_password_token = resetToken;
 
-    await this.sendEmail(email, resetToken);
+    await this.sendEmail(email, resetToken, true);
 
     await user.save();
 
@@ -240,16 +246,10 @@ export class AuthService extends BaseService {
   }
 
   async changePassword(password: string, password2: string, token: string) {
-    if (timingSafeEqual(Buffer.from(password), Buffer.from(password2))) {
-      throw new BadRequestException({
-        errors: { password: 'Both passwords need to be the same' },
-      });
-    }
-
     const { email } = (await this.jwt.verifyToken(token, false)) as {
       email: string;
     };
 
-    return this.profile.changePassword(password, token, email);
+    return this.profile.changePassword(password, password2, token, email);
   }
 }

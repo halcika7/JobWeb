@@ -68,8 +68,13 @@ const LoginFormik: FC<LoginFormikProps> = ({
             </div>
             <SubmitParagraph className="col-12 col-md-6">
               Don&apos;t have an account?{' '}
-              <Link href="/register" passHref>
+              <Link href="/auth/register" passHref>
                 <SubmitLink>Sign up here</SubmitLink>
+              </Link>
+            </SubmitParagraph>
+            <SubmitParagraph className="col-12" accept={1}>
+              <Link href="/auth/forgot-password" passHref>
+                <SubmitLink>Forgot Password ?</SubmitLink>
               </Link>
             </SubmitParagraph>
           </Submit>

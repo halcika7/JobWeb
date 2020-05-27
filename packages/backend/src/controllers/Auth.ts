@@ -116,7 +116,7 @@ export class AuthController extends BaseController {
     const { status, message } = await this.auth.changePassword(
       password,
       password2,
-      token
+      JSON.parse(token)
     );
 
     return this.sendResponse(res, status, { message });

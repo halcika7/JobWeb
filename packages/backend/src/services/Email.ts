@@ -9,6 +9,7 @@ sgMail.setApiKey(Configuration.appConfig.sendgrid);
 interface EmailData {
   to: string;
   token?: string;
+  resetPassword?: boolean;
   subject: string;
 }
 
@@ -17,11 +18,11 @@ export class EmailService extends BaseService {
     super(EmailService);
   }
 
-  async sendEmail({ to, token, subject }: EmailData, file: string) {
+  async sendEmail({ to, subject, ...rest }: EmailData, file: string) {
     const filePath = join(__dirname, `../emails/${file}.pug`);
 
     const forwardObject = {
-      token,
+      ...rest,
       URL: Configuration.appConfig.url,
     };
 
@@ -32,12 +33,6 @@ export class EmailService extends BaseService {
       html: pug.renderFile(filePath, { ...forwardObject }),
     };
 
-    try {
-      const em = await sgMail.send(msg);
-      return em;
-    } catch (error) {
-      this.logger.error(error, 'email');
-      return null;
-    }
+    return sgMail.send(msg);
   }
 }

@@ -77,7 +77,7 @@ const Login: FC<Props> = ({
       <Breadcrumb
         breadcrumbs={[
           { href: '/', text: 'Home' },
-          { href: '/login', text: 'Login' },
+          { href: '/auth/login', text: 'Login' },
         ]}
       />
 

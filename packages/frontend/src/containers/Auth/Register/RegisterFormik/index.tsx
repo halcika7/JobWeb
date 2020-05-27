@@ -117,7 +117,7 @@ const RegisterFormik: FC<RegisterFormikProps> = ({
             </div>
             <SubmitParagraph className="col-12 col-md-6">
               Already registered?{' '}
-              <Link href="/login" passHref>
+              <Link href="/auth/login" passHref>
                 <SubmitLink>Sign in here</SubmitLink>
               </Link>
             </SubmitParagraph>

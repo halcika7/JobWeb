@@ -1,33 +1,33 @@
 import { BaseService } from './Base';
 import { User } from '@model/User';
 
-import {
-  BadRequestException,
-  checkIfObjectEmpty,
-  HTTPCodes,
-} from '@job/common';
-import { ValidationService } from './Validation';
+import { BadRequestException, HTTPCodes } from '@job/common';
+import { timingSafeEqual } from 'crypto';
 
 export class ProfileService extends BaseService {
-  private readonly validation: ValidationService;
-
   constructor() {
     super(ProfileService);
-    this.validation = new ValidationService();
   }
 
-  async changePassword(password: string, token: string | null, email: string) {
+  async changePassword(
+    password: string,
+    password2: string,
+    token: string | null,
+    email: string
+  ) {
+    if (!timingSafeEqual(Buffer.from(password), Buffer.from(password2))) {
+      throw new BadRequestException({
+        errors: { password: 'Both passwords need to be the same' },
+      });
+    }
     const user = await User.findOne({
       where: { email, reset_password_token: token },
     });
 
-    if (!user) throw new Error('User not found');
+    if (!user) throw new BadRequestException({ message: 'User not found' });
 
     user.password = password;
-
-    const errors = await this.validation.transformErrors(user, {});
-
-    if (!checkIfObjectEmpty(errors)) throw new BadRequestException({ errors });
+    user.reset_password_token = null;
 
     await user.save();
 
