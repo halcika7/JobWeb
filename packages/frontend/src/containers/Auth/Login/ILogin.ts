@@ -13,18 +13,22 @@ import { LoginData } from '@containers/Auth/store/types';
 // actions
 import { loginUser as loginUserAction } from '@containers/Auth/store/actions';
 
+interface StateToProps extends AuthStateToProps {
+  isAuthenticated: boolean;
+}
+
 interface DispatchToProps extends AuthDispatchToProps {
   loginUser: (loginData: LoginData) => void;
 }
 
-export type Props = AuthStateToProps & DispatchToProps & {};
+export type Props = StateToProps & DispatchToProps & {};
 
-export const mapStateToProps: MapStateToProps<
-  AuthStateToProps,
-  {},
-  AppState
-> = (state: AppState, ownProps: {}): AuthStateToProps => ({
+export const mapStateToProps: MapStateToProps<StateToProps, {}, AppState> = (
+  state: AppState,
+  ownProps: {}
+): StateToProps => ({
   ...authMapStateToProps(state, ownProps),
+  isAuthenticated: state.auth.isAuthenticated,
   ...ownProps,
 });
 

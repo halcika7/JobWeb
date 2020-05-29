@@ -27,8 +27,6 @@ pg.connect()
           .query(`ALTER USER postgres SET timezone='UTC'`)
           .then(() => {
             console.warn('timezone set to UTC');
-            client.release();
-            process.kill(process.pid);
           })
           .catch(err => {
             client.release();
@@ -47,6 +45,8 @@ pg.connect()
       .query(`CREATE DATABASE ${TEST_DB_NAME}`)
       .then(() => {
         console.info('db TEST_DB created');
+        client.release();
+        process.kill(process.pid);
       })
       .catch(err => {
         console.log('err', err);

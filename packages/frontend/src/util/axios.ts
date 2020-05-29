@@ -7,8 +7,6 @@ import {
   authReset,
 } from '@containers/Auth/store/actions';
 
-import { SessionStorage } from '@shared/sessionStorage';
-
 const rejectPromise = (error: object | string) => Promise.reject(error);
 
 const axios = Axios.create({
@@ -18,24 +16,6 @@ const axios = Axios.create({
   xsrfCookieName: '_csrf',
   xsrfHeaderName: 'X-XSRF-TOKEN',
 });
-
-axios.interceptors.request.use(
-  config => {
-    const newConfig = { ...config };
-    const { token } = store.getState().auth;
-
-    newConfig.headers = {
-      ...newConfig.headers,
-      common: {
-        ...newConfig.headers.common,
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    return newConfig;
-  },
-  error => rejectPromise(error)
-);
 
 axios.interceptors.response.use(
   response => response,
@@ -53,19 +33,18 @@ axios.interceptors.response.use(
       return axios.get('/auth/refresh').then(res => {
         if (res.data.accessToken) {
           const { accessToken } = res.data;
-          const { role, token } = getTokenRole(accessToken);
-          axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+          const { role } = getTokenRole(accessToken);
 
           // dispatch refresh success
-          store.dispatch(loginSuccess(true, role, token));
-          SessionStorage.setAuthenticated();
+          store.dispatch(loginSuccess(true, role));
+          // SessionStorage.setAuthenticated();
 
           // return originalRequest object with Axios.
           return axios(originalRequest);
         }
 
         store.dispatch(authReset());
-        SessionStorage.removeAuthenticated();
+        // SessionStorage.removeAuthenticated();
 
         return rejectPromise(error);
       });

@@ -45,8 +45,8 @@ export type Failed = {
 };
 
 export interface Role {
-  id: number;
-  type: 'user' | 'company' | 'worker' | 'admin';
+  id: number | undefined;
+  type: 'user' | 'company' | 'worker' | 'admin' | undefined;
 }
 
 export enum AuthActions {
@@ -77,7 +77,7 @@ interface AuthFailed {
 
 interface AuthReset {
   type: typeof AuthActions.AUTH_RESET;
-  payload: {};
+  payload: { clearAll: boolean };
 }
 
 interface AuthResetMessage {
@@ -87,7 +87,7 @@ interface AuthResetMessage {
 
 interface LoginSuccess {
   type: typeof AuthActions.LOGIN_SUCCESS;
-  payload: { isAuthenticated: boolean; token: string; role: Role };
+  payload: { isAuthenticated: boolean; role: Role };
 }
 
 interface ActivateAccount {

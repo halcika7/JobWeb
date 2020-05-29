@@ -7,9 +7,12 @@ const Main = styled.main`
   padding-top: 5rem;
 `;
 
-const Layout: FC<{ children: ReactNode }> = ({ children }) => (
+const Layout: FC<{
+  children: ReactNode;
+  isServerAuth: boolean | undefined;
+}> = ({ children, isServerAuth }) => (
   <>
-    <Navbar />
+    <Navbar isServerAuth={isServerAuth} />
     <Main>{children}</Main>
     <Footer />
   </>

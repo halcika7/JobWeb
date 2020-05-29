@@ -42,6 +42,21 @@ interface NeverBounce {
   url: string;
 }
 
+interface Social {
+  googleID: string;
+  googleSecretID: string;
+  googleCallBack: string;
+  facebookID: string;
+  facebookSecretID: string;
+  facebookCallBack: string;
+  twitterID: string;
+  twitterSecretID: string;
+  twitterCallBack: string;
+  linkedinID: string;
+  linkedinSecretID: string;
+  linkedinCallBack: string;
+}
+
 interface AppConfig {
   appName: string;
   url: string;
@@ -54,6 +69,7 @@ interface AppConfig {
   neverBounce: NeverBounce;
   webToken: WebToken;
   sendgrid: string;
+  social: Social;
 }
 
 export abstract class Configuration {
@@ -95,5 +111,31 @@ export abstract class Configuration {
       REFRESH_TOKEN_PATH: process.env.REFRESH_TOKEN_PATH,
     } as WebToken,
     sendgrid: process.env.SEND_GRID as string,
+    social: {
+      googleID: process.env.GOOGLE_CLIENT_ID as string,
+      googleSecretID: process.env.GOOGLE_CLIENT_SECRET as string,
+      googleCallBack:
+        process.env.NODE_ENV === 'production'
+          ? 'https://polar-lake-39918.herokuapp.com/api/auth/google/callback'
+          : '/api/auth/google/callback',
+      facebookID: process.env.FACEBOOK_CLIENT_ID as string,
+      facebookSecretID: process.env.FACEBOOK_CLIENT_SECRET as string,
+      facebookCallBack:
+        process.env.NODE_ENV === 'production'
+          ? 'https://polar-lake-39918.herokuapp.com/api/auth/facebook/callback'
+          : 'http://localhost:5000/api/auth/facebook/callback',
+      twitterID: process.env.TWITTER_CLIENT_ID as string,
+      twitterSecretID: process.env.TWITTER_CLIENT_SECRET as string,
+      twitterCallBack:
+        process.env.NODE_ENV === 'production'
+          ? 'https://polar-lake-39918.herokuapp.com/api/auth/twitter/callback'
+          : 'http://localhost:5000/api/auth/twitter/callback',
+      linkedinID: process.env.LINKEDIN_CLIENT_ID as string,
+      linkedinSecretID: process.env.LINKEDIN_CLIENT_SECRET as string,
+      linkedinCallBack:
+        process.env.NODE_ENV === 'production'
+          ? 'https://polar-lake-39918.herokuapp.com/api/auth/linkedin/callback'
+          : 'http://localhost:5000/api/auth/linkedin/callback',
+    },
   };
 }

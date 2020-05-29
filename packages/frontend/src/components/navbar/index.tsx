@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 // actions
 import { logoutUser } from '@containers/Auth/store/actions';
@@ -19,7 +19,11 @@ import Nav from './Nav';
 
 import { Header, Collapsible, Button, Navigation } from './styled';
 
-const Navbar: FC = (): JSX.Element => {
+interface Props {
+  isServerAuth: boolean | undefined;
+}
+
+const Navbar = ({ isServerAuth }: Props): JSX.Element => {
   const [toggled, setToggled] = useState<boolean>(false);
   const [showShadow, setShowShadow] = useState<boolean>(false);
   const [currentHeight, setCurrentHeight] = useState<number>(80);
@@ -86,7 +90,7 @@ const Navbar: FC = (): JSX.Element => {
       <Brand toggled={toggled} toggleNav={toggleNav} />
       <Collapsible>
         <Nav />
-        {!isAuthenticated ? (
+        {!isAuthenticated && !isServerAuth ? (
           <Navigation>
             <NavLink href="/auth/login" passHref>
               <Button as="a">

@@ -42,27 +42,39 @@ export class User extends BaseEntity {
   id!: number;
 
   @Column('varchar', { unique: true, nullable: false, length: 15 })
-  @IsString({ message: 'Username must be a string', groups: ['registration'] })
-  @IsUniqueUsername({ groups: ['registration'], always: false })
+  @IsString({
+    message: 'Username must be a string',
+    groups: ['registration', 'company-registration'],
+  })
+  @IsUniqueUsername({
+    groups: ['registration', 'company-registration'],
+    always: false,
+  })
   @MinLength(6, {
     message: 'Username must contain at least 6 characters',
-    groups: ['registration'],
+    groups: ['registration', 'company-registration'],
   })
   @MaxLength(15, {
     message: 'Username cannot exceed 15 characters',
-    groups: ['registration'],
+    groups: ['registration', 'company-registration'],
   })
   username!: string;
 
   @Column('varchar', { unique: true, nullable: false, length: 100 })
-  @IsUniqueEmail({ groups: ['registration'], always: false })
+  @IsUniqueEmail({
+    groups: ['registration', 'company-registration'],
+    always: false,
+  })
   @MaxLength(100, {
     message: 'Email cannot exceed 100 characters',
-    groups: ['registration'],
+    groups: ['registration', 'company-registration'],
   })
   @IsEmail(
     {},
-    { message: 'Please provide valid email', groups: ['registration'] }
+    {
+      message: 'Please provide valid email',
+      groups: ['registration', 'company-registration'],
+    }
   )
   email!: string;
 
@@ -80,30 +92,38 @@ export class User extends BaseEntity {
   password!: string;
 
   @Column('varchar', { nullable: false })
-  @Validate(ValidateCountry, { groups: ['registration'] })
+  @Validate(ValidateCountry, {
+    groups: ['registration', 'company-registration'],
+  })
   country!: string;
 
   @Column('varchar', { nullable: false })
-  @Validate(ValidateCity, { groups: ['registration'] })
+  @Validate(ValidateCity, { groups: ['registration', 'company-registration'] })
   city!: string;
 
   @Column('varchar', { nullable: false })
   @IsPhoneNumber(null, {
     message: 'Please provide valid phone number',
-    groups: ['registration'],
+    groups: ['registration', 'company-registration'],
   })
   phone!: string;
 
   @Column('varchar', { nullable: true })
   @ValidateIf(o => o.role === 2)
-  @IsString({ message: 'Company  is required', groups: ['registration'] })
+  @IsString({
+    message: 'Company  is required',
+    groups: ['company-registration'],
+  })
   company!: string | null;
 
   @Column('varchar', { nullable: true })
   @ValidateIf(o => o.website)
   @IsUrl(
     {},
-    { message: 'Please provide valid website url.', groups: ['registration'] }
+    {
+      message: 'Please provide valid website url.',
+      groups: ['company-registration'],
+    }
   )
   website!: string | null;
 
@@ -112,6 +132,18 @@ export class User extends BaseEntity {
 
   @Column('varchar', { nullable: true })
   activation_token!: string | null;
+
+  @Column('varchar', { nullable: true, default: null })
+  facebookId!: string | null;
+
+  @Column('varchar', { nullable: true, default: null })
+  googleId!: string | null;
+
+  @Column('varchar', { nullable: true, default: null })
+  twitterId!: string | null;
+
+  @Column('varchar', { nullable: true, default: null })
+  linkedInId!: string | null;
 
   @ManyToOne(_ => Role)
   @JoinColumn({ name: 'role' })

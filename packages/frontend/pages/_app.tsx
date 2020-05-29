@@ -3,16 +3,18 @@ import App, { AppContext, AppInitialProps } from 'next/app';
 import ErrorBoundary from '@components/ErrorBoundary';
 import { wrapper } from '@store/index';
 import Layout from '@components/Layout';
+import ServerCookie from 'next-cookies';
 
 import Router from 'next/router';
 import NProgress from 'nprogress';
 
-import { refreshToken } from '@containers/Auth/store/actions';
+import { refreshToken, loginSuccess } from '@containers/Auth/store/actions';
 import { useThunkDispatch } from '@store/AppThunkDispatch';
-import { SessionStorage } from '@shared/sessionStorage';
 
 import Providers from '@styled/Providers';
 import { GlobalStyle } from 'styled/global';
+import { AuthToken } from '@shared/decode';
+import { CookieService } from '@shared/cookie';
 
 NProgress.configure({ showSpinner: false });
 
@@ -24,8 +26,13 @@ const Wrapper: FC<{ children: ReactNode }> = ({ children }) => {
   const dispatch = useThunkDispatch();
 
   useEffect(() => {
-    if (SessionStorage.getAuthenticated()) {
-      dispatch(refreshToken);
+    if (CookieService.getToken()) {
+      const token = new AuthToken(CookieService.getToken());
+      if (token.isExpired) {
+        dispatch(refreshToken);
+      } else {
+        dispatch(loginSuccess(true, AuthToken.getRole(token.token as string)));
+      }
     }
   }, [dispatch]);
 
@@ -36,7 +43,11 @@ class MyApp extends App<AppInitialProps> {
   static async getInitialProps({ Component, ctx }: AppContext) {
     const pageProps = Component.getInitialProps
       ? await Component.getInitialProps(ctx)
-      : {};
+      : ({} as any);
+    const token = ServerCookie(ctx).accessToken;
+    const auth = new AuthToken(token);
+
+    pageProps.isServerAuth = !auth.isExpired;
 
     return { pageProps };
   }
@@ -49,7 +60,7 @@ class MyApp extends App<AppInitialProps> {
         <Wrapper>
           <Providers>
             <GlobalStyle />
-            <Layout>
+            <Layout isServerAuth={pageProps.isServerAuth}>
               <Component {...pageProps} />
             </Layout>
           </Providers>

@@ -4,19 +4,20 @@ import { Configuration } from '@env';
 // services
 import { AuthService } from '@service/Auth';
 import { CookieService } from '@service/Cookie';
+import { PassportService } from '@service/Passport';
 
 // decorators
 import { Controller } from '@decorator/class';
 import { Middleware, ErrorMiddleware } from '@decorator/middleware';
 import { Get, Post, Patch } from '@decorator/method';
-import { Res, Body, Cookie } from '@decorator/param';
+import { Res, Body, Cookie, Req } from '@decorator/param';
 
 // middlewares
 import { Limiter } from '@middleware/rateLimiter';
 import { errorHandle } from '@middleware/errorHandling';
 
 // types
-import { Response } from 'express';
+import { Response, Request } from 'express';
 import { RegisterPostData, LoginData } from '@ctypes';
 
 import { HTTPCodes } from '@job/common';
@@ -27,9 +28,12 @@ export class AuthController extends BaseController {
 
   private readonly auth: AuthService;
 
+  private readonly passportService: PassportService;
+
   constructor() {
     super(AuthController);
     this.auth = new AuthService();
+    this.passportService = new PassportService();
   }
 
   @Post('')
@@ -120,5 +124,25 @@ export class AuthController extends BaseController {
     );
 
     return this.sendResponse(res, status, { message });
+  }
+
+  @Get('google/callback')
+  googleCallBack(@Req() req: Request, @Res() res: Response) {
+    return this.passportService.socialCallback(req, res, 'google');
+  }
+
+  @Get('facebook/callback')
+  facebookCallBack(@Req() req: Request, @Res() res: Response) {
+    return this.passportService.socialCallback(req, res, 'facebook');
+  }
+
+  @Get('twitter/callback')
+  twitterCallBack(@Req() req: Request, @Res() res: Response) {
+    return this.passportService.socialCallback(req, res, 'twitter');
+  }
+
+  @Get('linkedin/callback')
+  linkedinCallBack(@Req() req: Request, @Res() res: Response) {
+    return this.passportService.socialCallback(req, res, 'linkedin');
   }
 }
