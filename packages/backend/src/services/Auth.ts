@@ -103,11 +103,7 @@ export class AuthService extends BaseService {
 
     user.activation_token = actToken;
 
-    try {
-      await this.sendEmail(user.email, actToken);
-    } catch (error) {
-      console.log('AuthService -> error', error);
-    }
+    await this.sendEmail(user.email, actToken);
 
     await user.save();
 
