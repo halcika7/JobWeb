@@ -15,7 +15,7 @@ import helmet from 'helmet';
 import hpp from 'hpp';
 
 import { LoggerFactory, Logger } from '@logger';
-// import { initialize } from 'passport';
+import passport from '@service/Passport';
 import { Configuration } from '@env';
 import { connect } from './configs/db-connect';
 
@@ -50,14 +50,19 @@ class App extends Server {
       session({
         store: new RedisStore({ client: RedisService.client }),
         secret: Configuration.appConfig.cookie.COOKIE_SECRET,
-        cookie: { httpOnly: true, sameSite: true, path: '/' },
+        cookie: {
+          httpOnly: true,
+          path: '/',
+          secure: Configuration.appConfig.environment === 'production',
+        },
         resave: false,
         saveUninitialized: false,
         rolling: true,
         name: 'ses',
+        proxy: Configuration.appConfig.environment === 'production',
       }),
       // csrf({ cookie: false }),
-      // initialize(),
+      passport.initialize(),
       hpp(),
       helmet(),
       compression(),
@@ -90,6 +95,31 @@ class App extends Server {
 
   public start(): void {
     // eslint-disable-next-line max-params
+    this.app.get(
+      '/api/auth/google',
+      passport.authenticate('google', {
+        scope: ['profile', 'email'],
+        prompt: 'select_account',
+      })
+    );
+
+    this.app.get(
+      '/api/auth/facebook',
+      passport.authenticate('facebook', {
+        prompt: 'reauthenticate',
+        scope: 'email',
+      })
+    );
+
+    this.app.get(
+      '/api/auth/twitter',
+      passport.authenticate('twitter', {
+        scope: 'email',
+      })
+    );
+
+    this.app.get('/api/auth/linkedin', passport.authenticate('linkedin'));
+
     this.app.use(
       (err: Error | any, __: Request, res: Response, _: NextFunction) => {
         if (err.code !== 'EBADCSRFTOKEN') return _(err);

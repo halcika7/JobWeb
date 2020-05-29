@@ -6,12 +6,12 @@ import thunk from 'redux-thunk';
 import { rootReducer, AppState } from './RootReducer';
 
 // logger
-import { appLoggerMiddleware } from './logger';
+// import { appLoggerMiddleware } from './logger';
 import { MakeStore, Context, createWrapper } from 'next-redux-wrapper';
 
 const middlewares: Middleware[] = [thunk];
 
-process.env.NODE_ENV !== 'production' && middlewares.push(appLoggerMiddleware);
+// process.env.NODE_ENV !== 'production' && middlewares.push(appLoggerMiddleware);
 
 const store = createStore(
   rootReducer,

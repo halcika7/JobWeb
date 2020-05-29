@@ -91,7 +91,7 @@ const Activate: FC<AuthStateToProps & DispatchToProps & OwnProps> = ({
 
   useEffect(() => {
     if (activation && !sesActivation) {
-      router.push('/resend-activation-email');
+      router.push('/auth/resend-activation-email');
     }
   }, [activation, router, sessionStorage]);
 

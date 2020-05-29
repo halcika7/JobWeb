@@ -70,6 +70,30 @@ export class UserMigration1585958685286 implements MigrationInterface {
             isNullable: true,
           },
           {
+            name: 'facebookId',
+            type: 'varchar',
+            isNullable: true,
+            default: null,
+          },
+          {
+            name: 'googleId',
+            type: 'varchar',
+            isNullable: true,
+            default: null,
+          },
+          {
+            name: 'twitterId',
+            type: 'varchar',
+            isNullable: true,
+            default: null,
+          },
+          {
+            name: 'linkedInId',
+            type: 'varchar',
+            isNullable: true,
+            default: null,
+          },
+          {
             name: 'role',
             type: 'int',
             isNullable: false,

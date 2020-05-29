@@ -12,7 +12,6 @@ export interface AuthState {
   message: string;
   status: number | null;
   touched: AuthTouched;
-  token: string;
   role: Role | null;
   isAuthenticated: boolean;
 }
@@ -47,7 +46,6 @@ export const INITIAL_STATE: AuthState = {
   touched,
   message: '',
   status: null,
-  token: '',
   role: null,
   isAuthenticated: false,
 };
@@ -58,7 +56,14 @@ export function AuthReducer(
 ) {
   switch (action.type) {
     case AuthActions.AUTH_RESET:
-      return { ...INITIAL_STATE };
+      if (action.payload.clearAll) {
+        return { ...INITIAL_STATE };
+      }
+      return {
+        ...INITIAL_STATE,
+        role: prevState.role,
+        isAuthenticated: prevState.isAuthenticated,
+      };
     case AuthActions.AUTH_RESET_MESSAGE:
       return { ...prevState, message: '', status: null };
     case AuthActions.AUTH_START:
@@ -98,7 +103,6 @@ export function AuthReducer(
       return {
         ...prevState,
         role: action.payload.role,
-        token: action.payload.token,
         isAuthenticated: action.payload.isAuthenticated,
       };
     default:

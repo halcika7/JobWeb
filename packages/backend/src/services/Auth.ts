@@ -79,14 +79,19 @@ export class AuthService extends BaseService {
       throw new NotAcceptableException({ message: 'Invalid account type.' });
     }
 
+    const type =
+      accountType === 'user' ? 'registration' : 'company-registration';
+
     const user = super.createModelInstance(new User(), userData);
     user.role = accountType === 'company' ? 2 : 1;
 
     const errors = await this.validation.transformErrors(user, {
-      groups: ['registration'],
+      groups: [type],
     });
 
-    if (!checkIfObjectEmpty(errors)) throw new BadRequestException({ errors });
+    if (!checkIfObjectEmpty(errors)) {
+      throw new BadRequestException({ errors });
+    }
 
     const { status, ...rest } = await this.validation.phoneEmail(user);
 
@@ -126,6 +131,16 @@ export class AuthService extends BaseService {
       },
     })) as User;
 
+    const matched = user
+      ? await this.bcrypt.compareValues(password, user.password)
+      : false;
+
+    if (!user || !matched) {
+      throw new BadRequestException({
+        message: 'Invalid email / username or password.',
+      });
+    }
+
     if (user.activation_token) {
       throw new ForbiddenException({
         message: 'Please activate your account in order to login',
@@ -135,16 +150,6 @@ export class AuthService extends BaseService {
     if (user.reset_password_token) {
       throw new ForbiddenException({
         message: 'Please reset your password in order to login',
-      });
-    }
-
-    const matched = user
-      ? await this.bcrypt.compareValues(password, user.password)
-      : false;
-
-    if (!user || !matched) {
-      throw new BadRequestException({
-        message: 'Invalid email / username or password.',
       });
     }
 

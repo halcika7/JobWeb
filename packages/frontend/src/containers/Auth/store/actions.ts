@@ -1,5 +1,5 @@
 import axios from '@axios';
-import { TokenDecode } from '@shared/decode';
+import { AuthToken } from '@shared/decode';
 import { HTTPCodes } from '@job/common';
 
 // types
@@ -15,6 +15,7 @@ import {
 } from './types';
 
 import { SessionStorage } from '@shared/sessionStorage';
+import { CookieService } from '@shared/cookie';
 
 export const authStart = (values: AuthValues | LoginData): AuthActionTypes => ({
   type: AuthActions.AUTH_START,
@@ -34,23 +35,22 @@ export const authFailed = (obj: Failed): AuthActionTypes => ({
   payload: { ...obj },
 });
 
-export const authReset = (): AuthActionTypes => ({
+export const authReset = (all = false): AuthActionTypes => ({
   type: AuthActions.AUTH_RESET,
-  payload: {},
+  payload: { clearAll: all },
 });
 
 export const loginSuccess = (
   isAuthenticated: boolean,
-  role: Role,
-  token: string
+  role: Role
 ): AuthActionTypes => ({
   type: AuthActions.LOGIN_SUCCESS,
-  payload: { isAuthenticated, role, token },
+  payload: { isAuthenticated, role },
 });
 
-export const getTokenRole = (token: string): { token: string; role: Role } => {
-  const role = TokenDecode.getRole(token);
-  return { token, role };
+export const getTokenRole = (token: string): { role: Role } => {
+  const role = AuthToken.getRole(token);
+  return { role };
 };
 
 export const resetMessage = (): AuthActionTypes => ({
@@ -86,14 +86,16 @@ export const loginUser = (loginData: LoginData) => async (
   }>('/auth/login', { ...loginData });
 
   if (status === HTTPCodes.OK) {
+    CookieService.setToken(data.accessToken);
+
     dispatch(authSuccess(data.message, status));
 
-    const { role, token } = getTokenRole(data.accessToken);
+    const { role } = getTokenRole(data.accessToken);
 
-    SessionStorage.setAuthenticated();
-
-    return dispatch(loginSuccess(true, role, token));
+    return dispatch(loginSuccess(true, role));
   }
+
+  CookieService.removeToken();
 
   return dispatch(authFailed({ ...data, status }));
 };
@@ -107,8 +109,8 @@ export const logoutUser = async (
   );
 
   if (status === HTTPCodes.OK) {
-    SessionStorage.removeAuthenticated();
-    return dispatch(authReset());
+    CookieService.removeToken();
+    return dispatch(authReset(true));
   }
 
   return dispatch(authFailed({ ...data, status }));
@@ -121,14 +123,14 @@ export const refreshToken = async (dispatch: AppThunkDispatch) => {
   }>('/auth/refresh');
 
   if (data.accessToken) {
-    const { role, token } = getTokenRole(data.accessToken);
+    CookieService.setToken(data.accessToken);
 
-    SessionStorage.setAuthenticated();
+    const { role } = getTokenRole(data.accessToken);
 
-    return dispatch(loginSuccess(true, role, token));
+    return dispatch(loginSuccess(true, role));
   }
 
-  SessionStorage.removeAuthenticated();
+  CookieService.removeToken();
 
   return dispatch(authFailed({ ...data, status, refresh: true }));
 };

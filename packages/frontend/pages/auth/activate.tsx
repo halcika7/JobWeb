@@ -12,7 +12,7 @@ const ActivatePage: NextPage<{ token: string | string[] | undefined }> = ({
   useEffect(() => {
     if (SessionStorage.getStorage() && token) {
       SessionStorage.setValue('activate', token);
-      Router.push('/activate', undefined, { shallow: true });
+      Router.push('/auth/activate', undefined, { shallow: true });
     }
   }, [token]);
 
@@ -23,7 +23,7 @@ const ActivatePage: NextPage<{ token: string | string[] | undefined }> = ({
     !SessionStorage.getItem('activate') &&
     !token
   ) {
-    Router.push('/resend-activation-email');
+    Router.push('/auth/resend-activation-email');
 
     return <LargeSpinner />;
   }
