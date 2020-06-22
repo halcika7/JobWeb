@@ -25,6 +25,8 @@ import { CompanySignupSchema, UserSignupSchema } from '@containers/Auth/yup';
 import Input from '@components/UI/input/Input';
 import SelectInput from '@components/UI/input/Select';
 
+import { useThunkDispatch } from '@job/redux';
+
 const RegisterFormik: FC<RegisterFormikProps> = ({
   accountType,
   countries,
@@ -37,6 +39,7 @@ const RegisterFormik: FC<RegisterFormikProps> = ({
   status,
 }): JSX.Element => {
   const [submitting, setSubmitting] = useState<boolean>(false);
+  const dispatch = useThunkDispatch();
 
   useEffect(() => {
     if (status !== null && submitting) setSubmitting(false);
@@ -55,7 +58,7 @@ const RegisterFormik: FC<RegisterFormikProps> = ({
       }
       onSubmit={data => {
         setSubmitting(true);
-        onSubmit(data, accountType);
+        dispatch(onSubmit({ userData: data, accountType }));
       }}
     >
       {({ errors, touched, setFieldValue, values }) => (

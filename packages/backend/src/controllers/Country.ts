@@ -54,7 +54,8 @@ export class CountryController extends BaseController {
 
       return res.status(HTTPCodes.OK).json({ countries, cities });
     } catch (error) {
-      this.logger.error(error, 'getCountries');
+      this.logger!.error(error, 'getCountries');
+
       return res.status(HTTPCodes.BAD_REQUEST).json({ error });
     }
   }

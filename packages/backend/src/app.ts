@@ -95,31 +95,6 @@ class App extends Server {
 
   public start(): void {
     // eslint-disable-next-line max-params
-    this.app.get(
-      '/api/auth/google',
-      passport.authenticate('google', {
-        scope: ['profile', 'email'],
-        prompt: 'select_account',
-      })
-    );
-
-    this.app.get(
-      '/api/auth/facebook',
-      passport.authenticate('facebook', {
-        prompt: 'reauthenticate',
-        scope: 'email',
-      })
-    );
-
-    this.app.get(
-      '/api/auth/twitter',
-      passport.authenticate('twitter', {
-        scope: 'email',
-      })
-    );
-
-    this.app.get('/api/auth/linkedin', passport.authenticate('linkedin'));
-
     this.app.use(
       (err: Error | any, __: Request, res: Response, _: NextFunction) => {
         if (err.code !== 'EBADCSRFTOKEN') return _(err);

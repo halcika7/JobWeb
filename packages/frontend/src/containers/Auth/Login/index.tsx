@@ -1,16 +1,16 @@
 import React, { FC, useEffect, useState } from 'react';
+// utils
 import { HTTPCodes } from '@job/common';
 
-// types
-import { mapDispatchToProps, mapStateToProps, Props } from './ILogin';
-
 // hooks
-import { connect } from '@hooks/connect';
 import Router, { useRouter } from 'next/router';
-import { useDispatch } from 'react-redux';
-
-// actions
-import { getTokenRole, loginSuccess } from '../store/actions';
+import {
+  useSelector,
+  useThunkDispatch,
+  CookieService,
+  Actions,
+  AppState,
+} from '@job/redux';
 
 // components
 import SweetAlert from '@components/UI/sweetAlert';
@@ -19,7 +19,7 @@ import Alert from '@components/UI/alert';
 import LoginFormik from './LoginFormik';
 import LoginSocial from './LoginSocial';
 
-// styles
+// styled components
 import {
   AuthWrapper,
   Heading,
@@ -28,69 +28,66 @@ import {
   SocialSpanLine,
 } from '../styled';
 import { Container } from '@styled/div';
-import { CookieService } from '@shared/cookie';
 
-const Login: FC<Props> = ({
-  errors,
-  values,
-  touched,
-  message,
-  status,
-  loginUser,
-  resetMessages,
-  resetState,
-  isAuthenticated,
-}): JSX.Element => {
+const Login: FC<{}> = (): JSX.Element => {
   const [showSweetAlert, setShowSweetAlert] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [tok, setToken] = useState<string>('');
-  const dispatch = useDispatch();
+  const State = useSelector((state: AppState) => ({
+    errors: state.auth.errors,
+    values: state.auth.values,
+    touched: state.auth.touched,
+    message: state.auth.message,
+    status: state.auth.status,
+    isAuthenticated: state.auth.isAuthenticated,
+  }));
+  const dispatch = useThunkDispatch();
   const router = useRouter();
 
   const { err, token } = router.query;
 
   const sweetAlertCallback = () => {
     setShowSweetAlert(false);
-    resetMessages();
+    dispatch(Actions.resetMessage());
   };
 
   const alertCallback = () => {
     setShowAlert(false);
-    resetMessages();
+    dispatch(Actions.resetMessage());
   };
 
   useEffect(() => {
-    if (message || error) {
-      if (status === HTTPCodes.TOO_MANY_REQUESTS) {
+    if (State.message || error) {
+      if (State.status === HTTPCodes.TOO_MANY_REQUESTS) {
         setShowAlert(true);
       } else {
         setShowSweetAlert(true);
       }
     }
-  }, [status, message, error]);
+  }, [State.status, State.message, error]);
 
   useEffect(() => {
     return () => {
-      resetState();
+      dispatch(Actions.authReset());
     };
-  }, [resetState]);
+  }, [dispatch]);
 
   useEffect(() => {
     if (tok) {
       CookieService.setToken(tok as string);
 
-      const { role } = getTokenRole(tok as string);
+      const { role } = Actions.getTokenRole(tok as string);
 
-      dispatch(loginSuccess(true, role));
+      dispatch(Actions.loginSuccess(true, role));
     }
   }, [tok, dispatch]);
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (State.isAuthenticated) {
       router.push('/');
     }
-  }, [isAuthenticated, router]);
+  }, [State.isAuthenticated, router]);
 
   useEffect(() => {
     if (err) {
@@ -108,7 +105,7 @@ const Login: FC<Props> = ({
     <>
       {showSweetAlert && (
         <SweetAlert
-          message={message || error}
+          message={State.message || error}
           withButtons
           failedButton="Cancel"
           type="error"
@@ -129,7 +126,7 @@ const Login: FC<Props> = ({
 
           {showAlert && (
             <Alert
-              message={message}
+              message={State.message}
               onClose={alertCallback}
               type="warning"
               autoDismiss
@@ -138,11 +135,11 @@ const Login: FC<Props> = ({
           )}
 
           <LoginFormik
-            errors={errors}
-            values={values}
-            touched={touched}
-            status={status}
-            onSubmit={loginUser}
+            errors={State.errors}
+            values={State.values}
+            touched={State.touched}
+            status={State.status}
+            onSubmit={Actions.loginUser}
             buttonDisabled={showSweetAlert || showAlert}
           />
 
@@ -157,4 +154,4 @@ const Login: FC<Props> = ({
   );
 };
 
-export default React.memo(connect(Login, mapStateToProps, mapDispatchToProps));
+export default React.memo(Login);

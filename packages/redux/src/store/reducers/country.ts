@@ -3,7 +3,7 @@ import {
   CountryActionTypes,
   Select,
   SelectCities,
-} from './types';
+} from '../types/country';
 
 export type CountryState = {
   countries: Select[];

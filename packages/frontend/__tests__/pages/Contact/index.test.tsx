@@ -2,8 +2,7 @@ import React from 'react';
 import Contact from '@containers/Contact';
 import { mount } from 'enzyme';
 import { waitFor, render, fireEvent } from '@testing-library/react';
-import store from '@store/index';
-import { contactMessageSuccess } from '@containers/Contact/store/actions';
+import { store, Actions } from '@job/redux';
 import { ErrorDiv } from '@components/UI/input/styled';
 
 import ReduxProvider from '../../__mocks__/provider';
@@ -33,7 +32,7 @@ describe('Testing Contact component', () => {
       </ReduxProvider>
     );
 
-    store.dispatch(contactMessageSuccess('message', 201));
+    store.dispatch(Actions.contactMessageSuccess('message', 201));
 
     component.update();
 
@@ -59,7 +58,7 @@ describe('Testing Contact component', () => {
       </ReduxProvider>
     );
 
-    store.dispatch(contactMessageSuccess('message', 400));
+    store.dispatch(Actions.contactMessageSuccess('message', 400));
 
     component.update();
 

@@ -1,4 +1,5 @@
 import React, { FC, useState, useEffect } from 'react';
+import { useThunkDispatch } from '@job/redux';
 import { Formik, Field } from 'formik';
 import { Props, inputs } from './IContactFormik';
 
@@ -18,6 +19,7 @@ const ContactFormik: FC<Props> = ({
   postNewMessage,
 }): JSX.Element => {
   const [submitting, setSubmitting] = useState<boolean>(false);
+  const dispatch = useThunkDispatch();
 
   useEffect(() => {
     if (status !== null && submitting) setSubmitting(false);
@@ -34,7 +36,7 @@ const ContactFormik: FC<Props> = ({
       validationSchema={ContactSchema}
       onSubmit={data => {
         setSubmitting(true);
-        postNewMessage(data);
+        dispatch(postNewMessage(data));
       }}
     >
       {({ errors, touched }) => (

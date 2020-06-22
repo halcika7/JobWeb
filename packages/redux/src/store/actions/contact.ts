@@ -1,12 +1,12 @@
-import axios from '@axios';
+import axios from '../../axios';
 import { HTTPCodes } from '@job/common';
 import {
   ContactMessage,
   ContactActionTypes,
   ContactActions,
   ContactFailed,
-} from './types';
-import { AppThunkDispatch } from '@store/AppThunkDispatch';
+} from '../types/contact';
+import { AppThunkDispatch } from '../AppThunkDispatch';
 
 const contactMessageStart = (values: ContactMessage): ContactActionTypes => ({
   type: ContactActions.CONTACT_MESSAGE_START,
@@ -21,7 +21,9 @@ export const contactMessageSuccess = (
   payload: { message, status },
 });
 
-export const contactMessageFailed = (obj: ContactFailed): ContactActionTypes => ({
+export const contactMessageFailed = (
+  obj: ContactFailed
+): ContactActionTypes => ({
   type: ContactActions.CONTACT_MESSAGE_FAILED,
   payload: { ...obj },
 });

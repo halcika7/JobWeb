@@ -1,14 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-// actions
-import { logoutUser } from '@containers/Auth/store/actions';
-
 // navigation
 import NavLink from 'next/link';
 
 // hooks
 import { useAuthenticated } from '@hooks/useAuthenticated';
-import { useThunkDispatch } from '@store/AppThunkDispatch';
+import { useThunkDispatch, Actions } from '@job/redux';
 
 // icons
 import { FiLogIn, FiUser } from 'react-icons/fi';
@@ -107,7 +104,7 @@ const Navbar = ({ isServerAuth }: Props): JSX.Element => {
           </Navigation>
         ) : (
           <Navigation>
-            <Button type="button" onClick={() => dispatch(logoutUser)}>
+            <Button type="button" onClick={() => dispatch(Actions.logoutUser)}>
               Logout
             </Button>
           </Navigation>

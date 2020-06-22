@@ -1,7 +1,5 @@
 import React, { ReactNode, FC } from 'react';
-import { Provider } from 'react-redux';
-
-import store from '@store/index';
+import { store, Provider } from '@job/redux';
 
 const ReduxProvider: FC<{
   children: ReactNode;

@@ -1,7 +1,7 @@
 import React from 'react';
 import Activate from '@containers/Auth/Activation';
 import HeadLayout from '@components/HeadLayout';
-import { SessionStorage } from '@shared/sessionStorage';
+import { SessionStorage } from '@job/redux';
 
 const ActivatePage = () => {
   if (!SessionStorage.getStorage()) return null;

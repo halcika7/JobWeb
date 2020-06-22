@@ -7,7 +7,7 @@ import RegisterFormik from '@containers/Auth/Register/RegisterFormik';
 import RegisterAccount from '@containers/Auth/Register/RegisterAccount';
 import sweetAlert from '@components/UI/sweetAlert';
 import Alert from '@components/UI/alert';
-import store from '@store/index';
+import { store, axios } from '@job/redux';
 
 import { act } from 'react-dom/test-utils';
 
@@ -15,7 +15,6 @@ import { authSuccess, authFailed } from '@containers/Auth/store/actions';
 import { HTTPCodes } from '@job/common';
 
 import moxios from 'moxios';
-import axios from '@axios';
 
 import ReduxProvider from '../../../__mocks__/provider';
 
@@ -25,7 +24,7 @@ describe('Testing Register Page', () => {
   let component: ReactWrapper;
 
   beforeAll(() => {
-    moxios.install(axios);
+    moxios.install(axios.default);
     component = mount(
       <ReduxProvider>
         <ThemeProvider>

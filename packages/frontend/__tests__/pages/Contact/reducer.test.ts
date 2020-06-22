@@ -1,15 +1,16 @@
-import store from '@store/index';
-import { contactMessageFailed } from '@containers/Contact/store/actions';
+import { store, Actions } from '@job/redux';
 
 describe('Testing Contact reducer', () => {
   it('should dispatch failed message attempt', () => {
-    store.dispatch(contactMessageFailed({ status: 400, message: 'askaosd' }));
+    store.dispatch(
+      Actions.contactMessageFailed({ status: 400, message: 'askaosd' })
+    );
 
     expect(store.getState().contact.status).toBe(400);
     expect(store.getState().contact.message).toBe('askaosd');
 
     store.dispatch(
-      contactMessageFailed({
+      Actions.contactMessageFailed({
         status: 400,
         errors: {
           email: 'email is required',

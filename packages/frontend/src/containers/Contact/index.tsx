@@ -1,33 +1,32 @@
 import React, { FC, useEffect } from 'react';
 
+import { Actions, useSelector, useThunkDispatch, AppState } from '@job/redux';
+
 import Breadcrumb from '@components/UI/breadcrumb';
 import ContactCards from './ContactCards';
 import ContactFormik from './ContactFormik';
 import SweetAlert from '@components/UI/sweetAlert';
-
-import { mapDispatchToProps, mapStateToProps, Props } from './IContact';
-import { connect } from '@hooks/connect';
 
 import { HTTPCodes } from '@job/common';
 
 import { Container } from '@styled/div';
 import { ContactSection, Heading, ContactParagraph } from './styled';
 
-const Contact: FC<Props> = ({
-  message,
-  status,
-  errors,
-  touched,
-  values,
-  resetMessage,
-  postMessage,
-  resetState,
-}): JSX.Element => {
+const Contact: FC<{}> = (): JSX.Element => {
+  const State = useSelector((state: AppState) => ({
+    errors: state.contact.errors,
+    values: state.contact.values,
+    touched: state.contact.touched,
+    message: state.contact.message,
+    status: state.contact.status,
+  }));
+  const dispatch = useThunkDispatch();
+
   useEffect(() => {
     return () => {
-      resetState();
+      dispatch(Actions.authReset());
     };
-  }, [resetState]);
+  }, [dispatch]);
 
   return (
     <>
@@ -37,13 +36,13 @@ const Contact: FC<Props> = ({
           { href: '/contact', text: 'Contact' },
         ]}
       />
-      {status && message && (
+      {State.status && State.message && (
         <SweetAlert
-          message={message}
-          type={status === HTTPCodes.Created ? 'success' : 'error'}
+          message={State.message}
+          type={State.status === HTTPCodes.Created ? 'success' : 'error'}
           successButton="OK"
           failedButton="Close"
-          callBack={() => resetMessage()}
+          callBack={() => dispatch(Actions.resetMessages())}
           withButtons
         />
       )}
@@ -56,12 +55,12 @@ const Contact: FC<Props> = ({
             Give us your next project.
           </ContactParagraph>
           <ContactFormik
-            status={status}
-            disabled={!!status && !!message}
-            errors={errors}
-            postNewMessage={postMessage}
-            touched={touched}
-            values={values}
+            status={State.status}
+            disabled={!!State.status && !!State.message}
+            errors={State.errors}
+            postNewMessage={Actions.postNewMessage}
+            touched={State.touched}
+            values={State.values}
           />
         </ContactSection>
       </Container>
@@ -69,6 +68,4 @@ const Contact: FC<Props> = ({
   );
 };
 
-export default React.memo(
-  connect(Contact, mapStateToProps, mapDispatchToProps)
-);
+export default React.memo(Contact);

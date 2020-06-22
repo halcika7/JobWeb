@@ -13,12 +13,7 @@
       "@images/*": ["public/assets/images/*"],
       "@svgs/*": ["public/assets/svgs/*"],
       "@containers/*": ["src/containers/*"],
-      "@routes": ["src/routes/index"],
-      "@store/*": ["src/store/*"],
-      "@country/*": ["src/util/country/*"],
       "@hooks/*": ["src/util/hooks/*"],
-      "@shared/*": ["src/util/shared/*"],
-      "@axios": ["src/util/axios"],
       "@lazy": ["src/util/lazy"]
     },
     "allowJs": true,

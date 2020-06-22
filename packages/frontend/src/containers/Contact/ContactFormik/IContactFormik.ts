@@ -1,6 +1,5 @@
 // types
-import { ContactMessageTouched } from '../store/reducer';
-import { ContactMessage } from '../store/types';
+import { Types, ContactMessageTouched } from '@job/redux';
 
 import { Input } from '@components/UI/input/Input';
 
@@ -44,8 +43,8 @@ export const inputs: ContactInput[] = [
 export interface Props {
   status: number | null;
   disabled: boolean;
-  errors: ContactMessage;
-  values: ContactMessage;
+  errors: Types.ContactMessage;
+  values: Types.ContactMessage;
   touched: ContactMessageTouched;
-  postNewMessage: (messageData: ContactMessage) => void;
+  postNewMessage: (messageData: Types.ContactMessage) => any;
 }

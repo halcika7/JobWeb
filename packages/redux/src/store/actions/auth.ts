@@ -1,9 +1,9 @@
-import axios from '@axios';
-import { AuthToken } from '@shared/decode';
+import axios from '../../axios';
+import { AuthToken } from '../../decode';
 import { HTTPCodes } from '@job/common';
 
 // types
-import { AppThunkDispatch } from '@store/AppThunkDispatch';
+import { AppThunkDispatch } from '../AppThunkDispatch';
 import {
   AuthActions,
   AuthActionTypes,
@@ -12,10 +12,9 @@ import {
   Failed,
   LoginData,
   Role,
-} from './types';
-
-import { SessionStorage } from '@shared/sessionStorage';
-import { CookieService } from '@shared/cookie';
+} from '../types/auth';
+import { CookieService } from '../../utils/cookie';
+import { SessionStorage } from '../../utils/sessionStorage';
 
 export const authStart = (values: AuthValues | LoginData): AuthActionTypes => ({
   type: AuthActions.AUTH_START,
@@ -135,7 +134,7 @@ export const refreshToken = async (dispatch: AppThunkDispatch) => {
   return dispatch(authFailed({ ...data, status, refresh: true }));
 };
 
-export const activateAccount = async (dispatch: AppThunkDispatch) => {
+export const activateAccount = () => async (dispatch: AppThunkDispatch) => {
   const token = SessionStorage.getItem('activate');
 
   const { data, status } = await axios.patch<{ message: string }>('/auth/', {

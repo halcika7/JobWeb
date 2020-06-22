@@ -4,9 +4,7 @@ import { waitFor, render, fireEvent } from '@testing-library/react';
 import RegisterFormik from '@containers/Auth/Register/RegisterFormik';
 import Register from '@containers/Auth/Register';
 import { AccountRegistrationType } from '@containers/Auth/store/types';
-import { Select, CountryActions } from '@country/types';
-import store from '@store/index';
-import axios from '@axios';
+import { Types, store, axios } from '@job/redux';
 import moxios from 'moxios';
 
 import { ErrorDiv } from '@components/UI/input/styled';
@@ -20,7 +18,7 @@ const values = {
   buttonDisabled: false,
   countries: [
     { value: 'Bosnia and Herzegovina', label: 'Bosnia and Herzegovina' },
-  ] as Select[],
+  ] as Types.Select[],
   cities: { 'Bosnia and Herzegovina': [{ value: 'Zenica', label: 'Zenica' }] },
   status: null,
   onSubmit: jest.fn(),
@@ -189,7 +187,7 @@ describe('Testing Faq component', () => {
   });
 
   it('should fire register action', async () => {
-    moxios.install(axios);
+    moxios.install(axios.default);
     const { container, getByText } = render(
       <ReduxProvider>
         <ThemeProvider>
@@ -199,7 +197,7 @@ describe('Testing Faq component', () => {
     );
 
     store.dispatch({
-      type: CountryActions.COUNTRY_SUCCESS,
+      type: Types.CountryActions.COUNTRY_SUCCESS,
       payload: {
         countries: [
           { value: 'Bosnia and Herzegovina', label: 'Bosnia and Herzegovina' },

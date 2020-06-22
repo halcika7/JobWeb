@@ -1,9 +1,9 @@
-import { AuthTouched, AuthValues } from '@containers/Auth/store/types';
+import { Types } from '@job/redux';
 
 export interface FormikProps {
-  errors: AuthValues;
-  values: AuthValues;
-  touched: AuthTouched;
+  errors: Types.AuthValues;
+  values: Types.AuthValues;
+  touched: Types.AuthTouched;
   status: number | null;
   buttonDisabled: boolean;
 }

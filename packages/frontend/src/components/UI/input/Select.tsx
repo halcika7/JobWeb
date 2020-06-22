@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 
-import { Select } from '@country/types';
+import { Types } from '@job/redux';
 
 import SelectWrapper from 'react-select';
 
@@ -14,7 +14,7 @@ export interface InterfaceSelect {
 }
 
 interface SelectProps extends InterfaceSelect {
-  options: Select[];
+  options: Types.Select[];
   value: string;
   setFieldValue: (value: any, option: any) => void; // Formik function
   onBlur: (value: any) => void; // Formik function
@@ -37,7 +37,10 @@ const SelectInput: FC<SelectProps> = ({
   touched,
 }): JSX.Element => {
   const defValue = { value: '', label: '' };
-  const [localVal, setLocalVal] = useState<Select>({ value: '', label: '' });
+  const [localVal, setLocalVal] = useState<Types.Select>({
+    value: '',
+    label: '',
+  });
 
   return (
     <FormGroup error={!!error && touched} className={classNames}>
@@ -56,7 +59,10 @@ const SelectInput: FC<SelectProps> = ({
           onFocus={onTouch}
           tabSelectsValue
           onChange={(option: any) => {
-            const { value: thisValue, label: thisLabel } = option as Select;
+            const {
+              value: thisValue,
+              label: thisLabel,
+            } = option as Types.Select;
             setLocalVal({ value: thisValue, label: thisLabel });
             setFieldValue(name, thisValue);
             if (name === 'country' && value !== thisValue) {

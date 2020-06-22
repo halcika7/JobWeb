@@ -1,11 +1,7 @@
 import Axios from 'axios';
-import store from '@store/index';
+import { store } from './store';
 
-import {
-  loginSuccess,
-  getTokenRole,
-  authReset,
-} from '@containers/Auth/store/actions';
+import { loginSuccess, getTokenRole, authReset } from './store/actions/auth';
 
 const rejectPromise = (error: object | string) => Promise.reject(error);
 

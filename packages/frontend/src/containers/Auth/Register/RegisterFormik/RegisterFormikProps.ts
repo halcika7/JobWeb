@@ -1,11 +1,7 @@
 // types
+import { Types } from '@job/redux';
 import { Input } from '@components/UI/input/Input';
 import { InterfaceSelect } from '@components/UI/input/Select';
-import { Select, SelectCities } from '@country/types';
-import {
-  AccountRegistrationType,
-  AuthValues,
-} from '@containers/Auth/store/types';
 import { FormikProps } from '@containers/Auth/IFormik';
 
 type ValidNameValues =
@@ -103,8 +99,8 @@ export const companyInputs: RegisterInputs[] = [
 ];
 
 export interface RegisterFormikProps extends FormikProps {
-  accountType: AccountRegistrationType;
-  countries: Select[];
-  cities: SelectCities;
-  onSubmit: (data: AuthValues, accountType: AccountRegistrationType) => void;
+  accountType: Types.AccountRegistrationType;
+  countries: Types.Select[];
+  cities: Types.SelectCities;
+  onSubmit: (registerPostData: Types.AuthPostData) => any;
 }

@@ -8,7 +8,7 @@ import LoginFormik from '@containers/Auth/Login/LoginFormik';
 import LoginSocial from '@containers/Auth/Login/LoginSocial';
 import sweetAlert from '@components/UI/sweetAlert';
 import Alert from '@components/UI/alert';
-import store from '@store/index';
+import { store } from '@job/redux';
 
 import { authFailed } from '@containers/Auth/store/actions';
 import { HTTPCodes } from '@job/common';

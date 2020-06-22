@@ -18,10 +18,6 @@ export class RedisService {
     );
   }
 
-  // static getManyAsync(values: string[]): Promise<string[]> {
-  //   return Promise.all(values.map(value => this.getAsync(value)));
-  // }
-
   static setex(key: string, duration: number, value: string): boolean {
     return this._client.setex(key, duration, value);
   }

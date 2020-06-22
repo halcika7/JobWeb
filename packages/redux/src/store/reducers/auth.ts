@@ -4,7 +4,7 @@ import {
   AuthTouched,
   AuthValues,
   Role,
-} from './types';
+} from '../types/auth';
 
 export interface AuthState {
   errors: AuthValues;

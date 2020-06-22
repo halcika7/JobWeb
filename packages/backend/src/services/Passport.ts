@@ -56,13 +56,7 @@ export class PassportService extends BaseService {
       }
       const user = (await User.findOne({
         ...whereObj,
-        select: [
-          'id',
-          'password',
-          'role',
-          'activation_token',
-          'reset_password_token',
-        ],
+        select: ['id', 'role', 'activation_token', 'reset_password_token'],
         join: {
           alias: 'user',
           leftJoinAndSelect: {
@@ -172,7 +166,7 @@ passport.use(
       clientID: Configuration.appConfig.social.googleID,
       clientSecret: Configuration.appConfig.social.googleSecretID,
       callbackURL: Configuration.appConfig.social.googleCallBack,
-      proxy: true,
+      // proxy: true,
     },
     (_, __, profile, done) =>
       PassportService.passportStrategy(profile, done, 'google')
@@ -185,8 +179,7 @@ passport.use(
       clientID: Configuration.appConfig.social.facebookID,
       clientSecret: Configuration.appConfig.social.facebookSecretID,
       callbackURL: Configuration.appConfig.social.facebookCallBack,
-      profileFields: ['id', 'displayName', 'photos', 'email', 'name'],
-      authType: 'reauthenticate',
+      profileFields: ['id', 'email'],
     },
     (_, __, profile, done) =>
       PassportService.passportStrategy(profile, done, 'facebook')
@@ -200,7 +193,6 @@ passport.use(
       consumerSecret: Configuration.appConfig.social.twitterSecretID,
       callbackURL: Configuration.appConfig.social.twitterCallBack,
       includeEmail: true,
-      forceLogin: true,
       userProfileURL:
         'https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true',
     },

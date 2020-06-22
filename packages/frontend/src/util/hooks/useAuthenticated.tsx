@@ -1,14 +1,13 @@
-import { Role } from '@containers/Auth/store/types';
-import { AppState } from '@store/RootReducer';
+import { AppState, useSelector, Types } from '@job/redux';
 
-import { useSelector } from 'react-redux';
-
-export function useAuthenticated(): [boolean, Role | null] {
+export function useAuthenticated(): [boolean, Types.Role | null] {
   const isAuthenticated = useSelector<AppState, boolean>(
     state => state.auth.isAuthenticated
   );
 
-  const role = useSelector<AppState, Role | null>(state => state.auth.role);
+  const role = useSelector<AppState, Types.Role | null>(
+    state => state.auth.role
+  );
 
   return [isAuthenticated, role];
 }

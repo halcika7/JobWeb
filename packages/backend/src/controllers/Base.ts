@@ -24,4 +24,8 @@ export class BaseController {
   ): Response {
     return res.status(status).json({ ...resObj });
   }
+
+  get logger() {
+    return this._logger;
+  }
 }

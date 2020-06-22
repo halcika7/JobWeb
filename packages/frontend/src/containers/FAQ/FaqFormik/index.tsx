@@ -1,33 +1,28 @@
 import React, { FC, useState, useEffect } from 'react';
 import { Formik, Field, Form } from 'formik';
-import {
-  Props,
-  inputs,
-  DispatchToProps,
-  mapStateToProps,
-  mapDispatchToProps,
-  StateToProps,
-  OwnProps,
-} from './IFaqFormik';
+import { inputs } from './IFaqFormik';
+import { AppState, useThunkDispatch, useSelector, Actions } from '@job/redux';
 
 import TextArea from '@components/UI/input/TextArea';
 import InputElement from '@components/UI/input/Input';
 import { ContactSchema } from '@containers/Contact/ContactFormik/yup';
-import { connect } from 'react-redux';
-import { AppState } from '@store/RootReducer';
 
 import { FormButton } from '../styled';
 import { Row } from '@styled/div';
 
-const ContactFormik: FC<Props> = ({
-  errors: initialErrors,
-  touched: initialTouched,
-  values: initialValues,
-  postMessage,
-  status,
-  disabled,
-}): JSX.Element => {
+export interface Props {
+  status: number | null;
+  disabled: boolean;
+}
+
+const ContactFormik: FC<Props> = ({ status, disabled }): JSX.Element => {
   const [submitting, setSubmitting] = useState<boolean>(false);
+  const State = useSelector((state: AppState) => ({
+    errors: state.contact.errors,
+    values: state.contact.values,
+    touched: state.contact.touched,
+  }));
+  const dispatch = useThunkDispatch();
 
   useEffect(() => {
     if (status !== null && submitting) setSubmitting(false);
@@ -36,15 +31,15 @@ const ContactFormik: FC<Props> = ({
   return (
     <Formik
       enableReinitialize
-      initialValues={initialValues}
-      initialErrors={initialErrors}
-      initialTouched={initialTouched}
+      initialValues={State.values}
+      initialErrors={State.errors}
+      initialTouched={State.touched}
       validateOnChange
       validateOnBlur
       validationSchema={ContactSchema}
       onSubmit={data => {
         setSubmitting(true);
-        postMessage(data);
+        dispatch(Actions.postNewMessage(data));
       }}
     >
       {({ errors, touched }) => (
@@ -81,9 +76,4 @@ const ContactFormik: FC<Props> = ({
   );
 };
 
-export default React.memo(
-  connect<StateToProps, DispatchToProps, OwnProps, AppState>(
-    mapStateToProps,
-    mapDispatchToProps
-  )(ContactFormik)
-);
+export default React.memo(ContactFormik);

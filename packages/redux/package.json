@@ -1,0 +1,32 @@
+{
+  "name": "@job/redux",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "license": "MIT",
+  "private": "true",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch"
+  },
+  "dependencies": {
+    "@job/common": "1.0.0",
+    "axios": "^0.19.2",
+    "js-cookie": "^2.2.1",
+    "jwt-decode": "^2.2.0",
+    "next-redux-wrapper": "^6.0.2",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/js-cookie": "^2.2.6",
+    "@types/jwt-decode": "^2.2.1",
+    "@types/next-redux-wrapper": "^3.0.0",
+    "@types/node": "^14.0.13",
+    "@types/react-redux": "^7.1.9",
+    "@types/redux-logger": "^3.0.8",
+    "typescript": "^3.9.2"
+  }
+}
