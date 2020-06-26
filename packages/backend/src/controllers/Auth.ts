@@ -4,7 +4,7 @@ import { Configuration } from '@env';
 // services
 import { AuthService } from '@service/Auth';
 import { CookieService } from '@service/Cookie';
-import { PassportService } from '@service/Passport';
+import passport, { PassportService } from '@service/Passport';
 
 // decorators
 import { Controller } from '@decorator/class';
@@ -124,6 +124,43 @@ export class AuthController extends BaseController {
     );
 
     return this.sendResponse(res, status, { message });
+  }
+
+  @Get('google')
+  @Middleware(
+    passport.authenticate('google', {
+      scope: ['profile', 'email'],
+      prompt: 'select_account',
+    })
+  )
+  googleAuth() {
+    return null;
+  }
+
+  @Get('facebook')
+  @Middleware(
+    passport.authenticate('facebook', {
+      scope: 'email',
+    })
+  )
+  faceBookAuth() {
+    return null;
+  }
+
+  @Get('twitter')
+  @Middleware(
+    passport.authenticate('twitter', {
+      scope: 'email',
+    })
+  )
+  twitterAuth() {
+    return null;
+  }
+
+  @Get('linkedin')
+  @Middleware(passport.authenticate('linkedin'))
+  linkedinAuth() {
+    return null;
   }
 
   @Get('google/callback')

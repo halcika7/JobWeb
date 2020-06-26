@@ -1,34 +1,36 @@
 import React from 'react';
 import HeadLayout from '@components/HeadLayout';
 
-import * as colors from '@colors';
-import { Container, Row } from '@styled/div';
+// import * as colors from '@colors';
+// import { Container, Row } from '@styled/div';
+
+import HomePage from '@containers/Home';
 
 export default function Home() {
-  const displayColors = (clrs: { [key: string]: string }) => {
-    return Object.keys(clrs).map((key: string) => (
-      <div
-        key={`${clrs[`${key}`]}-${Math.random()}`}
-        style={{
-          background: clrs[`${key}`],
-          height: '60px',
-          width: '100%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <p
-          style={{
-            mixBlendMode: 'difference',
-            color: '#fff',
-          }}
-        >
-          {clrs[`${key}`]}
-        </p>
-      </div>
-    ));
-  };
+  // const displayColors = (clrs: { [key: string]: string }) => {
+  //   return Object.keys(clrs).map((key: string) => (
+  //     <div
+  //       key={`${clrs[`${key}`]}-${Math.random()}`}
+  //       style={{
+  //         background: clrs[`${key}`],
+  //         height: '60px',
+  //         width: '100%',
+  //         display: 'flex',
+  //         justifyContent: 'center',
+  //         alignItems: 'center',
+  //       }}
+  //     >
+  //       <p
+  //         style={{
+  //           mixBlendMode: 'difference',
+  //           color: '#fff',
+  //         }}
+  //       >
+  //         {clrs[`${key}`]}
+  //       </p>
+  //     </div>
+  //   ));
+  // };
 
   return (
     <>
@@ -37,8 +39,8 @@ export default function Home() {
         description="DBS Home page, register as company or user and post jobs or apply to jobs."
         path="index"
       />
-      Home Page
-      <Container>
+      <HomePage />
+      {/* <Container>
         <Row>
           {Object.entries(colors).map(([name, values], index) => (
             <div
@@ -53,7 +55,7 @@ export default function Home() {
             </div>
           ))}
         </Row>
-      </Container>
+      </Container> */}
     </>
   );
 }

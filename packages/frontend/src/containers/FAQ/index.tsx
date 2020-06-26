@@ -1,27 +1,25 @@
 import React, { FC, useEffect } from 'react';
+import { AppState, useSelector, useThunkDispatch, Actions } from '@job/redux';
 
 import Breadcrumb from '@components/UI/breadcrumb';
 import Accordion from '@components/UI/accordion';
 import Alert from '@components/UI/alert';
 import Form from './FaqFormik';
-import { connect } from 'react-redux';
-import {
-  mapStateToProps,
-  mapDispatchToProps,
-  StateToProps,
-  DispatchToProps,
-  Props,
-} from './IFaq';
-import { AppState } from '@store/RootReducer';
 
 import { FaqSection, Faqs, FormWrapper, Heading } from './styled';
 
-const Faq: FC<Props> = ({ message, resetMessage, resetState, status }) => {
+const Faq: FC<{}> = () => {
+  const { message, status } = useSelector((state: AppState) => ({
+    message: state.contact.message,
+    status: state.contact.status,
+  }));
+  const dispatch = useThunkDispatch();
+
   useEffect(() => {
     return () => {
-      resetState();
+      dispatch(Actions.resetState());
     };
-  }, [resetState]);
+  }, [dispatch]);
 
   return (
     <>
@@ -39,7 +37,7 @@ const Faq: FC<Props> = ({ message, resetMessage, resetState, status }) => {
           {status && message && (
             <Alert
               message={message}
-              onClose={() => resetMessage()}
+              onClose={() => dispatch(Actions.resetMessages())}
               type="success"
             />
           )}
@@ -86,9 +84,4 @@ const Faq: FC<Props> = ({ message, resetMessage, resetState, status }) => {
   );
 };
 
-export default React.memo(
-  connect<StateToProps, DispatchToProps, {}, AppState>(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Faq)
-);
+export default React.memo(Faq);

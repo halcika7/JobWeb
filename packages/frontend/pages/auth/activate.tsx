@@ -3,7 +3,7 @@ import Activate from '@containers/Auth/Activation';
 import HeadLayout from '@components/HeadLayout';
 import { NextPage } from 'next';
 import Router from 'next/router';
-import { SessionStorage } from '@shared/sessionStorage';
+import { SessionStorage } from '@job/redux';
 import LargeSpinner from '@components/UI/Spinner/LargeSpinner';
 
 const ActivatePage: NextPage<{ token: string | string[] | undefined }> = ({

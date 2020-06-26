@@ -1,4 +1,8 @@
-import { ContactMessage, ContactActionTypes, ContactActions } from './types';
+import {
+  ContactMessage,
+  ContactActionTypes,
+  ContactActions,
+} from '../types/contact';
 
 export interface ContactMessageTouched {
   message: boolean;

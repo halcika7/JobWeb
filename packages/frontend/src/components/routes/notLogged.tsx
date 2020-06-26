@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import { AuthToken } from '@shared/decode';
+import { AuthToken, store, CookieService, Actions } from '@job/redux';
 import ServerCookie from 'next-cookies';
-import store from '@store/index';
-import { loginSuccess } from '@containers/Auth/store/actions';
 import { NextPageContext } from 'next';
-import { CookieService } from '@shared/cookie';
 
 export type AuthProps = {
   auth: AuthToken;
@@ -37,7 +34,7 @@ export function hideAuthRoutes(WrappedComponent: any) {
       if (token) {
         CookieService.setToken(token);
         const role = AuthToken.getRole(token);
-        store.dispatch(loginSuccess(true, role));
+        store.dispatch(Actions.loginSuccess(true, role));
       }
 
       return new AuthToken(token);

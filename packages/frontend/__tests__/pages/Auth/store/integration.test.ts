@@ -1,15 +1,9 @@
-import axios from '@axios';
+import { axios, Actions } from '@job/redux';
 import moxios from 'moxios';
-import {
-  refreshToken,
-  logoutUser,
-  loginUser,
-  registerUser,
-} from '@containers/Auth/store/actions';
 
 describe('testing success refresh', () => {
   beforeEach(() => {
-    moxios.install(axios);
+    moxios.install(axios.default);
   });
   afterEach(() => {
     moxios.uninstall();
@@ -17,7 +11,7 @@ describe('testing success refresh', () => {
   it('should succeed', async done => {
     const dispatch = jest.fn();
     moxios.withMock(() => {
-      refreshToken(dispatch);
+      Actions.refreshToken(dispatch);
       moxios.wait(() => {
         const req = moxios.requests.mostRecent();
         req
@@ -38,7 +32,7 @@ describe('testing success refresh', () => {
   it('should fail', async done => {
     const dispatch = jest.fn();
     moxios.withMock(() => {
-      refreshToken(dispatch);
+      Actions.refreshToken(dispatch);
       moxios.wait(() => {
         const req = moxios.requests.mostRecent();
         req
@@ -57,7 +51,7 @@ describe('testing success refresh', () => {
 
 describe('testing success logout', () => {
   beforeEach(() => {
-    moxios.install(axios);
+    moxios.install(axios.default);
   });
   afterEach(() => {
     moxios.uninstall();
@@ -65,7 +59,7 @@ describe('testing success logout', () => {
   it('should succeed', async done => {
     const dispatch = jest.fn();
     moxios.withMock(() => {
-      logoutUser(dispatch);
+      Actions.logoutUser(dispatch);
       moxios.wait(() => {
         const req = moxios.requests.mostRecent();
         req
@@ -84,7 +78,7 @@ describe('testing success logout', () => {
   it('should fail', async done => {
     const dispatch = jest.fn();
     moxios.withMock(() => {
-      logoutUser(dispatch);
+      Actions.logoutUser(dispatch);
       moxios.wait(() => {
         const req = moxios.requests.mostRecent();
         req
@@ -103,7 +97,7 @@ describe('testing success logout', () => {
 
 describe('testing success login', () => {
   beforeEach(() => {
-    moxios.install(axios);
+    moxios.install(axios.default);
   });
   afterEach(() => {
     moxios.uninstall();
@@ -111,7 +105,9 @@ describe('testing success login', () => {
   it('should succeed', async done => {
     const dispatch = jest.fn();
     moxios.withMock(() => {
-      loginUser({ username: 'halcika', password: '1234567890' })(dispatch);
+      dispatch(
+        Actions.loginUser({ username: 'halcika', password: '1234567890' })
+      );
       moxios.wait(() => {
         const req = moxios.requests.mostRecent();
         req
@@ -133,7 +129,9 @@ describe('testing success login', () => {
   it('should fail', async done => {
     const dispatch = jest.fn();
     moxios.withMock(() => {
-      loginUser({ username: 'halcika', password: '1234567890' })(dispatch);
+      dispatch(
+        Actions.loginUser({ username: 'halcika', password: '1234567890' })
+      );
       moxios.wait(() => {
         const req = moxios.requests.mostRecent();
         req
@@ -152,7 +150,7 @@ describe('testing success login', () => {
 
 describe('testing success login', () => {
   beforeEach(() => {
-    moxios.install(axios);
+    moxios.install(axios.default);
   });
   afterEach(() => {
     moxios.uninstall();
@@ -160,20 +158,22 @@ describe('testing success login', () => {
   it('should succeed', async done => {
     const dispatch = jest.fn();
     moxios.withMock(() => {
-      registerUser({
-        userData: {
-          city: 'some city',
-          country: 'country',
-          email: 'email@gmail.com',
-          password: '@!Vv1234567890',
-          password2: '@!Vv1234567890',
-          phone: '+38761111111',
-          username: 'username',
-          company: '',
-          website: '',
-        },
-        accountType: 'user',
-      })(dispatch);
+      dispatch(
+        Actions.registerUser({
+          userData: {
+            city: 'some city',
+            country: 'country',
+            email: 'email@gmail.com',
+            password: '@!Vv1234567890',
+            password2: '@!Vv1234567890',
+            phone: '+38761111111',
+            username: 'username',
+            company: '',
+            website: '',
+          },
+          accountType: 'user',
+        })
+      );
       moxios.wait(() => {
         const req = moxios.requests.mostRecent();
         req
@@ -194,20 +194,22 @@ describe('testing success login', () => {
   it('should fail', async done => {
     const dispatch = jest.fn();
     moxios.withMock(() => {
-      registerUser({
-        userData: {
-          city: 'some city',
-          country: 'country',
-          email: 'email@gmail.com',
-          password: '@!Vv1234567890',
-          password2: '@!Vv1234567890',
-          phone: '+38761111111',
-          username: 'username',
-          company: '',
-          website: '',
-        },
-        accountType: 'user',
-      })(dispatch);
+      dispatch(
+        Actions.registerUser({
+          userData: {
+            city: 'some city',
+            country: 'country',
+            email: 'email@gmail.com',
+            password: '@!Vv1234567890',
+            password2: '@!Vv1234567890',
+            phone: '+38761111111',
+            username: 'username',
+            company: '',
+            website: '',
+          },
+          accountType: 'user',
+        })
+      );
       moxios.wait(() => {
         const req = moxios.requests.mostRecent();
         req

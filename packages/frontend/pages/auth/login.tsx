@@ -7,7 +7,7 @@ import { AuthProps, hideAuthRoutes } from '@components/routes/notLogged';
 
 // const Login = lazy('containers/Auth/Login');
 
-const LoginPage = ({ auth }: AuthProps) => {
+const LoginPage = () => {
   return (
     <>
       <HeadLayout title="Login" description="desc" path="login" />

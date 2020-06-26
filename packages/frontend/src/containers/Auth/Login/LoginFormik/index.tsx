@@ -1,14 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
-import Link from 'next/link';
-
-import { Field, Formik } from 'formik';
-
+// validation schema
 import { UserLoginSchema } from '@containers/Auth/yup';
-
-import { Inputs, LoginFormikProps } from './LoginFormikProps';
-
-import Input from '@components/UI/input/Input';
-
+// styled components
 import {
   FormWrapper,
   Submit,
@@ -16,6 +9,43 @@ import {
   SubmitParagraph,
   SubmitLink,
 } from '../../styled';
+// components
+import InputElement, { Input } from '@components/UI/input/Input';
+import { Field, Formik } from 'formik';
+import Link from 'next/link';
+
+// types
+import { Types } from '@job/redux';
+import { FormikProps } from '@containers/Auth/IFormik';
+
+type ValidNameValues = 'username' | 'password';
+
+interface LoginInputs extends Input {
+  name: ValidNameValues;
+}
+
+const Inputs: LoginInputs[] = [
+  {
+    classNames: 'col-12 col-md-6',
+    name: 'username',
+    type: 'text',
+    required: true,
+    label: 'Username / Email',
+    autoComplete: 'new-password',
+  },
+  {
+    classNames: 'col-12 col-md-6',
+    name: 'password',
+    type: 'password',
+    required: true,
+    label: 'Password',
+    autoComplete: 'new-password',
+  },
+];
+
+interface LoginFormikProps extends FormikProps {
+  onSubmit: (loginData: Types.LoginData) => void;
+}
 
 const LoginFormik: FC<LoginFormikProps> = ({
   errors: initialErrors,
@@ -51,7 +81,7 @@ const LoginFormik: FC<LoginFormikProps> = ({
           {Inputs.map(props => (
             <Field
               key={`${props.name}-${props.type}-${props.label}`}
-              as={Input}
+              as={InputElement}
               error={errors[props.name]}
               touched={touched[props.name]}
               {...props}

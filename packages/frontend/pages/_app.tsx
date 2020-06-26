@@ -1,20 +1,22 @@
 import React, { ReactNode, useEffect, FC } from 'react';
 import App, { AppContext, AppInitialProps } from 'next/app';
 import ErrorBoundary from '@components/ErrorBoundary';
-import { wrapper } from '@store/index';
 import Layout from '@components/Layout';
 import ServerCookie from 'next-cookies';
 
 import Router from 'next/router';
 import NProgress from 'nprogress';
 
-import { refreshToken, loginSuccess } from '@containers/Auth/store/actions';
-import { useThunkDispatch } from '@store/AppThunkDispatch';
-
 import Providers from '@styled/Providers';
 import { GlobalStyle } from 'styled/global';
-import { AuthToken } from '@shared/decode';
-import { CookieService } from '@shared/cookie';
+
+import {
+  AuthToken,
+  CookieService,
+  useThunkDispatch,
+  Actions,
+  wrapper,
+} from '@job/redux';
 
 NProgress.configure({ showSpinner: false });
 
@@ -29,9 +31,11 @@ const Wrapper: FC<{ children: ReactNode }> = ({ children }) => {
     if (CookieService.getToken()) {
       const token = new AuthToken(CookieService.getToken());
       if (token.isExpired) {
-        dispatch(refreshToken);
+        dispatch(Actions.refreshToken);
       } else {
-        dispatch(loginSuccess(true, AuthToken.getRole(token.token as string)));
+        dispatch(
+          Actions.loginSuccess(true, AuthToken.getRole(token.token as string))
+        );
       }
     }
   }, [dispatch]);

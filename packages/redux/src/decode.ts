@@ -1,4 +1,4 @@
-import { Role } from '@containers/Auth/store/types';
+import { Role } from './store/types/auth';
 
 import jwt_decode from 'jwt-decode';
 

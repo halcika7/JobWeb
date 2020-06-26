@@ -1,16 +1,13 @@
+import { UserService } from './User';
 import { EmailService } from './Email';
 import { BaseService } from './Base';
 
 // services
-import { ValidationService } from './Validation';
 import { ProfileService } from './Profile';
 
 // static classes
 import { BcryptService } from './Bcrypt';
 import { JWTService } from './JWT';
-
-// models
-import { User } from '@model/User';
 
 // types
 import {
@@ -27,8 +24,6 @@ import {
   BadRequestException,
   NotAcceptableException,
   HTTPCodes,
-  checkIfObjectEmpty,
-  NotFoundException,
   InternalServerErrorException,
   ForbiddenException,
 } from '@job/common';
@@ -38,17 +33,17 @@ export class AuthService extends BaseService {
 
   private readonly jwt = JWTService;
 
-  private readonly validation: ValidationService;
-
   private readonly email: EmailService;
 
   private readonly profile: ProfileService;
 
+  private readonly userService: UserService;
+
   constructor() {
     super(AuthService);
-    this.validation = new ValidationService();
     this.email = new EmailService();
     this.profile = new ProfileService();
+    this.userService = new UserService();
   }
 
   private async sendEmail(to: string, token: string, resetPassword = false) {
@@ -71,40 +66,17 @@ export class AuthService extends BaseService {
     }
   }
 
-  async register({
-    userData = {},
-    accountType = 'user',
-  }: RegisterPostData): Promise<ValidationResponse> {
-    if (!isValidAccountType(accountType)) {
+  async register(data: RegisterPostData): Promise<ValidationResponse> {
+    if (!isValidAccountType(data.accountType)) {
       throw new NotAcceptableException({ message: 'Invalid account type.' });
     }
 
-    const type =
-      accountType === 'user' ? 'registration' : 'company-registration';
-
-    const user = super.createModelInstance(new User(), userData);
-    user.role = accountType === 'company' ? 2 : 1;
-
-    const errors = await this.validation.transformErrors(user, {
-      groups: [type],
-    });
-
-    if (!checkIfObjectEmpty(errors)) {
-      throw new BadRequestException({ errors });
-    }
-
-    const { status, ...rest } = await this.validation.phoneEmail(user);
-
-    if (status === HTTPCodes.BAD_REQUEST) {
-      throw new BadRequestException({ ...rest });
-    }
-
+    const user = await this.userService.creteUser(data);
     const actToken = this.jwt.signActivationToken({ email: user.email });
 
     user.activation_token = actToken;
 
     await this.sendEmail(user.email, actToken);
-
     await user.save();
 
     return this.returnResponse(HTTPCodes.OK, {
@@ -114,22 +86,10 @@ export class AuthService extends BaseService {
   }
 
   async login({ password, username }: LoginData): Promise<ResponseTokens> {
-    const user = (await User.findOne({
-      where: [{ email: username }, { username }],
-      select: [
-        'id',
-        'password',
-        'role',
-        'activation_token',
-        'reset_password_token',
-      ],
-      join: {
-        alias: 'user',
-        leftJoinAndSelect: {
-          role: 'user.role',
-        },
-      },
-    })) as User;
+    const user = await this.userService.findUserLogin([
+      { email: username },
+      { username },
+    ]);
 
     const matched = user
       ? await this.bcrypt.compareValues(password, user.password)
@@ -178,11 +138,10 @@ export class AuthService extends BaseService {
         email: string;
       };
 
-      const user = await User.findOne({
-        where: { email, activation_token: token },
+      const user = await this.userService.checkIfExists({
+        email,
+        activation_token: token,
       });
-
-      if (!user) throw new Error('User not found');
 
       user.activation_token = null;
 
@@ -201,11 +160,7 @@ export class AuthService extends BaseService {
   }
 
   async resend(email: string) {
-    const user = await User.findOne({
-      where: { email },
-    });
-
-    if (!user) throw new NotFoundException({ message: 'User not found' });
+    const user = await this.userService.checkIfExists({ email });
 
     if (!user.activation_token) {
       throw new ForbiddenException({ message: 'Account already activated' });
@@ -216,7 +171,6 @@ export class AuthService extends BaseService {
     user.activation_token = actToken;
 
     await this.sendEmail(email, actToken);
-
     await user.save();
 
     return this.returnResponseTokens({
@@ -226,11 +180,7 @@ export class AuthService extends BaseService {
   }
 
   async resetPasswordLink(email: string) {
-    const user = await User.findOne({
-      where: { email },
-    });
-
-    if (!user) throw new NotFoundException({ message: 'User not found' });
+    const user = await this.userService.checkIfExists({ email });
 
     if (user.activation_token) {
       throw new ForbiddenException({ message: 'Account is not activated' });
@@ -241,7 +191,6 @@ export class AuthService extends BaseService {
     user.reset_password_token = resetToken;
 
     await this.sendEmail(email, resetToken, true);
-
     await user.save();
 
     return this.returnResponseTokens({

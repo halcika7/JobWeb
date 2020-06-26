@@ -3,7 +3,7 @@ import ResetPassword from '@containers/Auth/ResetPassword';
 import HeadLayout from '@components/HeadLayout';
 import { NextPage } from 'next';
 import Router from 'next/router';
-import { SessionStorage } from '@shared/sessionStorage';
+import { SessionStorage } from '@job/redux';
 import LargeSpinner from '@components/UI/Spinner/LargeSpinner';
 
 const ResetPasswordLinkPage: NextPage<{

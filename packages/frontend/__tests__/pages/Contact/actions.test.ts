@@ -1,11 +1,9 @@
-import axios from '@axios';
+import { axios, Actions } from '@job/redux';
 import moxios from 'moxios';
-
-import { postNewMessage } from '@containers/Contact/store/actions';
 
 describe('Testing Contact actions', () => {
   beforeEach(() => {
-    moxios.install(axios);
+    moxios.install(axios.default);
   });
   afterEach(() => {
     moxios.uninstall();
@@ -13,12 +11,14 @@ describe('Testing Contact actions', () => {
   it('should succeed', async done => {
     const dispatch = jest.fn();
     moxios.withMock(() => {
-      postNewMessage({
-        email: 'email@gmail.com',
-        message: 'anojfaids fasijfoaisj asfijaosss',
-        name: 'name',
-        subject: 'asjfdoijasdo',
-      })(dispatch);
+      dispatch(
+        Actions.postNewMessage({
+          email: 'email@gmail.com',
+          message: 'anojfaids fasijfoaisj asfijaosss',
+          name: 'name',
+          subject: 'asjfdoijasdo',
+        })
+      );
       moxios.wait(() => {
         const req = moxios.requests.mostRecent();
         req
@@ -39,12 +39,14 @@ describe('Testing Contact actions', () => {
   it('should fail', async done => {
     const dispatch = jest.fn();
     moxios.withMock(() => {
-      postNewMessage({
-        email: '',
-        message: '',
-        name: '',
-        subject: '',
-      })(dispatch);
+      dispatch(
+        Actions.postNewMessage({
+          email: '',
+          message: '',
+          name: '',
+          subject: '',
+        })
+      );
       moxios.wait(() => {
         const req = moxios.requests.mostRecent();
         req

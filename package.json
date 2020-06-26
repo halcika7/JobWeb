@@ -4,7 +4,7 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "lerna run build --scope={@job/backend,@job/frontend,@job/common}",
+    "build": "lerna run build --scope={@job/backend,@job/frontend,@job/common,@job/redux,@job/yup}",
     "test": "lerna run test --scope={@job/backend,@job/frontend}",
     "test:coverage": "lerna run test --scope={@job/backend,@job/frontend}",
     "server": "yarn --cwd packages/backend watch",

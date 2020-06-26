@@ -1,41 +1,34 @@
 import React, { FC, useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import {
-  mapDispatchToProps,
-  mapStateToProps,
-  DispatchToProps,
-} from './IResetPassword';
-
-import Formik from './Formik';
-import { AuthStateToProps } from '../IAuth';
-import { AppState } from '@store/RootReducer';
-import SweetAlert from '@components/UI/sweetAlert';
+import { AppState, useSelector, useThunkDispatch, Actions } from '@job/redux';
 import { HTTPCodes } from '@job/common';
+import { useRouter } from 'next/router';
+
+// components
+import Formik from './Formik';
+import SweetAlert from '@components/UI/sweetAlert';
 import Breadcrumb from '@components/UI/breadcrumb';
+import Alert from '@components/UI/alert';
+
+// styled components
 import { Container } from '@styled/div';
 import { AuthWrapper, Heading } from '../styled';
-import Alert from '@components/UI/alert';
-import { useRouter } from 'next/router';
 
 interface OwnProps {
   resetLink: boolean;
 }
 
-const ForgotPassword: FC<AuthStateToProps & DispatchToProps & OwnProps> = ({
-  errors,
-  message,
-  resetLink,
-  resetMessages,
-  resetPassword,
-  resetState,
-  sendResetPasswordLink,
-  status,
-  touched,
-  values,
-}) => {
+const ForgotPassword: FC<OwnProps> = ({ resetLink }) => {
   const [showSweetAlert, setShowSweetAlert] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<boolean>(false);
+  const State = useSelector((state: AppState) => ({
+    errors: state.auth.errors,
+    values: state.auth.values,
+    touched: state.auth.touched,
+    message: state.auth.message,
+    status: state.auth.status,
+  }));
   const router = useRouter();
+  const dispatch = useThunkDispatch();
 
   const onSubmitForm = (data: {
     email?: string;
@@ -43,16 +36,18 @@ const ForgotPassword: FC<AuthStateToProps & DispatchToProps & OwnProps> = ({
     password2?: string;
   }) => {
     if (resetLink) {
-      sendResetPasswordLink(data.email as string);
+      dispatch(Actions.sendResetPasswordLink(data.email as string));
     } else {
-      resetPassword(data.password as string, data.password2 as string);
+      dispatch(
+        Actions.resetPassword(data.password as string, data.password2 as string)
+      );
     }
   };
 
   const sweetAlertCallback = () => {
     setShowSweetAlert(false);
 
-    if (status === HTTPCodes.OK) {
+    if (State.status === HTTPCodes.OK) {
       if (!resetLink) {
         router.push('/auth/login');
       } else {
@@ -60,43 +55,43 @@ const ForgotPassword: FC<AuthStateToProps & DispatchToProps & OwnProps> = ({
       }
     }
 
-    if (!resetLink && status !== HTTPCodes.UNAUTHORIZED) {
+    if (!resetLink && State.status !== HTTPCodes.UNAUTHORIZED) {
       router.push('/auth/forgot-password');
     }
 
-    resetMessages();
+    dispatch(Actions.resetMessages());
   };
 
   const alertCallback = () => {
     setShowAlert(false);
-    resetMessages();
+    dispatch(Actions.resetMessages());
   };
 
   useEffect(() => {
     return () => {
-      resetState();
+      dispatch(Actions.resetState());
     };
-  }, [resetState]);
+  }, [dispatch]);
 
   useEffect(() => {
-    if (message) {
-      if (status === HTTPCodes.TOO_MANY_REQUESTS) {
+    if (State.message) {
+      if (State.status === HTTPCodes.TOO_MANY_REQUESTS) {
         setShowAlert(true);
       } else {
         setShowSweetAlert(true);
       }
     }
-  }, [status, message]);
+  }, [State.status, State.message]);
 
   return (
     <>
       {showSweetAlert && (
         <SweetAlert
-          message={message}
+          message={State.message}
           withButtons
           successButton="OK"
           failedButton="Cancel"
-          type={status !== HTTPCodes.OK ? 'error' : 'success'}
+          type={State.status !== HTTPCodes.OK ? 'error' : 'success'}
           callBack={sweetAlertCallback}
         />
       )}
@@ -116,7 +111,7 @@ const ForgotPassword: FC<AuthStateToProps & DispatchToProps & OwnProps> = ({
 
           {showAlert && (
             <Alert
-              message={message}
+              message={State.message}
               onClose={alertCallback}
               type="warning"
               autoDismiss
@@ -125,10 +120,10 @@ const ForgotPassword: FC<AuthStateToProps & DispatchToProps & OwnProps> = ({
           )}
 
           <Formik
-            errors={errors}
-            status={status}
-            touched={touched}
-            values={values}
+            errors={State.errors}
+            status={State.status}
+            touched={State.touched}
+            values={State.values}
             buttonDisabled={showSweetAlert || showAlert}
             onSubmit={onSubmitForm}
             resetLink={resetLink}
@@ -139,9 +134,4 @@ const ForgotPassword: FC<AuthStateToProps & DispatchToProps & OwnProps> = ({
   );
 };
 
-export default React.memo(
-  connect<AuthStateToProps, DispatchToProps, OwnProps, AppState>(
-    mapStateToProps,
-    mapDispatchToProps
-  )(ForgotPassword)
-);
+export default React.memo(ForgotPassword);

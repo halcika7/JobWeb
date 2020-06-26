@@ -1,47 +1,49 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { FC, useState, useEffect } from 'react';
+import { AppState } from '@store/RootReducer';
+import Form from './Formik';
+
+// hooks
 import { useRouter } from 'next/router';
 import {
-  mapDispatchToProps,
-  mapStateToProps,
-  DispatchToProps,
-} from './IActivation';
-import Form from './Formik';
-import { connect } from 'react-redux';
+  useSelector,
+  useThunkDispatch,
+  Actions,
+  SessionStorage,
+} from '@job/redux';
 
+// styled components
 import { AuthWrapper, Heading, SubmitButton, Submit } from '../styled';
 import { Container } from '@styled/div';
 
-import { SessionStorage } from '@shared/sessionStorage';
-import { AppState } from '@store/RootReducer';
-import { AuthStateToProps } from '../IAuth';
+// utils
+import { HTTPCodes } from '@job/common';
 
+// components
 import SweetAlert from '@components/UI/sweetAlert';
 import Breadcrumb from '@components/UI/breadcrumb';
-import { HTTPCodes } from '@job/common';
 import Alert from '@components/UI/alert';
 
 interface OwnProps {
   activation: boolean;
 }
 
-const Activate: FC<AuthStateToProps & DispatchToProps & OwnProps> = ({
-  activateAccount,
-  errors,
-  message,
-  resendActivationLink,
-  resetMessages,
-  resetState,
-  status,
-  touched,
-  values,
-  activation,
-}) => {
+const Activate: FC<OwnProps> = ({ activation }) => {
   const [showSweetAlert, setShowSweetAlert] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [submitting, setSubmitting] = useState<boolean>(false);
   const sesActivation = SessionStorage.getItem('activate');
+  const { errors, message, status, touched, values } = useSelector(
+    (state: AppState) => ({
+      errors: state.auth.errors,
+      values: state.auth.values,
+      touched: state.auth.touched,
+      message: state.auth.message,
+      status: state.auth.status,
+    })
+  );
   const router = useRouter();
+  const dispatch = useThunkDispatch();
 
   const sweetAlertCallback = () => {
     setShowSweetAlert(false);
@@ -56,17 +58,17 @@ const Activate: FC<AuthStateToProps & DispatchToProps & OwnProps> = ({
     if (activation && status !== HTTPCodes.OK) {
       router.push('/auth/resend-activation-email');
     }
-    resetMessages();
+    dispatch(Actions.resetMessage());
   };
 
   const alertCallback = () => {
     setShowAlert(false);
-    resetMessages();
+    dispatch(Actions.resetMessage());
   };
 
   const activate = () => {
     setSubmitting(true);
-    activateAccount();
+    dispatch(Actions.activateAccount());
   };
 
   useEffect(() => {
@@ -85,9 +87,9 @@ const Activate: FC<AuthStateToProps & DispatchToProps & OwnProps> = ({
 
   useEffect(() => {
     return () => {
-      resetState();
+      dispatch(Actions.authReset());
     };
-  }, [resetState]);
+  }, [dispatch]);
 
   useEffect(() => {
     if (activation && !sesActivation) {
@@ -133,7 +135,7 @@ const Activate: FC<AuthStateToProps & DispatchToProps & OwnProps> = ({
                 errors={errors}
                 touched={touched}
                 values={values}
-                onSubmit={resendActivationLink}
+                onSubmit={Actions.resendActivationLink}
                 buttonDisabled={showSweetAlert || showAlert}
                 status={status}
               />
@@ -160,9 +162,4 @@ const Activate: FC<AuthStateToProps & DispatchToProps & OwnProps> = ({
   );
 };
 
-export default React.memo(
-  connect<AuthStateToProps, DispatchToProps, OwnProps, AppState>(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Activate)
-);
+export default React.memo(Activate);

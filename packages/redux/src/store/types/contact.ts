@@ -1,6 +1,10 @@
 import { HTTPCodes } from '@job/common';
 
-export type ContactFailed = { message?: string; status: HTTPCodes; errors?: ContactMessage };
+export type ContactFailed = {
+  message?: string;
+  status: HTTPCodes;
+  errors?: ContactMessage;
+};
 
 export interface ContactMessage {
   message: string;

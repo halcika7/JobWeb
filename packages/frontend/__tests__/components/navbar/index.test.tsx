@@ -11,7 +11,7 @@ describe('Testing navbar index', () => {
     const comp = mount(
       <ReduxProvider>
         <ThemeProvider>
-          <Nav />
+          <Nav isServerAuth />
         </ThemeProvider>
       </ReduxProvider>
     );

@@ -4,8 +4,7 @@ import { waitFor, render, fireEvent } from '@testing-library/react';
 
 import FAQ from '@containers/FAQ';
 import FaqFormik from '@containers/FAQ/FaqFormik';
-import store from '@store/index';
-import { contactMessageSuccess } from '@containers/Contact/store/actions';
+import { store, Actions } from '@job/redux';
 import { ErrorDiv } from '@components/UI/input/styled';
 import { Button, Wrapper } from '@components/UI/alert/styled';
 import { FormButton } from '@containers/FAQ/styled';
@@ -37,7 +36,7 @@ describe('Testing Faq component', () => {
       </ReduxProvider>
     );
 
-    store.dispatch(contactMessageSuccess('message', 200));
+    store.dispatch(Actions.contactMessageSuccess('message', 200));
 
     rerender(
       <ReduxProvider>

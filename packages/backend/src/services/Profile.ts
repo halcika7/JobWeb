@@ -8,13 +8,17 @@ import {
 } from '@job/common';
 import { timingSafeEqual } from 'crypto';
 import { ValidationService } from './Validation';
+import { UserService } from './User';
 
 export class ProfileService extends BaseService {
   private readonly validation: ValidationService;
 
+  private readonly userService: UserService;
+
   constructor() {
     super(ProfileService);
     this.validation = new ValidationService();
+    this.userService = new UserService();
   }
 
   async changePassword(
@@ -28,11 +32,11 @@ export class ProfileService extends BaseService {
         errors: { password: 'Both passwords need to be the same' },
       });
     }
-    const user = (await User.findOne({
-      where: { email, reset_password_token: token },
-    })) as User & { password2: string };
 
-    if (!user) throw new BadRequestException({ message: 'User not found' });
+    const user = (await this.userService.checkIfExists({
+      email,
+      reset_password_token: token,
+    })) as User & { password2: string };
 
     user.password = password;
     user.password2 = password2;

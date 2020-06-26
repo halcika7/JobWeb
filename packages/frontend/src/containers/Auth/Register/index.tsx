@@ -1,17 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { HTTPCodes } from '@job/common';
 
-// actions
-import { getCountries } from '@country/actions';
-
-// types
-import { AccountRegistrationType } from '../store/types';
-import { Props, mapStateToProps, mapDispatchToProps } from './IRegister';
-
-// hooks
-import { useThunkDispatch } from '@store/AppThunkDispatch';
-import { connect } from '@hooks/connect';
-
 // components
 import RegisterAccount from './RegisterAccount';
 import RegisterFormik from './RegisterFormik';
@@ -22,78 +11,84 @@ import Alert from '@components/UI/alert';
 import { Container } from '@styled/div';
 import { AuthWrapper, Heading, WarningMessage } from '../styled';
 
-const Register: FC<Props> = ({
-  countries,
-  cities,
-  errors,
-  values,
-  touched,
-  message,
-  status,
-  registerUser,
-  resetMessages,
-  resetState,
-}): JSX.Element => {
-  const [active, setActive] = useState<AccountRegistrationType>('user');
+import {
+  useThunkDispatch,
+  Actions,
+  AppState,
+  useSelector,
+  Types,
+} from '@job/redux';
+
+const Register: FC<{}> = (): JSX.Element => {
+  const [active, setActive] = useState<Types.AccountRegistrationType>('user');
   const [showSweetAlert, setShowSweetAlert] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<boolean>(false);
+  const State = useSelector((state: AppState) => ({
+    errors: state.auth.errors,
+    values: state.auth.values,
+    touched: state.auth.touched,
+    message: state.auth.message,
+    status: state.auth.status,
+    countries: state.country.countries,
+    cities: state.country.cities,
+  }));
   const dispatch = useThunkDispatch();
 
-  const changeAccount = (value: AccountRegistrationType) => {
+  const changeAccount = (value: Types.AccountRegistrationType) => {
     if (value !== active) setActive(value);
   };
 
   const sweetAlertCallback = () => {
     setShowSweetAlert(false);
 
-    if (status === HTTPCodes.OK) {
-      resetMessages();
+    if (State.status === HTTPCodes.OK) {
+      dispatch(Actions.resetMessage());
       // routerHistory.push('/login');
     } else {
-      resetMessages();
+      dispatch(Actions.resetMessage());
     }
   };
 
   const alertCallback = () => {
     setShowAlert(false);
-    resetMessages();
+    dispatch(Actions.resetMessage());
   };
 
   useEffect(() => {
     return () => {
-      resetState();
+      dispatch(Actions.authReset());
     };
-  }, [resetState]);
-
-  useEffect(() => {
-    dispatch(getCountries);
   }, [dispatch]);
 
   useEffect(() => {
-    if (message) {
+    dispatch(Actions.getCountries);
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (State.message) {
       if (
-        status === HTTPCodes.BAD_REQUEST ||
-        status === HTTPCodes.NOT_ACCEPTABLE ||
-        status === HTTPCodes.FORBIDDEN ||
-        status === HTTPCodes.OK
+        State.status === HTTPCodes.BAD_REQUEST ||
+        State.status === HTTPCodes.NOT_ACCEPTABLE ||
+        State.status === HTTPCodes.FORBIDDEN ||
+        State.status === HTTPCodes.OK
       ) {
         setShowSweetAlert(true);
       }
-      if (status === HTTPCodes.TOO_MANY_REQUESTS) {
+      if (State.status === HTTPCodes.TOO_MANY_REQUESTS) {
         setShowAlert(true);
       }
     }
-  }, [status, message]);
+  }, [State.status, State.message]);
 
   return (
     <>
       {showSweetAlert && (
         <SweetAlert
-          message={message}
+          message={State.message}
           withButtons
           successButton="OK"
           failedButton="Cancel"
-          type={status !== HTTPCodes.OK ? 'error' : 'success'}
+          type={State.status !== HTTPCodes.OK ? 'error' : 'success'}
           callBack={sweetAlertCallback}
         />
       )}
@@ -111,7 +106,7 @@ const Register: FC<Props> = ({
 
           {showAlert && (
             <Alert
-              message={message}
+              message={State.message}
               onClose={alertCallback}
               type="warning"
               autoDismiss
@@ -123,13 +118,13 @@ const Register: FC<Props> = ({
 
           <RegisterFormik
             accountType={active}
-            countries={countries}
-            cities={cities}
-            errors={errors}
-            values={values}
-            onSubmit={registerUser}
-            status={status}
-            touched={touched}
+            countries={State.countries}
+            cities={State.cities}
+            errors={State.errors}
+            values={State.values}
+            onSubmit={Actions.registerUser}
+            status={State.status}
+            touched={State.touched}
             buttonDisabled={showSweetAlert || showAlert}
           />
 
@@ -143,6 +138,4 @@ const Register: FC<Props> = ({
   );
 };
 
-export default React.memo(
-  connect(Register, mapStateToProps, mapDispatchToProps)
-);
+export default React.memo(Register);
