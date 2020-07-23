@@ -45,15 +45,10 @@ const Accordion: FC<AccordionProps> = ({
 
   const toggleAccordion = useCallback(() => {
     const clientHeight = contentRef.current?.clientHeight || 0;
-    if (height > accHeight) {
-      setHeight(height - clientHeight);
-      setCurrentActive(null);
-      setActive(false);
-    } else {
-      setHeight(height + clientHeight);
-      setCurrentActive(contentRef);
-      setActive(true);
-    }
+    const hHeight = height > accHeight;
+    setHeight(hHeight ? height - clientHeight : height + clientHeight);
+    setCurrentActive(hHeight ? null : contentRef);
+    setActive(!hHeight);
   }, [height, setCurrentActive]);
 
   const windowResized = useCallback(() => {
@@ -64,9 +59,8 @@ const Accordion: FC<AccordionProps> = ({
   }, [active]);
 
   useEffect(() => {
-    if (defaultOpen && !loaded) {
-      toggleAccordion();
-    }
+    if (defaultOpen && !loaded) toggleAccordion();
+
     setLoaded(true);
   }, [defaultOpen, loaded, toggleAccordion]);
 

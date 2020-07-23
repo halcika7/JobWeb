@@ -1,8 +1,9 @@
-import styled from 'styled-components';
-import { Container } from '@styled/div';
-import { Flex } from '@styled/props/flex';
-import { BaseLink } from '@styled/link';
-import { setFontOptions } from '@styled/props/font';
+import styled, {
+  Container,
+  FlexProp,
+  BaseLink,
+  setFontOptions,
+} from '@job/styled';
 
 export const BreadcrumbDiv = styled.div`
   width: 100%;
@@ -11,7 +12,7 @@ export const BreadcrumbDiv = styled.div`
 `;
 
 export const BredcrumbContainer = styled(Container)`
-  ${Flex}
+  ${FlexProp}
 `;
 
 export const Anchor = styled(BaseLink)`

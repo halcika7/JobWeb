@@ -1,7 +1,7 @@
 export * as Actions from './store/actions';
 export { AppState } from './store/reducers';
 export * as Types from './store/types';
-export * as axios from './axios';
+export { axios } from './axios';
 export { AuthToken, DecodedToken } from './decode';
 export { useThunkDispatch } from './store/AppThunkDispatch';
 export {
@@ -11,6 +11,7 @@ export {
   connect,
   Provider,
 } from 'react-redux';
+
 export { CookieService } from './utils/cookie';
 export { SessionStorage } from './utils/sessionStorage';
 export {

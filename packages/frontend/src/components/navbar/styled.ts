@@ -1,8 +1,11 @@
-import styled, { css } from 'styled-components';
-import { AlignCenterDiv, Flex } from '@styled/div';
-import { BaseButton } from '@styled/button';
-import { HeightWidth } from '@styled/props/height';
-import { SetAllFlex } from '@styled/props/flex';
+import styled, {
+  css,
+  AlignCenterDiv,
+  Flex,
+  BaseButton,
+  HeightWidth,
+  SetAllFlex,
+} from '@job/styled';
 
 export const Header = styled(AlignCenterDiv)<{ shadow: boolean }>`
   ${HeightWidth('80px', '100%')}
@@ -83,6 +86,7 @@ export const ToggleButton = styled(BaseButton)<{ open: boolean }>`
 
   @media (max-width: 768px) {
     ${SetAllFlex('column', 'stretch', 'space-between')}
+    display: block;
   }
 `;
 

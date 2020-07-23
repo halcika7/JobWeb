@@ -8,14 +8,13 @@ import LoginFormik from '@containers/Auth/Login/LoginFormik';
 import LoginSocial from '@containers/Auth/Login/LoginSocial';
 import sweetAlert from '@components/UI/sweetAlert';
 import Alert from '@components/UI/alert';
-import { store } from '@job/redux';
+import { store, Actions } from '@job/redux';
 
-import { authFailed } from '@containers/Auth/store/actions';
 import { HTTPCodes } from '@job/common';
 
 import ReduxProvider from '../../../__mocks__/provider';
 
-import ThemeProvider from '@styled/Providers';
+import ThemeProvider from 'styled/Providers';
 
 describe('Testing Login Page', () => {
   let component: ReactWrapper;
@@ -43,7 +42,7 @@ describe('Testing Login Page', () => {
 
   it('should update status to 400', async () => {
     store.dispatch(
-      authFailed({
+      Actions.authFailed({
         status: HTTPCodes.BAD_REQUEST,
         message: 'Invalid username',
       })
@@ -59,7 +58,7 @@ describe('Testing Login Page', () => {
   test('should simulate autoclosing alert after limit', async done => {
     await act(async () => {
       store.dispatch(
-        authFailed({
+        Actions.authFailed({
           status: HTTPCodes.TOO_MANY_REQUESTS,
           message: 'Invalid username',
         })
@@ -81,7 +80,7 @@ describe('Testing Login Page', () => {
   it('should close sweet alert', async done => {
     await act(async () => {
       store.dispatch(
-        authFailed({
+        Actions.authFailed({
           status: HTTPCodes.BAD_REQUEST,
           message: 'Invalid username',
         })
@@ -99,7 +98,7 @@ describe('Testing Login Page', () => {
   it('should close alert', async done => {
     await act(async () => {
       store.dispatch(
-        authFailed({
+        Actions.authFailed({
           status: HTTPCodes.TOO_MANY_REQUESTS,
           message: 'Invalid username',
         })
@@ -117,7 +116,7 @@ describe('Testing Login Page', () => {
   it('should close alert after 4s', async done => {
     await act(async () => {
       store.dispatch(
-        authFailed({
+        Actions.authFailed({
           status: HTTPCodes.TOO_MANY_REQUESTS,
           message: 'Invalid username',
         })

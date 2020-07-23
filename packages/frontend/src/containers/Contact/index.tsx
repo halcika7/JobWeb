@@ -9,16 +9,16 @@ import SweetAlert from '@components/UI/sweetAlert';
 
 import { HTTPCodes } from '@job/common';
 
-import { Container } from '@styled/div';
+import { Container } from '@job/styled';
 import { ContactSection, Heading, ContactParagraph } from './styled';
 
 const Contact: FC<{}> = (): JSX.Element => {
-  const State = useSelector((state: AppState) => ({
-    errors: state.contact.errors,
-    values: state.contact.values,
-    touched: state.contact.touched,
-    message: state.contact.message,
-    status: state.contact.status,
+  const State = useSelector(({ contact }: AppState) => ({
+    errors: contact.errors,
+    values: contact.values,
+    touched: contact.touched,
+    message: contact.message,
+    status: contact.status,
   }));
   const dispatch = useThunkDispatch();
 

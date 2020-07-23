@@ -10,7 +10,7 @@ import Breadcrumb from '@components/UI/breadcrumb';
 import Alert from '@components/UI/alert';
 
 // styled components
-import { Container } from '@styled/div';
+import { Container } from '@job/styled';
 import { AuthWrapper, Heading } from '../styled';
 
 interface OwnProps {

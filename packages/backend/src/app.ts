@@ -21,10 +21,12 @@ import { connect } from './configs/db-connect';
 
 import { Server as HTTPServer } from 'http';
 
-class App extends Server {
-  private readonly port = Configuration.appConfig.server.PORT;
+const { cookie, environment, url, server } = Configuration.appConfig;
 
-  private readonly env = Configuration.appConfig.environment;
+class App extends Server {
+  private readonly port = server.PORT;
+
+  private readonly env = environment;
 
   private readonly logger = LoggerFactory.getLogger(App.name) as Logger;
 
@@ -49,17 +51,17 @@ class App extends Server {
     this.app.use([
       session({
         store: new RedisStore({ client: RedisService.client }),
-        secret: Configuration.appConfig.cookie.COOKIE_SECRET,
+        secret: cookie.COOKIE_SECRET,
         cookie: {
           httpOnly: true,
           path: '/',
-          secure: Configuration.appConfig.environment === 'production',
+          secure: environment === 'production',
         },
         resave: false,
         saveUninitialized: false,
         rolling: true,
         name: 'ses',
-        proxy: Configuration.appConfig.environment === 'production',
+        proxy: environment === 'production',
       }),
       // csrf({ cookie: false }),
       passport.initialize(),
@@ -68,7 +70,7 @@ class App extends Server {
       compression(),
       json({ limit: '1kb' }),
       urlencoded({ extended: false, limit: '1kb', parameterLimit: 10 }),
-      cors({ origin: Configuration.appConfig.url, credentials: true }),
+      cors({ origin: url, credentials: true }),
       cookieparser(),
     ]);
   }
@@ -96,8 +98,8 @@ class App extends Server {
   public start(): void {
     // eslint-disable-next-line max-params
     this.app.use(
-      (err: Error | any, __: Request, res: Response, _: NextFunction) => {
-        if (err.code !== 'EBADCSRFTOKEN') return _(err);
+      (err: Error | any, __: Request, res: Response, next: NextFunction) => {
+        if (err.code !== 'EBADCSRFTOKEN') return next(err);
 
         return res.status(403).json({
           message:

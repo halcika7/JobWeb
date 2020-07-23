@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import PhoneInputWrapper from 'react-phone-number-input/input';
+import PhoneInputWrapper from '@job/yup';
 
 import {
   ErrorDiv,
@@ -42,41 +42,44 @@ const InputElement: FC<InputProps> = ({
   onTouch,
   autoComplete = 'on',
   autoCorrect = 'off',
-}): JSX.Element => (
-  <FormGroup error={!!error && touched} className={classNames}>
-    <InputLabel htmlFor={name}>
-      {label}
-      {required && <LabelSpan> *</LabelSpan>}
-      {type !== 'tel' ? (
-        <InputWrapper
-          type={type}
-          id={name}
-          name={name}
-          value={value}
-          onChange={handleChange}
-          onBlur={onBlur}
-          onTouchStart={onTouch}
-          autoComplete={autoComplete}
-          autoCorrect={autoCorrect}
-        />
-      ) : (
-        <InputWrapper
-          as={PhoneInputWrapper}
-          value={value}
-          onChange={(val: string) => {
-            const ev = {
-              target: { type: 'text', name, id: name, value: val },
-            };
-            handleChange(ev);
-          }}
-          id={name}
-          name={name}
-          onBlur={onBlur}
-        />
-      )}
-    </InputLabel>
-    {error && touched && <ErrorDiv>{error}</ErrorDiv>}
-  </FormGroup>
-);
+}): JSX.Element => {
+  const showError = !!error && touched;
+  return (
+    <FormGroup error={showError} className={classNames}>
+      <InputLabel htmlFor={name}>
+        {label}
+        {required && <LabelSpan> *</LabelSpan>}
+        {type !== 'tel' ? (
+          <InputWrapper
+            type={type}
+            id={name}
+            name={name}
+            value={value}
+            onChange={handleChange}
+            onBlur={onBlur}
+            onTouchStart={onTouch}
+            autoComplete={autoComplete}
+            autoCorrect={autoCorrect}
+          />
+        ) : (
+          <InputWrapper
+            as={PhoneInputWrapper}
+            value={value}
+            onChange={(val: string) => {
+              const ev = {
+                target: { type: 'text', name, id: name, value: val },
+              };
+              handleChange(ev);
+            }}
+            id={name}
+            name={name}
+            onBlur={onBlur}
+          />
+        )}
+      </InputLabel>
+      {showError && <ErrorDiv>{error}</ErrorDiv>}
+    </FormGroup>
+  );
+};
 
 export default React.memo(InputElement);

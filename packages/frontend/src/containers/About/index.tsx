@@ -7,7 +7,7 @@ import AboutIntro from './AboutIntro';
 import AboutNumbers from './AboutNumbers';
 import AboutUs from './AboutUs';
 
-import { Container } from '@styled/div';
+import { Container } from '@job/styled';
 import { AboutSection } from './styled';
 
 const About = (): JSX.Element => (

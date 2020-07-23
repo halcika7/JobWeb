@@ -1,6 +1,8 @@
 import React, { FC, useEffect, useState } from 'react';
+
 // validation schema
-import { UserLoginSchema } from '@containers/Auth/yup';
+import { UserLogin } from '@job/yup';
+
 // styled components
 import {
   FormWrapper,
@@ -9,13 +11,14 @@ import {
   SubmitParagraph,
   SubmitLink,
 } from '../../styled';
+
 // components
 import InputElement, { Input } from '@components/UI/input/Input';
 import { Field, Formik } from 'formik';
 import Link from 'next/link';
 
 // types
-import { Types } from '@job/redux';
+import { Types, useThunkDispatch } from '@job/redux';
 import { FormikProps } from '@containers/Auth/IFormik';
 
 type ValidNameValues = 'username' | 'password';
@@ -44,7 +47,7 @@ const Inputs: LoginInputs[] = [
 ];
 
 interface LoginFormikProps extends FormikProps {
-  onSubmit: (loginData: Types.LoginData) => void;
+  onSubmit: (loginData: Types.LoginData) => any;
 }
 
 const LoginFormik: FC<LoginFormikProps> = ({
@@ -55,6 +58,7 @@ const LoginFormik: FC<LoginFormikProps> = ({
   buttonDisabled,
   onSubmit,
 }): JSX.Element => {
+  const dispatch = useThunkDispatch();
   const [submitting, setSubmitting] = useState<boolean>(false);
 
   useEffect(() => {
@@ -67,13 +71,14 @@ const LoginFormik: FC<LoginFormikProps> = ({
       initialValues={initialValues}
       initialErrors={initialErrors}
       initialTouched={initialTouched}
-      validateOnChange
-      validateOnBlur
-      validationSchema={UserLoginSchema}
+      validateOnChange={false}
+      validateOnBlur={false}
+      validateOnMount={false}
+      validationSchema={UserLogin}
       onSubmit={data => {
         const { username, password } = data;
         setSubmitting(true);
-        onSubmit({ username, password });
+        dispatch(onSubmit({ username, password }));
       }}
     >
       {({ errors, touched }) => (

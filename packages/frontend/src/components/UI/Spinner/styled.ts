@@ -1,6 +1,4 @@
-import styled, { keyframes } from 'styled-components';
-import { CenterDiv } from '@styled/div';
-import { HeightWidth } from '@styled/props/height';
+import styled, { keyframes, CenterDiv, HeightWidth } from '@job/styled';
 
 const Spin = keyframes`
   0%,

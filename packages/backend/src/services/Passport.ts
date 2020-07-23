@@ -23,7 +23,8 @@ import { User } from '@model/User';
 import { CookieService } from './Cookie';
 import { JWTService } from './JWT';
 
-type providerType = 'google' | 'facebook' | 'twitter' | 'linkedin';
+type providerType = 'google' | 'facebook' | 'twitter' | 'linkedIn';
+type idTypes = 'googleId' | 'facebookId' | 'twitterId' | 'linkedInId';
 
 export class PassportService extends BaseService {
   private readonly cookie = CookieService;
@@ -49,21 +50,14 @@ export class PassportService extends BaseService {
   ) {
     try {
       const whereObj = { where: { email: profile._json.email } } as any;
-      if (socialType === 'linkedin') {
-        whereObj.where.email = (profile.emails as Array<{
-          value: string;
-        }>)[0].value;
+      if (socialType === 'linkedIn') {
+        whereObj.where.email = profile.emails![0].value;
       }
-      const user = (await User.findOne({
+      const user = await User.findOne({
         ...whereObj,
         select: ['id', 'role', 'activation_token', 'reset_password_token'],
-        join: {
-          alias: 'user',
-          leftJoinAndSelect: {
-            role: 'user.role',
-          },
-        },
-      })) as User;
+        join: { alias: 'user', leftJoinAndSelect: { role: 'user.role' } },
+      });
 
       if (!user) {
         return done(
@@ -83,33 +77,13 @@ export class PassportService extends BaseService {
         return done(new Error(`Please reset your password in order to login`));
       }
 
-      if (socialType === 'google') {
-        whereObj.where.googleId = profile.id;
-      } else if (socialType === 'facebook') {
-        whereObj.where.facebookId = profile.id;
-      } else if (socialType === 'twitter') {
-        whereObj.where.twitterId = profile.id;
-      } else if (socialType === 'linkedin') {
-        whereObj.where.linkedInId = profile.id;
-      }
+      whereObj.where[`${socialType}Id`] = profile.id;
 
-      const findUserWithEmailSocialId = await User.findOne({
-        ...whereObj,
-      });
+      const findUserWithEmailSocialId = await User.findOne({ ...whereObj });
 
       if (!findUserWithEmailSocialId) {
-        if (socialType === 'facebook') {
-          user.facebookId = profile.id;
-        } else if (socialType === 'google') {
-          user.googleId = profile.id;
-        } else if (socialType === 'twitter') {
-          user.twitterId = profile.id;
-        } else if (socialType === 'linkedin') {
-          user.linkedInId = profile.id;
-        }
-
+        user[`${socialType}Id` as idTypes] = profile.id;
         await user.save();
-
         return done(undefined, user);
       }
 
@@ -121,39 +95,27 @@ export class PassportService extends BaseService {
 
   private async passportCallback(
     err: Error | undefined,
-    user: User,
+    { id, role }: User,
     res: Response
   ) {
+    const { url } = Configuration.appConfig;
     try {
-      if (err) {
-        return res.redirect(
-          `${Configuration.appConfig.url}/auth/login?err=${err}`
-        );
-      }
+      if (err) return res.redirect(`${url}/auth/login?err=${err}`);
 
-      const accessToken = this.jwt.signToken({ id: user.id, role: user.role });
-      this.cookie.setRefreshToken(
-        res,
-        this.jwt.signToken({ id: user.id, role: user.role }, true)
-      );
+      const accessToken = this.jwt.signToken({ id, role });
+      this.cookie.setRefreshToken(res, this.jwt.signToken({ id, role }, true));
 
-      return res.redirect(
-        `${Configuration.appConfig.url}/auth/login?token=${accessToken}`
-      );
+      return res.redirect(`${url}/auth/login?token=${accessToken}`);
     } catch (error) {
       this.logger.error(error, 'passport callback');
       const customError =
         'Something happened. We were unable to perform request.';
-      return res.redirect(
-        `${Configuration.appConfig.url}/auth/login?err=${customError}`
-      );
+      return res.redirect(`${url}/auth/login?err=${customError}`);
     }
   }
 }
 
-passport.serializeUser((user: User, done) => {
-  done(null, user.id);
-});
+passport.serializeUser((user: User, done) => done(null, user.id));
 
 passport.deserializeUser(async (id, done) => {
   const user = await User.findOne({ where: { id } });
@@ -166,7 +128,6 @@ passport.use(
       clientID: Configuration.appConfig.social.googleID,
       clientSecret: Configuration.appConfig.social.googleSecretID,
       callbackURL: Configuration.appConfig.social.googleCallBack,
-      // proxy: true,
     },
     (_, __, profile, done) =>
       PassportService.passportStrategy(profile, done, 'google')
@@ -214,7 +175,7 @@ passport.use(
     // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     (_, __, profile, done) =>
-      PassportService.passportStrategy(profile, done, 'linkedin')
+      PassportService.passportStrategy(profile, done, 'linkedIn')
   )
 );
 

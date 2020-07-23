@@ -9,9 +9,9 @@ import Form from './FaqFormik';
 import { FaqSection, Faqs, FormWrapper, Heading } from './styled';
 
 const Faq: FC<{}> = () => {
-  const { message, status } = useSelector((state: AppState) => ({
-    message: state.contact.message,
-    status: state.contact.status,
+  const { message, status } = useSelector(({ contact }: AppState) => ({
+    message: contact.message,
+    status: contact.status,
   }));
   const dispatch = useThunkDispatch();
 

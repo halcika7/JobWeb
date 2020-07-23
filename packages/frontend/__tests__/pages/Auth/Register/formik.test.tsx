@@ -3,7 +3,6 @@ import { waitFor, render, fireEvent } from '@testing-library/react';
 
 import RegisterFormik from '@containers/Auth/Register/RegisterFormik';
 import Register from '@containers/Auth/Register';
-import { AccountRegistrationType } from '@containers/Auth/store/types';
 import { Types, store, axios } from '@job/redux';
 import moxios from 'moxios';
 
@@ -11,10 +10,10 @@ import { ErrorDiv } from '@components/UI/input/styled';
 
 import ReduxProvider from '../../../__mocks__/provider';
 
-import ThemeProvider from '@styled/Providers';
+import ThemeProvider from 'styled/Providers';
 
 const values = {
-  accountType: 'company' as AccountRegistrationType,
+  accountType: 'company' as Types.AccountRegistrationType,
   buttonDisabled: false,
   countries: [
     { value: 'Bosnia and Herzegovina', label: 'Bosnia and Herzegovina' },
@@ -187,7 +186,7 @@ describe('Testing Faq component', () => {
   });
 
   it('should fire register action', async () => {
-    moxios.install(axios.default);
+    moxios.install(axios);
     const { container, getByText } = render(
       <ReduxProvider>
         <ThemeProvider>

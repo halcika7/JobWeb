@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import {
-  Flex as FlexProp,
+  FlexProp,
   FlexRow,
   CenterAllFlex,
   AlignCenterFlex,

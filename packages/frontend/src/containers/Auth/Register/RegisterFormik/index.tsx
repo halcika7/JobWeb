@@ -19,7 +19,7 @@ import {
 } from './RegisterFormikProps';
 
 // validation
-import { CompanySignupSchema, UserSignupSchema } from '@containers/Auth/yup';
+import { CompanySchema, UserRegiter } from '@job/yup';
 
 // components
 import Input from '@components/UI/input/Input';
@@ -51,11 +51,10 @@ const RegisterFormik: FC<RegisterFormikProps> = ({
       initialValues={initialValues}
       initialErrors={initialErrors}
       initialTouched={initialTouched}
-      validateOnChange
-      validateOnBlur
-      validationSchema={
-        accountType === 'user' ? UserSignupSchema : CompanySignupSchema
-      }
+      validateOnChange={false}
+      validateOnBlur={false}
+      validateOnMount={false}
+      validationSchema={accountType === 'user' ? UserRegiter : CompanySchema}
       onSubmit={data => {
         setSubmitting(true);
         dispatch(onSubmit({ userData: data, accountType }));
@@ -131,4 +130,4 @@ const RegisterFormik: FC<RegisterFormikProps> = ({
   );
 };
 
-export default React.memo(RegisterFormik);
+export default RegisterFormik;

@@ -1,11 +1,13 @@
-import styled, { css } from 'styled-components';
-import { AlignCenterDiv } from '@styled/div';
-import { BaseButton } from '@styled/button';
-import { FlexRow } from '@styled/props/flex';
-import { GridColumns } from '@styled/props/grid';
+import styled, {
+  css,
+  AlignCenterDiv,
+  BaseButton,
+  FlexRow,
+  GridColumns,
+  HeightWidth,
+  setFontOptions,
+} from '@job/styled';
 import { Form } from 'formik';
-import { HeightWidth } from '@styled/props/height';
-import { setFontOptions } from '@styled/props/font';
 
 export const AuthWrapper = styled.section`
   padding: 4rem 0 8rem;

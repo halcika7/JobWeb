@@ -13,7 +13,7 @@ import {
   CheckboxParagraph,
 } from './styled';
 
-import { Row } from '@styled/div';
+import { Row } from '@job/styled';
 
 const AboutEx = (): JSX.Element => (
   <AboutExSection>

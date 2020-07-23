@@ -28,9 +28,7 @@ export class UserService extends BaseService {
       groups: [type],
     });
 
-    if (!checkIfObjectEmpty(errors)) {
-      throw new BadRequestException({ errors });
-    }
+    if (!checkIfObjectEmpty(errors)) throw new BadRequestException({ errors });
 
     const { status, ...rest } = await this.validation.phoneEmail(user);
 

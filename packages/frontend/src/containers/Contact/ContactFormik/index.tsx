@@ -5,10 +5,10 @@ import { Props, inputs } from './IContactFormik';
 
 import TextArea from '@components/UI/input/TextArea';
 import InputElement from '@components/UI/input/Input';
-import { ContactSchema } from './yup';
+import { ContactSchema } from '@job/yup';
 
 import { ContactForm, SubmitButton } from '../styled';
-import { Row } from '@styled/div';
+import { Row } from '@job/styled';
 
 const ContactFormik: FC<Props> = ({
   errors: initialErrors,
@@ -31,8 +31,9 @@ const ContactFormik: FC<Props> = ({
       initialValues={initialValues}
       initialErrors={initialErrors}
       initialTouched={initialTouched}
-      validateOnChange
-      validateOnBlur
+      validateOnChange={false}
+      validateOnBlur={false}
+      validateOnMount={false}
       validationSchema={ContactSchema}
       onSubmit={data => {
         setSubmitting(true);

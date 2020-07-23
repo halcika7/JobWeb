@@ -1,6 +1,4 @@
 import React, { FC, useEffect, useState } from 'react';
-// utils
-import { HTTPCodes } from '@job/common';
 
 // hooks
 import Router, { useRouter } from 'next/router';
@@ -11,11 +9,10 @@ import {
   Actions,
   AppState,
 } from '@job/redux';
+import useAlert from '@hooks/useAlert';
 
 // components
-import SweetAlert from '@components/UI/sweetAlert';
 import Breadcrumb from '@components/UI/breadcrumb';
-import Alert from '@components/UI/alert';
 import LoginFormik from './LoginFormik';
 import LoginSocial from './LoginSocial';
 
@@ -27,45 +24,29 @@ import {
   SocialSpanCircle,
   SocialSpanLine,
 } from '../styled';
-import { Container } from '@styled/div';
+import { Container } from '@job/styled';
 
 const Login: FC<{}> = (): JSX.Element => {
-  const [showSweetAlert, setShowSweetAlert] = useState<boolean>(false);
-  const [showAlert, setShowAlert] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [tok, setToken] = useState<string>('');
-  const State = useSelector((state: AppState) => ({
-    errors: state.auth.errors,
-    values: state.auth.values,
-    touched: state.auth.touched,
-    message: state.auth.message,
-    status: state.auth.status,
-    isAuthenticated: state.auth.isAuthenticated,
+  const State = useSelector(({ auth }: AppState) => ({
+    errors: auth.errors,
+    values: auth.values,
+    touched: auth.touched,
+    message: auth.message,
+    status: auth.status,
+    isAuthenticated: auth.isAuthenticated,
   }));
+  const [SweetAlert, Alert, disabled] = useAlert({
+    callback: Actions.resetMessage,
+    message: State.message,
+    error,
+    status: State.status,
+  });
   const dispatch = useThunkDispatch();
   const router = useRouter();
 
   const { err, token } = router.query;
-
-  const sweetAlertCallback = () => {
-    setShowSweetAlert(false);
-    dispatch(Actions.resetMessage());
-  };
-
-  const alertCallback = () => {
-    setShowAlert(false);
-    dispatch(Actions.resetMessage());
-  };
-
-  useEffect(() => {
-    if (State.message || error) {
-      if (State.status === HTTPCodes.TOO_MANY_REQUESTS) {
-        setShowAlert(true);
-      } else {
-        setShowSweetAlert(true);
-      }
-    }
-  }, [State.status, State.message, error]);
 
   useEffect(() => {
     return () => {
@@ -75,43 +56,29 @@ const Login: FC<{}> = (): JSX.Element => {
 
   useEffect(() => {
     if (tok) {
-      CookieService.setToken(tok as string);
+      CookieService.setToken(tok);
 
-      const { role } = Actions.getTokenRole(tok as string);
+      const { role } = Actions.getTokenRole(tok);
 
       dispatch(Actions.loginSuccess(true, role));
     }
   }, [tok, dispatch]);
 
   useEffect(() => {
-    if (State.isAuthenticated) {
-      router.push('/');
-    }
+    if (State.isAuthenticated) router.push('/');
   }, [State.isAuthenticated, router]);
 
   useEffect(() => {
-    if (err) {
-      setError(err as string);
-      Router.push('/auth/login', undefined, { shallow: true });
-    }
+    if (err) setError(err as string);
 
-    if (token) {
-      setToken(token as string);
-      Router.push('/auth/login', undefined, { shallow: true });
-    }
+    if (token) setToken(token as string);
+
+    if (err || token) Router.push('/auth/login', undefined, { shallow: true });
   }, [err, token]);
 
   return (
     <>
-      {showSweetAlert && (
-        <SweetAlert
-          message={State.message || error}
-          withButtons
-          failedButton="Cancel"
-          type="error"
-          callBack={sweetAlertCallback}
-        />
-      )}
+      {SweetAlert}
 
       <Breadcrumb
         breadcrumbs={[
@@ -124,15 +91,7 @@ const Login: FC<{}> = (): JSX.Element => {
         <AuthWrapper>
           <Heading>Login To Account</Heading>
 
-          {showAlert && (
-            <Alert
-              message={State.message}
-              onClose={alertCallback}
-              type="warning"
-              autoDismiss
-              autoDismissTime={2000}
-            />
-          )}
+          {Alert}
 
           <LoginFormik
             errors={State.errors}
@@ -140,7 +99,7 @@ const Login: FC<{}> = (): JSX.Element => {
             touched={State.touched}
             status={State.status}
             onSubmit={Actions.loginUser}
-            buttonDisabled={showSweetAlert || showAlert}
+            buttonDisabled={disabled}
           />
 
           <SocialDivider>

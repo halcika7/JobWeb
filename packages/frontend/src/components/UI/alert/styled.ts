@@ -1,7 +1,10 @@
-import styled, { css } from 'styled-components';
-import { BaseButton } from '@styled/button';
-import { ShowAlert, HideAlert } from '@styled/keyframes';
-import { setFontOptions } from '@styled/props/font';
+import styled, {
+  css,
+  BaseButton,
+  ShowAlert,
+  HideAlert,
+  setFontOptions,
+} from '@job/styled';
 
 export const Wrapper = styled.div`
   position: relative;

@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-expressions */
 import { applyMiddleware, compose, createStore, Middleware } from 'redux';
 import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 // reducer
 import { rootReducer, AppState } from './reducers';
@@ -9,13 +10,19 @@ import { rootReducer, AppState } from './reducers';
 import { appLoggerMiddleware } from './logger';
 import { MakeStore, Context, createWrapper } from 'next-redux-wrapper';
 
-const middlewares: Middleware[] = [thunk];
+const bindMiddleware = () => {
+  const middlewares: Middleware[] = [thunk];
 
-process.env.NODE_ENV !== 'production' && middlewares.push(appLoggerMiddleware);
+  if (process.env.NODE_ENV !== 'production') {
+    middlewares.push(appLoggerMiddleware);
+    return composeWithDevTools(applyMiddleware(...middlewares));
+  }
+  return applyMiddleware(...middlewares);
+};
 
 export const store = createStore(
   rootReducer,
-  compose(applyMiddleware(...middlewares), compose)
+  compose(bindMiddleware(), compose)
 );
 
 export const makeStore: MakeStore<AppState> = (_: Context) => {

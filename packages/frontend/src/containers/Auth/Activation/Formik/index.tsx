@@ -9,15 +9,7 @@ import {
 import Input from '@components/UI/input/Input';
 
 import { FormikProps } from '@containers/Auth/IFormik';
-import * as yup from 'yup';
-
-const EmailSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email('Please provide valid email')
-    .max(100, 'Email cannot exceed 100 characters')
-    .required('Email is required'),
-});
+import { EmailSchema } from '@job/yup';
 
 interface ActivationFormikProps extends FormikProps {
   onSubmit: (email: string) => void;
@@ -43,8 +35,9 @@ const ActivationFormik: FC<ActivationFormikProps> = ({
       initialValues={ivalues}
       initialErrors={ierrors}
       initialTouched={itouched}
-      validateOnChange
-      validateOnBlur
+      validateOnChange={false}
+      validateOnBlur={false}
+      validateOnMount={false}
       validationSchema={EmailSchema}
       onSubmit={data => {
         const { email } = data;

@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { FC, useState, useEffect } from 'react';
-import { AppState } from '@store/RootReducer';
 import Form from './Formik';
 
 // hooks
@@ -10,11 +9,12 @@ import {
   useThunkDispatch,
   Actions,
   SessionStorage,
+  AppState,
 } from '@job/redux';
 
 // styled components
 import { AuthWrapper, Heading, SubmitButton, Submit } from '../styled';
-import { Container } from '@styled/div';
+import { Container } from '@job/styled';
 
 // utils
 import { HTTPCodes } from '@job/common';
@@ -34,12 +34,12 @@ const Activate: FC<OwnProps> = ({ activation }) => {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const sesActivation = SessionStorage.getItem('activate');
   const { errors, message, status, touched, values } = useSelector(
-    (state: AppState) => ({
-      errors: state.auth.errors,
-      values: state.auth.values,
-      touched: state.auth.touched,
-      message: state.auth.message,
-      status: state.auth.status,
+    ({ auth }: AppState) => ({
+      errors: auth.errors,
+      values: auth.values,
+      touched: auth.touched,
+      message: auth.message,
+      status: auth.status,
     })
   );
   const router = useRouter();

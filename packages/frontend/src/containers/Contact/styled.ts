@@ -1,10 +1,12 @@
-import styled from 'styled-components';
-import { CenterDiv } from '@styled/div';
-import { BaseButton } from '@styled/button';
-import { GridColumns, GridColumnsGap } from '@styled/props/grid';
+import styled, {
+  CenterDiv,
+  BaseButton,
+  GridColumns,
+  GridColumnsGap,
+  HeightWidth,
+  setFontOptions,
+} from '@job/styled';
 import { Form } from 'formik';
-import { HeightWidth } from '@styled/props/height';
-import { setFontOptions } from '@styled/props/font';
 
 export const ContactSection = styled.section`
   padding: 4rem 0;

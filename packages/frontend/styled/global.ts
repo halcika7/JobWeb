@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from '@job/styled';
 
 export const GlobalStyle = createGlobalStyle`
     html {

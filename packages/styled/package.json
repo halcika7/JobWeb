@@ -1,0 +1,19 @@
+{
+  "name": "@job/styled",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "license": "MIT",
+  "private": "true",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch"
+  },
+  "devDependencies": {
+    "@types/styled-components": "^5.1.0",
+    "typescript": "^3.9.5"
+  },
+  "dependencies": {
+    "styled-components": "^5.1.1"
+  }
+}

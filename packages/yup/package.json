@@ -1,0 +1,21 @@
+{
+  "name": "@job/yup",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "license": "MIT",
+  "private": "true",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch"
+  },
+  "dependencies": {
+    "react-phone-number-input": "^3.0.23",
+    "yup": "^0.29.1"
+  },
+  "devDependencies": {
+    "@types/react-phone-number-input": "^3.0.4",
+    "@types/yup": "^0.29.3",
+    "typescript": "^3.9.5"
+  }
+}

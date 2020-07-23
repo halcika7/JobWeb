@@ -17,30 +17,19 @@ const pg = new Pool({
   connectionString: `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/postgres`,
 });
 
-pg.connect()
-  .then(client => {
-    client
-      .query(`DROP DATABASE ${DB_NAME}`)
-      .then(() => {
-        console.info('db dropped');
-      })
-      .catch(() => {
-        console.info('db not dropped');
-      });
-    client
-      .query(`DROP DATABASE ${TEST_DB_NAME}`)
-      .then(() => {
-        console.info('db TEST_DB dropped');
-        client.release();
-        process.kill(process.pid);
-      })
-      .catch(() => {
-        client.release();
-        console.info('db TEST_DB not dropped');
-        process.kill(process.pid);
-      });
-  })
-  .catch(err => {
-    console.error(err);
+const drop = async () => {
+  let client;
+  try {
+    client = await pg.connect();
+    await client.query(`DROP DATABASE ${DB_NAME}`);
+    await client.query(`DROP DATABASE ${TEST_DB_NAME}`);
+    client.release();
     process.kill(process.pid);
-  });
+  } catch (error) {
+    console.log('drop -> error', error);
+    if (client) client.release();
+    process.kill(process.pid);
+  }
+};
+
+drop();

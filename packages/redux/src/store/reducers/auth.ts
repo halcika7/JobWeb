@@ -72,20 +72,17 @@ export function AuthReducer(
         values: { ...INITIAL_STATE.values, ...action.payload.values },
       };
     case AuthActions.AUTH_SUCCESS:
-      return {
-        ...INITIAL_STATE,
-        message: action.payload.message,
-        status: action.payload.status,
-      };
-    case AuthActions.AUTH_FAILED:
+      return { ...INITIAL_STATE, ...action.payload };
+    case AuthActions.AUTH_FAILED: {
+      const { message, status, errors, refresh } = action.payload;
       return {
         ...prevState,
-        message: action.payload.message || '',
-        status: action.payload.status,
-        errors: action.payload.errors
-          ? { ...prevState.errors, ...action.payload.errors }
+        message: message || '',
+        status,
+        errors: errors
+          ? { ...prevState.errors, ...errors }
           : INITIAL_STATE.errors,
-        touched: !action.payload.refresh
+        touched: !refresh
           ? {
               username: true,
               email: true,
@@ -99,12 +96,9 @@ export function AuthReducer(
             }
           : { ...INITIAL_STATE.touched },
       };
+    }
     case AuthActions.LOGIN_SUCCESS:
-      return {
-        ...prevState,
-        role: action.payload.role,
-        isAuthenticated: action.payload.isAuthenticated,
-      };
+      return { ...prevState, ...action.payload };
     default:
       return prevState;
   }

@@ -29,10 +29,7 @@ export class BaseService {
     status: number,
     objectResp: { [key: string]: any }
   ): ResponseObject {
-    return {
-      status,
-      ...objectResp,
-    };
+    return { status, ...objectResp };
   }
 
   protected returnResponseMessage(

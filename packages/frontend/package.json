@@ -12,6 +12,8 @@
   "dependencies": {
     "@job/common": "1.0.0",
     "@job/redux": "1.0.0",
+    "@job/styled": "1.0.0",
+    "@job/yup": "1.0.0",
     "dotenv": "^8.2.0",
     "formik": "^2.1.4",
     "lqip-loader": "^2.2.0",
@@ -26,9 +28,7 @@
     "react-is": "16.13.1",
     "react-phone-number-input": "^3.0.22",
     "react-select": "^3.1.0",
-    "styled-components": "^5.1.0",
-    "use-dark-mode": "^2.3.1",
-    "yup": "^0.28.5"
+    "use-dark-mode": "^2.3.1"
   },
   "devDependencies": {
     "@babel/core": "7.9.6",
@@ -44,15 +44,11 @@
     "@types/jest": "^25.2.3",
     "@types/jsdom": "^16.2.3",
     "@types/moxios": "^0.4.9",
-    "@types/node": "^14.0.3",
     "@types/nprogress": "^0.2.0",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
-    "@types/react-phone-number-input": "^3.0.4",
     "@types/react-router-dom": "^5.1.5",
     "@types/react-select": "^3.0.13",
-    "@types/styled-components": "^5.1.0",
-    "@types/yup": "^0.28.3",
     "babel-jest": "^26.0.1",
     "babel-loader": "^8.1.0",
     "babel-plugin-inline-react-svg": "^1.1.1",
@@ -66,7 +62,6 @@
     "moxios": "^0.4.0",
     "nextjs-sitemap-generator": "^1.0.0",
     "nprogress": "^0.2.0",
-    "typescript": "^3.9.2",
     "webpack": "4.43.0"
   },
   "jest": {

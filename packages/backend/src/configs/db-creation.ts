@@ -17,45 +17,20 @@ const pg = new Pool({
   connectionString: `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/postgres`,
 });
 
-pg.connect()
-  .then(client => {
-    client
-      .query(`CREATE DATABASE ${DB_NAME}`)
-      .then(() => {
-        console.info('db created');
-        client
-          .query(`ALTER USER postgres SET timezone='UTC'`)
-          .then(() => {
-            console.warn('timezone set to UTC');
-          })
-          .catch(err => {
-            client.release();
-            console.warn('timezone not set to UTC');
-            console.error(err);
-            process.kill(process.pid);
-          });
-      })
-      .catch(err => {
-        console.log('err', err);
-        client.release();
-        console.info('db exists');
-        process.kill(process.pid);
-      });
-    client
-      .query(`CREATE DATABASE ${TEST_DB_NAME}`)
-      .then(() => {
-        console.info('db TEST_DB created');
-        client.release();
-        process.kill(process.pid);
-      })
-      .catch(err => {
-        console.log('err', err);
-        client.release();
-        console.info('db TEST_DB exists');
-        process.kill(process.pid);
-      });
-  })
-  .catch(err => {
+const db = async () => {
+  let client;
+  try {
+    client = await pg.connect();
+    await client.query(`CREATE DATABASE ${DB_NAME}`);
+    await client.query(`ALTER USER postgres SET timezone='UTC'`);
+    await client.query(`CREATE DATABASE ${TEST_DB_NAME}`);
+    client.release();
+    process.kill(process.pid);
+  } catch (err) {
+    if (client) client.release();
     console.error(err);
     process.kill(process.pid);
-  });
+  }
+};
+
+db();

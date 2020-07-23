@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { FooterWrapper } from './styled';
-import { Container } from '@styled/div';
+import { Container } from '@job/styled';
 
 import BottomFooter from './BottomFooter';
 import MiddleFooter from './MiddleFooter';

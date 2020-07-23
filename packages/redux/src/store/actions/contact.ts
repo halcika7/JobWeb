@@ -1,4 +1,4 @@
-import axios from '../../axios';
+import { axios } from '../../axios';
 import { HTTPCodes } from '@job/common';
 import {
   ContactMessage,

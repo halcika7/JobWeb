@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { AccountRegistrationType } from '../store/types';
+import { Types } from '@job/redux';
 
 import { FiUsers } from 'react-icons/fi';
 import { GiBriefcase } from 'react-icons/gi';
@@ -14,8 +14,8 @@ import {
 } from '../styled';
 
 interface RegisterAccountProps {
-  accountType: AccountRegistrationType;
-  changeAccount: (value: AccountRegistrationType) => void;
+  accountType: Types.AccountRegistrationType;
+  changeAccount: (value: Types.AccountRegistrationType) => void;
 }
 
 const RegisterAccount: FC<RegisterAccountProps> = ({

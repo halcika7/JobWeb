@@ -7,7 +7,7 @@ import ServerCookie from 'next-cookies';
 import Router from 'next/router';
 import NProgress from 'nprogress';
 
-import Providers from '@styled/Providers';
+import Providers from 'styled/Providers';
 import { GlobalStyle } from 'styled/global';
 
 import {
@@ -17,6 +17,8 @@ import {
   Actions,
   wrapper,
 } from '@job/redux';
+
+import '../src/util/axios';
 
 NProgress.configure({ showSpinner: false });
 

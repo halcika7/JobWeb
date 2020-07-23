@@ -13,6 +13,7 @@ describe('Testing country actions', () => {
     const dispatch = jest.fn();
     moxios.withMock(() => {
       getCountries(dispatch);
+      console.log('from here')
       moxios.wait(() => {
         const req = moxios.requests.mostRecent();
         req

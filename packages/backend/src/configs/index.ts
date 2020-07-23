@@ -72,70 +72,96 @@ interface AppConfig {
   social: Social;
 }
 
+const {
+  NODE_ENV,
+  URL,
+  USER: DB_USERNAME,
+  DB_PASSWORD,
+  DB_PORT,
+  DB_HOST,
+  DB_NAME,
+  LOGGING_DEFAULT_LEVEL,
+  LOGGING_ERROR_FILE_PATH,
+  LOGGING_FILE_PATH,
+  PORT,
+  REDIS_PORT,
+  COOKIE_KEY,
+  COOKIE_SECRET,
+  TWILIO_SID,
+  TWILIO_AUTH_TOKEN,
+  NEVERBOUNCE_API_KEY,
+  ACCESS_TOKEN_SECRET,
+  REFRESH_TOKEN_SECRET,
+  REFRESH_TOKEN_NAME,
+  REFRESH_TOKEN_PATH,
+  SEND_GRID,
+  GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET,
+  FACEBOOK_CLIENT_ID,
+  FACEBOOK_CLIENT_SECRET,
+  TWITTER_CLIENT_ID,
+  TWITTER_CLIENT_SECRET,
+  LINKEDIN_CLIENT_ID,
+  LINKEDIN_CLIENT_SECRET,
+} = process.env;
+
+const SERVER_URL =
+  NODE_ENV === 'production'
+    ? 'https://polar-lake-39918.herokuapp.com/api/auth/'
+    : 'http://localhost:5000/api/auth/';
+
 export abstract class Configuration {
   static appConfig: AppConfig = {
     appName: 'backend',
-    environment: process.env.NODE_ENV as string,
-    url: process.env.URL as string,
+    environment: NODE_ENV as string,
+    url: URL as string,
     db: {
-      DB_USERNAME: process.env.USER,
-      DB_PASSWORD: process.env.DB_PASSWORD,
-      DB_PORT: process.env.DB_PORT,
-      DB_HOST: process.env.DB_HOST,
-      DB_NAME: process.env.DB_NAME,
+      DB_USERNAME,
+      DB_PASSWORD,
+      DB_PORT,
+      DB_HOST,
+      DB_NAME,
     } as DbConfig,
     logging: {
-      defaultLevel: process.env.LOGGING_DEFAULT_LEVEL,
-      errorLogsPath: process.env.LOGGING_ERROR_FILE_PATH,
-      logsPath: process.env.LOGGING_FILE_PATH,
+      defaultLevel: LOGGING_DEFAULT_LEVEL,
+      errorLogsPath: LOGGING_ERROR_FILE_PATH,
+      logsPath: LOGGING_FILE_PATH,
     } as LoggingConfig,
     server: {
-      PORT: parseInt(process.env.PORT as string, 10),
-      REDIS_PORT: parseInt(process.env.REDIS_PORT as string, 10),
+      PORT: parseInt(PORT as string, 10),
+      REDIS_PORT: parseInt(REDIS_PORT as string, 10),
     } as ServerConfig,
     cookie: {
-      COOKIE_KEY: process.env.COOKIE_KEY as string,
-      COOKIE_SECRET: process.env.COOKIE_SECRET as string,
+      COOKIE_KEY,
+      COOKIE_SECRET,
     } as CookieConfig,
     twilio: {
-      secret: process.env.TWILIO_SID,
-      key: process.env.TWILIO_AUTH_TOKEN,
+      secret: TWILIO_SID,
+      key: TWILIO_AUTH_TOKEN,
     } as Twilio,
     neverBounce: {
-      url: `https://api.neverbounce.com/v4/single/check?key=${process.env.NEVERBOUNCE_API_KEY}`,
+      url: `https://api.neverbounce.com/v4/single/check?key=${NEVERBOUNCE_API_KEY}`,
     } as NeverBounce,
     webToken: {
-      ACCESS_SECRET: process.env.ACCESS_TOKEN_SECRET,
-      REFRESH_SECRET: process.env.REFRESH_TOKEN_SECRET,
-      REFRESH_TOKEN_NAME: process.env.REFRESH_TOKEN_NAME,
-      REFRESH_TOKEN_PATH: process.env.REFRESH_TOKEN_PATH,
+      ACCESS_SECRET: ACCESS_TOKEN_SECRET,
+      REFRESH_SECRET: REFRESH_TOKEN_SECRET,
+      REFRESH_TOKEN_NAME,
+      REFRESH_TOKEN_PATH,
     } as WebToken,
-    sendgrid: process.env.SEND_GRID as string,
+    sendgrid: SEND_GRID as string,
     social: {
-      googleID: process.env.GOOGLE_CLIENT_ID as string,
-      googleSecretID: process.env.GOOGLE_CLIENT_SECRET as string,
-      googleCallBack:
-        process.env.NODE_ENV === 'production'
-          ? 'https://polar-lake-39918.herokuapp.com/api/auth/google/callback'
-          : '/api/auth/google/callback',
-      facebookID: process.env.FACEBOOK_CLIENT_ID as string,
-      facebookSecretID: process.env.FACEBOOK_CLIENT_SECRET as string,
-      facebookCallBack:
-        process.env.NODE_ENV === 'production'
-          ? 'https://polar-lake-39918.herokuapp.com/api/auth/facebook/callback'
-          : 'http://localhost:5000/api/auth/facebook/callback',
-      twitterID: process.env.TWITTER_CLIENT_ID as string,
-      twitterSecretID: process.env.TWITTER_CLIENT_SECRET as string,
-      twitterCallBack:
-        process.env.NODE_ENV === 'production'
-          ? 'https://polar-lake-39918.herokuapp.com/api/auth/twitter/callback'
-          : 'http://localhost:5000/api/auth/twitter/callback',
-      linkedinID: process.env.LINKEDIN_CLIENT_ID as string,
-      linkedinSecretID: process.env.LINKEDIN_CLIENT_SECRET as string,
-      linkedinCallBack:
-        process.env.NODE_ENV === 'production'
-          ? 'https://polar-lake-39918.herokuapp.com/api/auth/linkedin/callback'
-          : 'http://localhost:5000/api/auth/linkedin/callback',
+      googleID: GOOGLE_CLIENT_ID as string,
+      googleSecretID: GOOGLE_CLIENT_SECRET as string,
+      googleCallBack: `${SERVER_URL}google/callback`,
+      facebookID: FACEBOOK_CLIENT_ID as string,
+      facebookSecretID: FACEBOOK_CLIENT_SECRET as string,
+      facebookCallBack: `${SERVER_URL}facebook/callback`,
+      twitterID: TWITTER_CLIENT_ID as string,
+      twitterSecretID: TWITTER_CLIENT_SECRET as string,
+      twitterCallBack: `${SERVER_URL}twitter/callback`,
+      linkedinID: LINKEDIN_CLIENT_ID as string,
+      linkedinSecretID: LINKEDIN_CLIENT_SECRET as string,
+      linkedinCallBack: `${SERVER_URL}linkedin/callback`,
     },
   };
 }

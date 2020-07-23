@@ -1,5 +1,4 @@
-import styled from 'styled-components';
-import { Container } from '@styled/div';
+import styled, { Container } from '@job/styled';
 
 export const TermsSection = styled(Container)`
   margin: 5rem auto 10rem;

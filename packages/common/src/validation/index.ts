@@ -27,10 +27,14 @@ export const isPlainObject = (fn: any): fn is object => {
 };
 
 export const isFunction = (fn: any): boolean => typeof fn === 'function';
+
 export const isString = (fn: any): fn is string => typeof fn === 'string';
+
 export const isConstructor = (fn: any): boolean => fn === 'constructor';
+
 export const isEmptyArray = (array: any): boolean =>
   !(array && array.length > 0);
+
 export const isSymbol = (fn: any): fn is symbol => typeof fn === 'symbol';
 
 export function checkIfStringEmpty(value: string): boolean {

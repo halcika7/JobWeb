@@ -7,7 +7,6 @@ export type SelectCities = {
   [key: string]: Select[];
 };
 
-// types
 export enum CountryActions {
   COUNTRY_SUCCESS = 'COUNTRY_SUCCESS',
   COUNTRY_FAILED = 'COUNTRY_FAILED',

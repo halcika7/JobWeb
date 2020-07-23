@@ -5,10 +5,10 @@ import { AppState, useThunkDispatch, useSelector, Actions } from '@job/redux';
 
 import TextArea from '@components/UI/input/TextArea';
 import InputElement from '@components/UI/input/Input';
-import { ContactSchema } from '@containers/Contact/ContactFormik/yup';
+import { ContactSchema } from '@job/yup';
 
 import { FormButton } from '../styled';
-import { Row } from '@styled/div';
+import { Row } from '@job/styled';
 
 export interface Props {
   status: number | null;
@@ -17,10 +17,10 @@ export interface Props {
 
 const ContactFormik: FC<Props> = ({ status, disabled }): JSX.Element => {
   const [submitting, setSubmitting] = useState<boolean>(false);
-  const State = useSelector((state: AppState) => ({
-    errors: state.contact.errors,
-    values: state.contact.values,
-    touched: state.contact.touched,
+  const State = useSelector(({ contact }: AppState) => ({
+    errors: contact.errors,
+    values: contact.values,
+    touched: contact.touched,
   }));
   const dispatch = useThunkDispatch();
 
@@ -34,8 +34,9 @@ const ContactFormik: FC<Props> = ({ status, disabled }): JSX.Element => {
       initialValues={State.values}
       initialErrors={State.errors}
       initialTouched={State.touched}
-      validateOnChange
-      validateOnBlur
+      validateOnChange={false}
+      validateOnBlur={false}
+      validateOnMount={false}
       validationSchema={ContactSchema}
       onSubmit={data => {
         setSubmitting(true);

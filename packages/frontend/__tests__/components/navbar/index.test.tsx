@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import Nav from '@components/navbar';
 import Brand from '@components/navbar/Brand';
-import ThemeProvider from '@styled/Providers';
+import ThemeProvider from 'styled/Providers';
 
 import ReduxProvider from '../../__mocks__/provider';
 

@@ -59,18 +59,15 @@ export function ContactReducer(
         values: { ...INITIAL_STATE.values, ...action.payload.values },
       };
     case ContactActions.CONTACT_MESSAGE_SUCCESS:
-      return {
-        ...INITIAL_STATE,
-        message: action.payload.message,
-        status: action.payload.status,
-      };
-    case ContactActions.CONTACT_MESSAGE_FAILED:
+      return { ...INITIAL_STATE, ...action.payload };
+    case ContactActions.CONTACT_MESSAGE_FAILED: {
+      const { message, status, errors } = action.payload;
       return {
         ...prevState,
-        message: action.payload.message || '',
-        status: action.payload.status,
-        errors: action.payload.errors
-          ? { ...prevState.errors, ...action.payload.errors }
+        message: message || '',
+        status,
+        errors: errors
+          ? { ...prevState.errors, ...errors }
           : INITIAL_STATE.errors,
         touched: {
           name: true,
@@ -80,6 +77,7 @@ export function ContactReducer(
           message: true,
         },
       };
+    }
     default:
       return prevState;
   }

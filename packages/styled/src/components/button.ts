@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { CenterAllFlex, Flex } from './props/flex';
+import { CenterAllFlex, FlexProp } from './props/flex';
 
 export const Base = styled.button`
-  ${Flex}
+  ${FlexProp}
   cursor: pointer;
   outline: none;
   border: none;

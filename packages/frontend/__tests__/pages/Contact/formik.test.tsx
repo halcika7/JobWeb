@@ -4,7 +4,7 @@ import { waitFor, render, fireEvent } from '@testing-library/react';
 import ContactFormik from '@containers/Contact/ContactFormik';
 import { ErrorDiv } from '@components/UI/input/styled';
 
-import ThemeProvider from '@styled/Providers';
+import ThemeProvider from 'styled/Providers';
 
 const values = {
   disabled: false,

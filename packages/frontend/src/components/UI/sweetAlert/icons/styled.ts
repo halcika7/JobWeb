@@ -1,9 +1,9 @@
-import styled, { css } from 'styled-components';
-import {
+import styled, {
+  css,
   rotatePlaceholder,
   animateSuccessLong,
   animateSuccessTip,
-} from '@styled/keyframes';
+} from '@job/styled';
 
 const BaseIcon = styled.div`
   width: 80px;

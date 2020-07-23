@@ -49,12 +49,7 @@ export class AuthService extends BaseService {
   private async sendEmail(to: string, token: string, resetPassword = false) {
     try {
       await this.email.sendEmail(
-        {
-          to,
-          token,
-          resetPassword,
-          subject: 'Account Activation DBS',
-        },
+        { to, token, resetPassword, subject: 'Account Activation DBS' },
         'activation'
       );
     } catch (error) {

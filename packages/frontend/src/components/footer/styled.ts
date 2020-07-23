@@ -1,10 +1,14 @@
-import styled from 'styled-components';
-import { CenterDiv } from '@styled/div';
-import { CenterAllFlex, AlignCenterFlex } from '@styled/props/flex';
-import { GridColumns, GridColumnsGap } from '@styled/props/grid';
-import { HeightWidth } from '@styled/props/height';
-import { setFontOptions, textProps } from '@styled/props/font';
-import { BaseLink } from '@styled/link';
+import styled, {
+  CenterDiv,
+  CenterAllFlex,
+  AlignCenterFlex,
+  GridColumns,
+  GridColumnsGap,
+  HeightWidth,
+  setFontOptions,
+  textProps,
+  BaseLink,
+} from '@job/styled';
 
 export const FooterWrapper = styled.footer`
   border-bottom: 2px solid #23c0e9;

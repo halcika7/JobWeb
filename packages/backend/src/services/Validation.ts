@@ -35,10 +35,7 @@ export class ValidationService extends BaseService {
     let errors: { [key: string]: string } = {};
 
     validationValues.forEach(({ property, constraints }) => {
-      errors = {
-        ...errors,
-        [property]: Object.values(constraints || {})[0],
-      };
+      errors = { ...errors, [property]: Object.values(constraints || {})[0] };
     });
 
     return errors;
@@ -66,9 +63,7 @@ export class ValidationService extends BaseService {
 
       return this.returnResponse(
         !checkIfObjectEmpty(errors) ? HTTPCodes.BAD_REQUEST : HTTPCodes.OK,
-        {
-          errors,
-        }
+        { errors }
       );
     } catch {
       return this.returnGenericFailed(HTTPCodes.BAD_REQUEST);

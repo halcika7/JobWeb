@@ -7,24 +7,23 @@ import RegisterFormik from '@containers/Auth/Register/RegisterFormik';
 import RegisterAccount from '@containers/Auth/Register/RegisterAccount';
 import sweetAlert from '@components/UI/sweetAlert';
 import Alert from '@components/UI/alert';
-import { store, axios } from '@job/redux';
+import { store, axios, Actions } from '@job/redux';
 
 import { act } from 'react-dom/test-utils';
 
-import { authSuccess, authFailed } from '@containers/Auth/store/actions';
 import { HTTPCodes } from '@job/common';
 
 import moxios from 'moxios';
 
 import ReduxProvider from '../../../__mocks__/provider';
 
-import ThemeProvider from '@styled/Providers';
+import ThemeProvider from 'styled/Providers';
 
 describe('Testing Register Page', () => {
   let component: ReactWrapper;
 
   beforeAll(() => {
-    moxios.install(axios.default);
+    moxios.install(axios);
     component = mount(
       <ReduxProvider>
         <ThemeProvider>
@@ -47,7 +46,7 @@ describe('Testing Register Page', () => {
   });
 
   it('should simulate success register', () => {
-    store.dispatch(authSuccess('some message', HTTPCodes.OK));
+    store.dispatch(Actions.authSuccess('some message', HTTPCodes.OK));
 
     component.update();
 
@@ -79,7 +78,7 @@ describe('Testing Register Page', () => {
   it('should close sweet allert after button clicked', async done => {
     await act(async () => {
       store.dispatch(
-        authFailed({
+        Actions.authFailed({
           status: HTTPCodes.BAD_REQUEST,
           message: 'Invalid username',
         })
@@ -98,7 +97,7 @@ describe('Testing Register Page', () => {
   it('should close alert after button clicked', async done => {
     await act(async () => {
       store.dispatch(
-        authFailed({
+        Actions.authFailed({
           status: HTTPCodes.TOO_MANY_REQUESTS,
           message: 'Invalid username',
         })
@@ -116,7 +115,7 @@ describe('Testing Register Page', () => {
   it('should auto close alert after 4s', async done => {
     await act(async () => {
       store.dispatch(
-        authFailed({
+        Actions.authFailed({
           status: HTTPCodes.TOO_MANY_REQUESTS,
           message: 'Invalid username',
         })
@@ -134,7 +133,7 @@ describe('Testing Register Page', () => {
 
   it('should close alert on success action after button is clicked', async done => {
     await act(async () => {
-      store.dispatch(authSuccess('Invalid username', HTTPCodes.OK));
+      store.dispatch(Actions.authSuccess('Invalid username', HTTPCodes.OK));
 
       setTimeout(() => {
         component.update();

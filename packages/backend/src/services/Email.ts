@@ -4,7 +4,9 @@ import { Configuration } from '@env';
 import pug from 'pug';
 import { join } from 'path';
 
-sgMail.setApiKey(Configuration.appConfig.sendgrid);
+const { sendgrid, url: URL } = Configuration.appConfig;
+
+sgMail.setApiKey(sendgrid);
 
 interface EmailData {
   to: string;
@@ -21,10 +23,7 @@ export class EmailService extends BaseService {
   async sendEmail({ to, subject, ...rest }: EmailData, file: string) {
     const filePath = join(__dirname, `../emails/${file}.pug`);
 
-    const forwardObject = {
-      ...rest,
-      URL: Configuration.appConfig.url,
-    };
+    const forwardObject = { ...rest, URL };
 
     const msg = {
       to,
