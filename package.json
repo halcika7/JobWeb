@@ -6,7 +6,7 @@
     ]
   },
   "scripts": {
-    "build": "lerna run build --scope={@job/backend,@job/frontend,@job/common,@job/redux,@job/yup,@job/mobile}",
+    "build": "lerna run build --scope={@job/styled,@job/backend,@job/frontend,@job/common,@job/redux,@job/yup,@job/mobile}",
     "test": "lerna run test --scope={@job/backend,@job/frontend}",
     "test:coverage": "lerna run test --scope={@job/backend,@job/frontend}",
     "server": "yarn --cwd packages/backend watch",
