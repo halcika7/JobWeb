@@ -1,4 +1,4 @@
-import styled, {
+import {
   CenterDiv,
   CenterAllFlex,
   AlignCenterFlex,
@@ -8,7 +8,8 @@ import styled, {
   setFontOptions,
   textProps,
   BaseLink,
-} from '@job/styled';
+} from '@styled';
+import styled from 'styled-components';
 
 export const FooterWrapper = styled.footer`
   border-bottom: 2px solid #23c0e9;

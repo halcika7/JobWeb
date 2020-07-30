@@ -1,8 +1,9 @@
 import React from 'react';
-import { lightTheme, darkTheme, ThemeProvider } from '@job/styled';
+import { ThemeProvider } from 'styled-components';
+import { lightTheme, darkTheme } from './theme';
 import useDarkMode from 'use-dark-mode';
 
-export default ({ children }: any) => {
+const Theme = ({ children }: any) => {
   const { value } = useDarkMode(false, {
     storageKey: undefined,
     onChange: undefined,
@@ -27,3 +28,5 @@ export default ({ children }: any) => {
 
   return body;
 };
+
+export default Theme;

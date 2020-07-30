@@ -14,7 +14,7 @@ import {
 
 // styled components
 import { AuthWrapper, Heading, SubmitButton, Submit } from '../styled';
-import { Container } from '@job/styled';
+import { Container } from '@styled';
 
 // utils
 import { HTTPCodes } from '@job/common';

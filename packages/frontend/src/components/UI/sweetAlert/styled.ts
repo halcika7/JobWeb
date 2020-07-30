@@ -1,12 +1,12 @@
-import styled, {
-  css,
+import styled, { css } from 'styled-components';
+import {
   CenterDiv,
   ColumnDiv,
   JustifyCenterDiv,
   BaseButton,
   ShowSweetAlert,
   HeightWidth,
-} from '@job/styled';
+} from '@styled';
 
 export const SweetAlertWrapper = styled(CenterDiv)`
   ${HeightWidth('100vh', '100%')}

@@ -24,7 +24,8 @@ import {
   SocialSpanCircle,
   SocialSpanLine,
 } from '../styled';
-import { Container } from '@job/styled';
+import { Container } from '@styled';
+import { motion } from 'framer-motion';
 
 const Login: FC<{}> = (): JSX.Element => {
   const [error, setError] = useState<string>('');
@@ -77,7 +78,11 @@ const Login: FC<{}> = (): JSX.Element => {
   }, [err, token]);
 
   return (
-    <>
+    <motion.div
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      exit={{ opacity: 0 }}
+    >
       {SweetAlert}
 
       <Breadcrumb
@@ -109,7 +114,7 @@ const Login: FC<{}> = (): JSX.Element => {
           <LoginSocial />
         </AuthWrapper>
       </Container>
-    </>
+    </motion.div>
   );
 };
 

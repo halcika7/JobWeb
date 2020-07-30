@@ -8,7 +8,7 @@ import InputElement from '@components/UI/input/Input';
 import { ContactSchema } from '@job/yup';
 
 import { FormButton } from '../styled';
-import { Row } from '@job/styled';
+import { Row } from '@styled';
 
 export interface Props {
   status: number | null;

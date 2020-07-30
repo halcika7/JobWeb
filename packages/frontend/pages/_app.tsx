@@ -4,11 +4,12 @@ import ErrorBoundary from '@components/ErrorBoundary';
 import Layout from '@components/Layout';
 import ServerCookie from 'next-cookies';
 
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import NProgress from 'nprogress';
 
-import Providers from 'src/styled/Providers';
-import { GlobalStyle } from 'src/styled/global';
+import Providers from 'styled/Providers';
+import { GlobalStyle } from 'styled/global';
+import { AnimatePresence } from 'framer-motion';
 
 import {
   AuthToken,
@@ -26,6 +27,24 @@ Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
+const ScrollToTop = ({ children }: any) => {
+  const router = useRouter();
+  useEffect(() => {
+    try {
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth',
+      });
+    } catch (error) {
+      // just a fallback for older browsers
+      window.scrollTo(0, 0);
+    }
+  }, [router.asPath]);
+
+  return children;
+};
+
 const Wrapper: FC<{ children: ReactNode }> = ({ children }) => {
   const dispatch = useThunkDispatch();
 
@@ -42,8 +61,10 @@ const Wrapper: FC<{ children: ReactNode }> = ({ children }) => {
     }
   }, [dispatch]);
 
-  return <>{children}</>;
+  return <ScrollToTop>{children}</ScrollToTop>;
 };
+
+// export default withRouter(ScrollToTop);
 
 class MyApp extends App<AppInitialProps> {
   static async getInitialProps({ Component, ctx }: AppContext) {
@@ -59,7 +80,7 @@ class MyApp extends App<AppInitialProps> {
   }
 
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, pageProps, router } = this.props;
 
     return (
       <ErrorBoundary>
@@ -67,7 +88,9 @@ class MyApp extends App<AppInitialProps> {
           <Providers>
             <GlobalStyle />
             <Layout isServerAuth={pageProps.isServerAuth}>
-              <Component {...pageProps} />
+              <AnimatePresence exitBeforeEnter>
+                <Component {...pageProps} key={router.asPath} />
+              </AnimatePresence>
             </Layout>
           </Providers>
         </Wrapper>

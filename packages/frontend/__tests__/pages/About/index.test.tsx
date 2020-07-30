@@ -2,7 +2,7 @@ import React from 'react';
 import About from '@containers/About';
 import Accordion from '@components/UI/accordion';
 import { mount } from 'enzyme';
-import ThemeProvider from 'src/styled/Providers';
+import ThemeProvider from 'styled/Providers';
 
 import ReduxProvider from '../../__mocks__/provider';
 

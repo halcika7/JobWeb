@@ -1,11 +1,12 @@
-import styled, {
+import styled from 'styled-components';
+import {
   CenterDiv,
   BaseButton,
   GridColumns,
   GridColumnsGap,
   HeightWidth,
   setFontOptions,
-} from '@job/styled';
+} from '@styled';
 import { Form } from 'formik';
 
 export const ContactSection = styled.section`

@@ -11,6 +11,14 @@
       {
         "paths": [
           {
+            "rootPathSuffix": "./styled/components/index",
+            "rootPathPrefix": "@styled"
+          },
+          {
+            "rootPathSuffix": "./styled/colors/index",
+            "rootPathPrefix": "@colors"
+          },
+          {
             "rootPathSuffix": "./src/components",
             "rootPathPrefix": "@components/"
           },

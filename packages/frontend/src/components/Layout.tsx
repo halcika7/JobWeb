@@ -5,6 +5,7 @@ import Footer from '@components/footer';
 
 const Main = styled.main`
   padding-top: 5rem;
+  min-height: 100vh;
 `;
 
 const Layout: FC<{

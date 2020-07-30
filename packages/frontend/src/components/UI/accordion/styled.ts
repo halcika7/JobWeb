@@ -1,4 +1,5 @@
-import styled, { css, BaseButton, HeightWidth } from '@job/styled';
+import styled, { css } from 'styled-components';
+import { BaseButton, HeightWidth } from '@styled';
 
 export const Wrapper = styled.section`
   height: 100%;

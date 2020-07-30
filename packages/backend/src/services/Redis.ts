@@ -14,7 +14,7 @@ export class RedisService {
 
   static getAsync(key: string): Promise<string> {
     return new Promise((resolve, _) =>
-      this._client.get(key, (__, val) => resolve(val))
+      this._client.get(key, (__, val) => resolve(val as any))
     );
   }
 

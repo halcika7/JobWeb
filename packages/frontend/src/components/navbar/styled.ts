@@ -1,11 +1,11 @@
-import styled, {
-  css,
+import styled, { css } from 'styled-components';
+import {
   AlignCenterDiv,
   Flex,
   BaseButton,
   HeightWidth,
   SetAllFlex,
-} from '@job/styled';
+} from '@styled';
 
 export const Header = styled(AlignCenterDiv)<{ shadow: boolean }>`
   ${HeightWidth('80px', '100%')}

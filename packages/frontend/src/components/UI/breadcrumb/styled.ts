@@ -1,9 +1,5 @@
-import styled, {
-  Container,
-  FlexProp,
-  BaseLink,
-  setFontOptions,
-} from '@job/styled';
+import styled from 'styled-components';
+import { Container, FlexProp, BaseLink, setFontOptions } from '@styled';
 
 export const BreadcrumbDiv = styled.div`
   width: 100%;

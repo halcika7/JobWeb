@@ -9,8 +9,9 @@ import SweetAlert from '@components/UI/sweetAlert';
 
 import { HTTPCodes } from '@job/common';
 
-import { Container } from '@job/styled';
+import { Container } from '@styled';
 import { ContactSection, Heading, ContactParagraph } from './styled';
+import { motion } from 'framer-motion';
 
 const Contact: FC<{}> = (): JSX.Element => {
   const State = useSelector(({ contact }: AppState) => ({
@@ -29,7 +30,11 @@ const Contact: FC<{}> = (): JSX.Element => {
   }, [dispatch]);
 
   return (
-    <>
+    <motion.div
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      exit={{ opacity: 0 }}
+    >
       <Breadcrumb
         breadcrumbs={[
           { href: '/', text: 'Home' },
@@ -64,7 +69,7 @@ const Contact: FC<{}> = (): JSX.Element => {
           />
         </ContactSection>
       </Container>
-    </>
+    </motion.div>
   );
 };
 

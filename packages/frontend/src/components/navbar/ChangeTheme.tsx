@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import styled, { css } from '@job/styled';
+import styled, { css } from 'styled-components';
 
 const Wrapper = styled.div<{ checked?: boolean }>`
   position: relative;

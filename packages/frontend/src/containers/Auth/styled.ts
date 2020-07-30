@@ -1,12 +1,12 @@
-import styled, {
-  css,
+import styled, { css } from 'styled-components';
+import {
   AlignCenterDiv,
   BaseButton,
   FlexRow,
   GridColumns,
   HeightWidth,
   setFontOptions,
-} from '@job/styled';
+} from '@styled';
 import { Form } from 'formik';
 
 export const AuthWrapper = styled.section`

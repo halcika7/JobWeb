@@ -1,5 +1,3 @@
-import styled from 'styled-components';
-
 import { WhiteSecondary, Azure } from './colors';
 import { fontSizes, fontWeights } from './components/props/font';
 
@@ -43,8 +41,3 @@ const defaultTheme = {
 
 export const lightTheme = { ...defaultTheme, ...light };
 export const darkTheme = { ...defaultTheme, ...dark };
-export * from './colors';
-export * from './components';
-export * from 'styled-components';
-
-export default styled;

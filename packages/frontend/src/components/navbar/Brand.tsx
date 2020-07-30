@@ -5,7 +5,7 @@ import useDarkMode from 'use-dark-mode';
 import Logo from '@images/logo.png';
 
 import { NavLink, HeaderImg, ToggleButton } from './styled';
-import { AlignCenterDiv } from '@job/styled';
+import { AlignCenterDiv } from '@styled';
 import ToggleTheme from './ChangeTheme';
 
 interface BrandProps {

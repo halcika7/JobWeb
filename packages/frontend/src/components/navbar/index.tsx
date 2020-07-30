@@ -89,13 +89,13 @@ const Navbar = ({ isServerAuth }: Props): JSX.Element => {
         <Nav />
         {!isAuthenticated && !isServerAuth ? (
           <Navigation>
-            <NavLink href="/auth/login" passHref>
+            <NavLink href="/auth/login" passHref scroll={false}>
               <Button as="a">
                 <FiLogIn />
                 Login
               </Button>
             </NavLink>
-            <NavLink href="/auth/register" passHref>
+            <NavLink href="/auth/register" passHref scroll={false}>
               <Button as="a">
                 <FiUser />
                 Signup

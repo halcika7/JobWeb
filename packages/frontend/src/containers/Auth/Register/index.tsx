@@ -5,8 +5,9 @@ import RegisterAccount from './RegisterAccount';
 import RegisterFormik from './RegisterFormik';
 import Breadcrumb from '@components/UI/breadcrumb';
 
-import { Container } from '@job/styled';
+import { Container } from '@styled';
 import { AuthWrapper, Heading, WarningMessage } from '../styled';
+import { motion } from 'framer-motion';
 
 import {
   useThunkDispatch,
@@ -46,7 +47,11 @@ const Register: FC<{}> = (): JSX.Element => {
   }, [dispatch]);
 
   return (
-    <>
+    <motion.div
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      exit={{ opacity: 0 }}
+    >
       {SweetAlert}
 
       <Breadcrumb
@@ -98,7 +103,7 @@ const Register: FC<{}> = (): JSX.Element => {
           </WarningMessage>
         </AuthWrapper>
       </Container>
-    </>
+    </motion.div>
   );
 };
 

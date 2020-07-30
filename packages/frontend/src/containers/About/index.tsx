@@ -7,11 +7,16 @@ import AboutIntro from './AboutIntro';
 import AboutNumbers from './AboutNumbers';
 import AboutUs from './AboutUs';
 
-import { Container } from '@job/styled';
+import { Container } from '@styled';
 import { AboutSection } from './styled';
+import { motion } from 'framer-motion';
 
 const About = (): JSX.Element => (
-  <>
+  <motion.div
+    animate={{ opacity: 1 }}
+    initial={{ opacity: 0 }}
+    exit={{ opacity: 0 }}
+  >
     <Breadcrumb
       breadcrumbs={[
         { href: '/', text: 'Home' },
@@ -27,7 +32,7 @@ const About = (): JSX.Element => (
         <AboutUs />
       </AboutSection>
     </Container>
-  </>
+  </motion.div>
 );
 
 export default About;

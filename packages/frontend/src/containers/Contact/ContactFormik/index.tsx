@@ -8,7 +8,7 @@ import InputElement from '@components/UI/input/Input';
 import { ContactSchema } from '@job/yup';
 
 import { ContactForm, SubmitButton } from '../styled';
-import { Row } from '@job/styled';
+import { Row } from '@styled';
 
 const ContactFormik: FC<Props> = ({
   errors: initialErrors,

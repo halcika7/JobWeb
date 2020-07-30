@@ -1,4 +1,5 @@
-import styled, { css, setFontOptions } from '@job/styled';
+import styled, { css } from 'styled-components';
+import { setFontOptions } from '@styled';
 
 export const InputWrapper = styled.input`
   ${setFontOptions('paragraph', 'link')}

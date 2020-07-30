@@ -8,7 +8,7 @@ import { store, Actions } from '@job/redux';
 import { ErrorDiv } from '@components/UI/input/styled';
 import { Button, Wrapper } from '@components/UI/alert/styled';
 import { FormButton } from '@containers/FAQ/styled';
-import ThemeProvider from 'src/styled/Providers';
+import ThemeProvider from 'styled/Providers';
 
 import ReduxProvider from '../../__mocks__/provider';
 

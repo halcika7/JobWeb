@@ -1,4 +1,5 @@
-import styled, { Container, CenterAllFlex, setFontOptions } from '@job/styled';
+import styled from 'styled-components';
+import { Container, CenterAllFlex, setFontOptions } from '@styled';
 import BGImage from '@images/space.jpg';
 
 export const NotFoundSection = styled(Container)`

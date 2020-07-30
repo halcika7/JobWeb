@@ -1,4 +1,5 @@
-import styled, { GridColumnsPerc, BaseButton, Container } from '@job/styled';
+import styled from 'styled-components';
+import { GridColumnsPerc, BaseButton, Container } from '@styled';
 
 // section
 export const FaqSection = styled(Container)`

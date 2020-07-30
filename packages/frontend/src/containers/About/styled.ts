@@ -1,5 +1,5 @@
-import styled, {
-  css,
+import styled, { css } from 'styled-components';
+import {
   Row,
   CenterDiv,
   AlignCenterDiv,
@@ -9,7 +9,7 @@ import styled, {
   GridColumns,
   HeightWidth,
   setFontOptions,
-} from '@job/styled';
+} from '@styled';
 import MapImg from '@images/google-map.png';
 
 export const AboutSection = styled.section`
