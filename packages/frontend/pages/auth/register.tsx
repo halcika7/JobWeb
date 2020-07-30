@@ -1,10 +1,8 @@
 import React from 'react';
-import Register from '@containers/Auth/Register';
+import dynamic from 'next/dynamic';
 import HeadLayout from '@components/HeadLayout';
 
-// import lazy from '@lazy';
-
-// const Register = lazy('containers/Auth/Register');
+const Register = dynamic(() => import('@containers/Auth/Register'));
 
 export default function RegisterPage() {
   return (

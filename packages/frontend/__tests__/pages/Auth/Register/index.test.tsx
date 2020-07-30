@@ -17,7 +17,7 @@ import moxios from 'moxios';
 
 import ReduxProvider from '../../../__mocks__/provider';
 
-import ThemeProvider from 'styled/Providers';
+import ThemeProvider from 'src/styled/Providers';
 
 describe('Testing Register Page', () => {
   let component: ReactWrapper;

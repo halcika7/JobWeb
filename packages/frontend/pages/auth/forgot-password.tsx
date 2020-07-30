@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
-import ResetPassword from '@containers/Auth/ResetPassword';
+import dynamic from 'next/dynamic';
 import HeadLayout from '@components/HeadLayout';
+
+const ResetPassword = dynamic(() => import('@containers/Auth/ResetPassword'));
 
 const ResetPasswordLinkPage: FC<{}> = () => {
   return (

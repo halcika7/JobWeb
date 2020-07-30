@@ -3,12 +3,11 @@ import { NextPage } from 'next';
 import NotFound from '@containers/404';
 import HeadLayout from '@components/HeadLayout';
 
-// eslint-disable-next-line @typescript-eslint/interface-name-prefix
-interface IError {
+interface ErrorI {
   statusCode?: number;
 }
 
-const Error: NextPage<IError> = ({ statusCode }) => {
+const Error: NextPage<ErrorI> = ({ statusCode }) => {
   return (
     <>
       <HeadLayout title="Error Page" description="desc" path="404" />

@@ -7,8 +7,8 @@ import ServerCookie from 'next-cookies';
 import Router from 'next/router';
 import NProgress from 'nprogress';
 
-import Providers from 'styled/Providers';
-import { GlobalStyle } from 'styled/global';
+import Providers from 'src/styled/Providers';
+import { GlobalStyle } from 'src/styled/global';
 
 import {
   AuthToken,

@@ -12,6 +12,9 @@ export default ({ children }: any) => {
   const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
+    if (!localStorage.getItem('themeMode')) {
+      localStorage.setItem('themeMode', JSON.stringify(false));
+    }
     setMounted(true);
   }, []);
 

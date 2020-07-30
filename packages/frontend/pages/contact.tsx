@@ -1,10 +1,8 @@
 import React from 'react';
-import Contact from '@containers/Contact';
+import dynamic from 'next/dynamic';
 import HeadLayout from '@components/HeadLayout';
 
-// import lazy from '@lazy';
-
-// const Contact = lazy('containers/Contact');
+const Contact = dynamic(() => import('@containers/Contact'));
 
 export default function ContactPage() {
   return (

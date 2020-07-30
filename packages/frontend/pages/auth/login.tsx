@@ -1,11 +1,9 @@
 import React from 'react';
-import Login from '@containers/Auth/Login';
+import dynamic from 'next/dynamic';
 import HeadLayout from '@components/HeadLayout';
 import { AuthProps, hideAuthRoutes } from '@components/routes/notLogged';
 
-// import lazy from '@lazy';
-
-// const Login = lazy('containers/Auth/Login');
+const Login = dynamic(() => import('@containers/Auth/Login'));
 
 const LoginPage = () => {
   return (

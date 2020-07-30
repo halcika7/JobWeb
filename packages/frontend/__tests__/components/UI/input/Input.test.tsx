@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import Input from '@components/UI/input/Input';
 import PhoneInputWrapper from 'react-phone-number-input/input';
-import ThemeProvider from 'styled/Providers';
+import ThemeProvider from 'src/styled/Providers';
 
 describe('Testing input', () => {
   let value = '';

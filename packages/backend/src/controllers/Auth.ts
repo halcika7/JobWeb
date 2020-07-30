@@ -180,6 +180,6 @@ export class AuthController extends BaseController {
 
   @Get('linkedin/callback')
   linkedinCallBack(@Req() req: Request, @Res() res: Response) {
-    return this.passportService.socialCallback(req, res, 'linkedin');
+    return this.passportService.socialCallback(req, res, 'linkedIn');
   }
 }

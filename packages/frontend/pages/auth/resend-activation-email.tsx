@@ -1,7 +1,9 @@
 import React from 'react';
-import Activate from '@containers/Auth/Activation';
+import dynamic from 'next/dynamic';
 import HeadLayout from '@components/HeadLayout';
 import { SessionStorage } from '@job/redux';
+
+const Activate = dynamic(() => import('@containers/Auth/Activation'));
 
 const ActivatePage = () => {
   if (!SessionStorage.getStorage()) return null;

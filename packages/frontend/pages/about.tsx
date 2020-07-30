@@ -1,10 +1,8 @@
 import React from 'react';
-import About from '@containers/About';
+import dynamic from 'next/dynamic';
 import HeadLayout from '@components/HeadLayout';
 
-// import lazy from '@lazy';
-
-// const About = lazy('containers/About');
+const About = dynamic(() => import('@containers/About'));
 
 export default function AboutPage() {
   return (

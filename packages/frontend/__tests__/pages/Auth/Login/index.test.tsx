@@ -14,7 +14,7 @@ import { HTTPCodes } from '@job/common';
 
 import ReduxProvider from '../../../__mocks__/provider';
 
-import ThemeProvider from 'styled/Providers';
+import ThemeProvider from 'src/styled/Providers';
 
 describe('Testing Login Page', () => {
   let component: ReactWrapper;

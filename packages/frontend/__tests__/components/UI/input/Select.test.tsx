@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import Select from '@components/UI/input/Select';
 import SelectWrapper from 'react-select';
 import { act } from 'react-dom/test-utils';
-import ThemeProvider from 'styled/Providers';
+import ThemeProvider from 'src/styled/Providers';
 
 describe('Testing input', () => {
   let value = '';

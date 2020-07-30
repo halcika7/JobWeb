@@ -1,10 +1,8 @@
 import React from 'react';
-import NotFound from '@containers/404';
+import dynamic from 'next/dynamic';
 import HeadLayout from '@components/HeadLayout';
 
-// import lazy from '@lazy';
-
-// const NotFound = lazy('containers/404');
+const NotFound = dynamic(() => import('@containers/404'));
 
 export default function Custom404() {
   return (

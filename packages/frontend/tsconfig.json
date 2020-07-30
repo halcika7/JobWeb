@@ -7,8 +7,6 @@
     "isolatedModules": true,
     "baseUrl": ".",
     "paths": {
-      "@styled/*": ["styled/components/*"],
-      "@colors": ["styled/colors/index"],
       "@components/*": ["src/components/*"],
       "@images/*": ["public/assets/images/*"],
       "@svgs/*": ["public/assets/svgs/*"],

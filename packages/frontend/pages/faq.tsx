@@ -1,10 +1,8 @@
 import React from 'react';
-import FAQ from '@containers/FAQ';
+import dynamic from 'next/dynamic';
 import HeadLayout from '@components/HeadLayout';
 
-// import lazy from '@lazy';
-
-// const FAQ = lazy('containers/FAQ');
+const FAQ = dynamic(() => import('@containers/FAQ'));
 
 export default function Faq() {
   return (

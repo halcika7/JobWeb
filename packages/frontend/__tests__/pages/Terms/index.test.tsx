@@ -3,7 +3,7 @@ import Terms from '@containers/Terms';
 import { mount } from 'enzyme';
 
 import ReduxProvider from '../../__mocks__/provider';
-import ThemeProvider from 'styled/Providers';
+import ThemeProvider from 'src/styled/Providers';
 
 describe('Testing Faq component', () => {
   it('should render component', () => {

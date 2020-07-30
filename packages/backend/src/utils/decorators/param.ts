@@ -21,10 +21,6 @@ export const Session: () => ParameterDecorator = createRouteParamDecorator(
   RouteParamtypes.SESSION
 );
 
-export const Rate: () => ParameterDecorator = createRouteParamDecorator(
-  RouteParamtypes.RATE_LIMIT
-);
-
 export const Cookie: (
   cookieName?: string
 ) => ParameterDecorator = createRouteParamDecorator(RouteParamtypes.COOKIE);

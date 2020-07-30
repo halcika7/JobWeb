@@ -1,10 +1,8 @@
 import React from 'react';
-import Terms from '@containers/Terms';
+import dynamic from 'next/dynamic';
 import HeadLayout from '@components/HeadLayout';
 
-// import lazy from '@lazy';
-
-// const Terms = lazy('containers/Terms');
+const Terms = dynamic(() => import('@containers/Terms'));
 
 export default function TermsPage() {
   return (

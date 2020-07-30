@@ -10,7 +10,7 @@ import { ErrorDiv } from '@components/UI/input/styled';
 
 import ReduxProvider from '../../../__mocks__/provider';
 
-import ThemeProvider from 'styled/Providers';
+import ThemeProvider from 'src/styled/Providers';
 
 const values = {
   accountType: 'company' as Types.AccountRegistrationType,
